@@ -17,10 +17,10 @@
   }
   .bout-header { font-weight: bold; margin-bottom: 5px; }
   label { display: block; margin: 2px 0; cursor: pointer; }
-  input[type="radio"] { margin-right: 5px; }
+  input[type="radio"] { margin-right: 6px; }
   .correct { background: #144c26; }
   .wrong { background: #5a1c1c; }
-  .raw { font-style: italic; color: #aaa; margin-top: 3px; }
+  .raw { font-size: 0.85em; color: #aaa; margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -29,80 +29,95 @@
 <div id="matches"></div>
 
 <script>
-const keyPrefix = 'sumo-picks-';
-
 async function loadMatches() {
-  const res = await fetch('matches.json');
-  const data = await res.json();
-  const matches = data.matches;
-  const key = `${keyPrefix}${data.banzuke}-${data.day}`;
-  let saved = JSON.parse(localStorage.getItem(key) || '{}');
+  try {
+    const res = await fetch('matches.json');
+    if (!res.ok) throw new Error("Failed to fetch matches.json");
+    const data = await res.json();
 
-  const container = document.getElementById('matches');
-  container.innerHTML = '';
+    const banzuke = data.banzuke;
+    const day = data.day;
+    const matches = data.matches;
 
-  matches.forEach((m, i) => {
-    const matchDiv = document.createElement('div');
-    matchDiv.className = 'match';
+    const key = `${banzuke}-${day}-picks`;
+    let saved = JSON.parse(localStorage.getItem(key) || '{}');
 
-    const header = document.createElement('div');
-    header.className = 'bout-header';
-    header.textContent = `Bout ${m.bout}`;
-    matchDiv.appendChild(header);
+    const container = document.getElementById('matches');
+    container.innerHTML = '';
 
-    // Determine names to display
-    const eastName = m.east || (m.raw ? m.raw.split(' vs ')[0] : 'East');
-    const westName = m.west || (m.raw ? m.raw.split(' vs ')[1] : 'West');
+    matches.forEach((m, i) => {
+      const matchDiv = document.createElement('div');
+      matchDiv.className = 'match';
 
-    // Create radio buttons
-    [ [eastName,'East'], [westName,'West'] ].forEach(([name, side]) => {
-      const label = document.createElement('label');
-      const input = document.createElement('input');
-      input.type = 'radio';
-      input.name = `match-${i}`;
-      input.value = name;
-      if (saved[i] === name) input.checked = true;
-      input.addEventListener('change', () => {
-        saved[i] = name;
+      const header = document.createElement('div');
+      header.className = 'bout-header';
+      header.textContent = `Bout ${m.bout}`;
+      matchDiv.appendChild(header);
+
+      const eastName = m.east || "Unknown East";
+      const westName = m.west || "Unknown West";
+
+      // East radio
+      const eastLabel = document.createElement('label');
+      const eastInput = document.createElement('input');
+      eastInput.type = 'radio';
+      eastInput.name = `match-${i}`;
+      eastInput.value = eastName;
+      if (saved[i] === eastName) eastInput.checked = true;
+      eastInput.addEventListener('change', () => {
+        saved[i] = eastName;
         localStorage.setItem(key, JSON.stringify(saved));
-        updateMatchColor(matchDiv, name, m.winner);
       });
-      label.appendChild(input);
-      label.append(` ${name} (${side})`);
-      matchDiv.appendChild(label);
+      eastLabel.appendChild(eastInput);
+      eastLabel.append(` ${eastName} (East)`);
+
+      // West radio
+      const westLabel = document.createElement('label');
+      const westInput = document.createElement('input');
+      westInput.type = 'radio';
+      westInput.name = `match-${i}`;
+      westInput.value = westName;
+      if (saved[i] === westName) westInput.checked = true;
+      westInput.addEventListener('change', () => {
+        saved[i] = westName;
+        localStorage.setItem(key, JSON.stringify(saved));
+      });
+      westLabel.appendChild(westInput);
+      westLabel.append(` ${westName} (West)`);
+
+      matchDiv.appendChild(eastLabel);
+      matchDiv.appendChild(westLabel);
+
+      // show result if winner present
+      if (m.winner) {
+        if (saved[i] === m.winner) {
+          matchDiv.classList.add('correct');
+        } else {
+          matchDiv.classList.add('wrong');
+        }
+        const result = document.createElement('div');
+        result.textContent = `Winner: ${m.winner}`;
+        matchDiv.appendChild(result);
+      }
+
+      // fallback: show raw line if parsing failed
+      if ((!eastName || !westName) && m.raw) {
+        const rawDiv = document.createElement('div');
+        rawDiv.className = 'raw';
+        rawDiv.textContent = m.raw;
+        matchDiv.appendChild(rawDiv);
+      }
+
+      container.appendChild(matchDiv);
     });
 
-    // Show raw line if parsing failed
-    if (!m.east || !m.west) {
-      const rawDiv = document.createElement('div');
-      rawDiv.className = 'raw';
-      rawDiv.textContent = m.raw;
-      matchDiv.appendChild(rawDiv);
-    }
-
-    // Update color if winner is known
-    if (m.winner) {
-      const picked = saved[i];
-      updateMatchColor(matchDiv, picked, m.winner);
-      const result = document.createElement('div');
-      result.textContent = `Winner: ${m.winner}`;
-      matchDiv.appendChild(result);
-    }
-
-    container.appendChild(matchDiv);
-  });
-}
-
-function updateMatchColor(div, picked, winner) {
-  div.classList.remove('correct','wrong');
-  if (!winner || !picked) return;
-  if (picked === winner) {
-    div.classList.add('correct');
-  } else {
-    div.classList.add('wrong');
+  } catch (err) {
+    document.getElementById('matches').textContent = "Error loading matches: " + err;
+    console.error(err);
   }
 }
 
+// Load the matches when the page loads
 loadMatches();
 </script>
 </body>
