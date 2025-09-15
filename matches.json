@@ -1,217 +1,254 @@
-{
-  "banzuke": "202509",
-  "day": 1,
-  "fetched_at_utc": "2025-09-15T04:55:06.595891Z",
-  "matches": [
-    {
-      "bout": 1,
-      "east": "J1e",
-      "west": "Daiseizan (1-0)",
-      "winner": null,
-      "raw": "J1e     Daiseizan (1-0)         uwatenage       M18e    Shishi (0-1)"
+[
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 2,
-      "east": "M17e",
-      "west": "Ryuden (1-0)",
-      "winner": null,
-      "raw": "M17e    Ryuden (1-0)            oshidashi       M17w    Hitoshi (0-1)"
+    "west": {
+      "name": "5-3",
+      "id": "12094"
     },
-    {
-      "bout": 3,
-      "east": "M16e",
-      "west": "Tomokaze (1-0)",
-      "winner": null,
-      "raw": "M16e    Tomokaze (1-0)          oshidashi       M16w    Nishikigi (0-1)"
+    "kimarite": "Y1e Onosato1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 4,
-      "east": "M15e",
-      "west": "Tobizaru (1-0)",
-      "winner": null,
-      "raw": "M15e    Tobizaru (1-0)          oshidashi       M15w    Shonannoumi (0-1)"
+    "west": {
+      "name": "0-2",
+      "id": "12451"
     },
-    {
-      "bout": 5,
-      "east": "M14e",
-      "west": "Sadanoumi (1-0)",
-      "winner": null,
-      "raw": "M14e    Sadanoumi (1-0)         yorikiri        M14w    Asakoryu (0-1)"
+    "kimarite": "M2e Hakuoho1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 6,
-      "east": "M13e",
-      "west": "Meisei (1-0)",
-      "winner": null,
-      "raw": "M13e    Meisei (1-0)            oshidashi       M13w    Tokihayate (0-1)"
+    "west": {
+      "name": "1-1",
+      "id": "12839"
     },
-    {
-      "bout": 7,
-      "east": "M11w",
-      "west": "Roga (1-0)",
-      "winner": null,
-      "raw": "M11w    Roga (1-0)              yorikiri        M12w    Mitakeumi (0-1)"
+    "kimarite": "O1e Kotozakura1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 8,
-      "east": "M11e",
-      "west": "Shodai (1-0)",
-      "winner": null,
-      "raw": "M11e    Shodai (1-0)            yorikiri        M10w    Churanoumi (0-1)"
+    "west": {
+      "name": "9-4",
+      "id": "5944"
     },
-    {
-      "bout": 9,
-      "east": "M10e",
-      "west": "Daieisho (1-0)",
-      "winner": null,
-      "raw": "M10e    Daieisho (1-0)          oshidashi       M9w     Fujinokawa (0-1)"
+    "kimarite": "S1e Wakatakakage0-1",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 10,
-      "east": "M9e",
-      "west": "Midorifuji (1-0)",
-      "winner": null,
-      "raw": "M9e     Midorifuji (1-0)        shitatenage     M8w     Kinbozan (0-1)"
+    "west": {
+      "name": "2-5",
+      "id": "12231"
     },
-    {
-      "bout": 11,
-      "east": "M8e",
-      "west": "Ura (1-0)",
-      "winner": null,
-      "raw": "M8e     Ura (1-0)               oshidashi       M7w     Oshoma (0-1)"
+    "kimarite": "M3e Atamifuji1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 12,
-      "east": "M7e",
-      "west": "Takanosho (1-0)",
-      "winner": null,
-      "raw": "M7e     Takanosho (1-0)         yorikiri        M6w     Kusano (0-1)"
+    "west": {
+      "name": "6-0",
+      "id": "12453"
     },
-    {
-      "bout": 13,
-      "east": "M6e",
-      "west": "Onokatsu (1-0)",
-      "winner": null,
-      "raw": "M6e     Onokatsu (1-0)          yorikiri        M5w     Ichiyamamoto (0-1)"
+    "kimarite": "K1e Takayasu0-1",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 14,
-      "east": "M4w",
-      "west": "Wakamotoharu (1-0)",
-      "winner": null,
-      "raw": "M4w     Wakamotoharu (1-0)      yorikiri        M5e     Kotoshoho (0-1)"
+    "west": {
+      "name": "1-2",
+      "id": "12688"
     },
-    {
-      "bout": 15,
-      "east": "M4e",
-      "west": "Hiradoumi (1-0)",
-      "winner": null,
-      "raw": "M4e     Hiradoumi (1-0)         hatakikomi      M3w     Gonoyama (0-1)"
+    "kimarite": "M5e Kotoshoho0-1",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 16,
-      "east": "M3e",
-      "west": "Atamifuji (1-0)",
-      "winner": null,
-      "raw": "M3e     Atamifuji (1-0)         yorikiri        K1e     Takayasu (0-1)"
+    "west": {
+      "name": "4-3",
+      "id": "11980"
     },
-    {
-      "bout": 17,
-      "east": "S1w",
-      "west": "Kirishima (1-0)",
-      "winner": null,
-      "raw": "S1w     Kirishima (1-0)         yorikiri        M2w     Oho (0-1)"
+    "kimarite": "M4e Hiradoumi1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 18,
-      "east": "M2e",
-      "west": "Hakuoho (1-0)",
-      "winner": null,
-      "raw": "M2e     Hakuoho (1-0)           oshidashi       S1e     Wakatakakage (0-1)"
+    "west": {
+      "name": "5-1",
+      "id": "12362"
     },
-    {
-      "bout": 19,
-      "east": "O1e",
-      "west": "Kotozakura (1-0)",
-      "winner": null,
-      "raw": "O1e     Kotozakura (1-0)        oshidashi       M1w     Abi (0-1)"
+    "kimarite": "M7e Takanosho1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 20,
-      "east": "Y1wYO",
-      "west": "Hoshoryu (1-0)",
-      "winner": null,
-      "raw": "Y1wYO   Hoshoryu (1-0)          watashikomi     M1e     Tamawashi (0-1)"
+    "west": {
+      "name": "0-0",
+      "id": "12884"
     },
-    {
-      "bout": 21,
-      "east": "Y1e",
-      "west": "Onosato (1-0)",
-      "winner": null,
-      "raw": "Y1e     Onosato (1-0)           yoritaoshi      K1w     Aonishiki (0-1)"
+    "kimarite": "M6e Onokatsu1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 22,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- banzuke"
+    "west": {
+      "name": "1-4",
+      "id": "12717"
     },
-    {
-      "bout": 23,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- torikumi"
+    "kimarite": "M9e Midorifuji1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 24,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- yusho"
+    "west": {
+      "name": "1-0",
+      "id": "12800"
     },
-    {
-      "bout": 25,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- sansho"
+    "kimarite": "M8e Ura1-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 26,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- rikishi"
+    "west": {
+      "name": "1-0",
+      "id": "12721"
     },
-    {
-      "bout": 27,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- kabu"
+    "kimarite": "M10e Daieisho1-1",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 28,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- query"
+    "west": {
+      "name": "4-4",
+      "id": "12320"
     },
-    {
-      "bout": 29,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "- 日本語"
+    "kimarite": "M11w Roga2-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
     },
-    {
-      "bout": 30,
-      "east": null,
-      "west": null,
-      "winner": null,
-      "raw": "We thank our sponsors adplorer.de and adplorer.fr for providing our hosting."
-    }
-  ]
-}
+    "west": {
+      "name": "17-20",
+      "id": "12210"
+    },
+    "kimarite": "M11e Shodai2-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
+    },
+    "west": {
+      "name": "10-8",
+      "id": "2879"
+    },
+    "kimarite": "M13e Meisei1-1",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
+    },
+    "west": {
+      "name": "3-4",
+      "id": "12542"
+    },
+    "kimarite": "M14w Asakoryu1-1",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
+    },
+    "west": {
+      "name": "0-2",
+      "id": "12427"
+    },
+    "kimarite": "M15e Tobizaru2-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
+    },
+    "west": {
+      "name": "5-2",
+      "id": "12162"
+    },
+    "kimarite": "M16w Nishikigi0-2",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
+    },
+    "west": {
+      "name": "0-1",
+      "id": "12729"
+    },
+    "kimarite": "M17e Ryuden2-0",
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "",
+      "id": null
+    },
+    "west": {
+      "name": "2-0",
+      "id": "12704"
+    },
+    "kimarite": "M18e Shishi1-1",
+    "winner": null
+  }
+]
