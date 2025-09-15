@@ -1,124 +1,420 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sumo Scrandle</title>
-<style>
-  body { font-family: system-ui, sans-serif; background: #0b1220; color: #eee; padding: 20px; }
-  h1 { margin-top: 0; }
-  .match {
-    display: flex; 
-    flex-direction: column; 
-    padding: 10px; 
-    margin-bottom: 10px; 
-    background: #202a3a; 
-    border-radius: 6px;
-  }
-  .bout-header { font-weight: bold; margin-bottom: 5px; }
-  label { display: block; margin: 2px 0; cursor: pointer; }
-  input[type="radio"] { margin-right: 6px; }
-  .correct { background: #144c26; }
-  .wrong { background: #5a1c1c; }
-  .raw { font-size: 0.85em; color: #aaa; margin-top: 4px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumo Match Viewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        header {
+            background: #1a2a6c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            background: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn:hover {
+            background: #2a3a9c;
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-reverse {
+            background: #b21f1f;
+        }
+        
+        .btn-reverse:hover {
+            background: #c22f2f;
+        }
+        
+        .match-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .wrestler-card {
+            width: 280px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .wrestler-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .east {
+            border-top: 5px solid #1a2a6c;
+        }
+        
+        .west {
+            border-top: 5px solid #b21f1f;
+        }
+        
+        .winner-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: #fdbb2d;
+            color: #333;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wrestler-name {
+            font-size: 1.8rem;
+            margin: 15px 0;
+            color: #1a2a6c;
+        }
+        
+        .wrestler-id {
+            color: #777;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .vs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #b21f1f;
+            margin: 0 10px;
+        }
+        
+        .kimarite {
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5rem;
+            color: #1a2a6c;
+            font-weight: bold;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 80%;
+        }
+        
+        .match-info {
+            text-align: center;
+            padding: 15px;
+            background: #f0f0f0;
+            border-top: 1px solid #ddd;
+            font-size: 1.2rem;
+        }
+        
+        .instructions {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            max-width: 800px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.5rem;
+            color: #1a2a6c;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.5rem;
+            color: #b21f1f;
+        }
+        
+        @media (max-width: 768px) {
+            .match-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .vs {
+                margin: 20px 0;
+                transform: rotate(90deg);
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Sumo Scrandle</h1>
-<p>Pick the winners for today’s Makuuchi bouts!</p>
-<div id="matches"></div>
+    <div class="container">
+        <header>
+            <h1>Sumo Match Viewer</h1>
+            <div class="subtitle">Experience the excitement of sumo wrestling</div>
+        </header>
+        
+        <div class="controls">
+            <button class="btn" id="prev-btn">
+                <i class="fas fa-arrow-left"></i> Previous Match
+            </button>
+            <button class="btn" id="next-btn">
+                Next Match <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="btn btn-reverse" id="reverse-btn">
+                <i class="fas fa-exchange-alt"></i> Reverse Order
+            </button>
+            <button class="btn" id="first-btn">
+                <i class="fas fa-fast-backward"></i> First Match
+            </button>
+            <button class="btn" id="last-btn">
+                Last Match <i class="fas fa-fast-forward"></i>
+            </button>
+        </div>
+        
+        <div class="match-info">
+            Match <span id="current-match">1</span> of <span id="total-matches">0</span>
+        </div>
+        
+        <div class="match-container">
+            <div class="wrestler-card east">
+                <div class="winner-badge" id="east-winner">WINNER</div>
+                <h3>East</h3>
+                <div class="wrestler-name" id="east-name">Loading...</div>
+                <div class="wrestler-id" id="east-id">ID: --</div>
+            </div>
+            
+            <div class="vs">VS</div>
+            
+            <div class="wrestler-card west">
+                <div class="winner-badge" id="west-winner">WINNER</div>
+                <h3>West</h3>
+                <div class="wrestler-name" id="west-name">Loading...</div>
+                <div class="wrestler-id" id="west-id">ID: --</div>
+            </div>
+        </div>
+        
+        <div class="kimarite" id="kimarite">Kimarite: Not available</div>
+    </div>
+    
+    <div class="instructions">
+        <h2>How to Use</h2>
+        <p>This page displays sumo wrestling matches from the matches.json file.</p>
+        <p>Use the navigation buttons to move between matches. Click "Reverse Order" to go through matches in reverse.</p>
+        <p>You can also click on either wrestler card to advance to the next match.</p>
+        <p>Winner is highlighted with a gold badge.</p>
+    </div>
 
-<script>
-async function loadMatches() {
-  try {
-    const res = await fetch('matches.json');
-    if (!res.ok) throw new Error("Failed to fetch matches.json");
-    const data = await res.json();
+    <script>
+        // DOM elements
+        const eastNameElement = document.getElementById('east-name');
+        const eastIdElement = document.getElementById('east-id');
+        const eastWinnerElement = document.getElementById('east-winner');
+        const westNameElement = document.getElementById('west-name');
+        const westIdElement = document.getElementById('west-id');
+        const westWinnerElement = document.getElementById('west-winner');
+        const kimariteElement = document.getElementById('kimarite');
+        const currentMatchElement = document.getElementById('current-match');
+        const totalMatchesElement = document.getElementById('total-matches');
+        
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const reverseBtn = document.getElementById('reverse-btn');
+        const firstBtn = document.getElementById('first-btn');
+        const lastBtn = document.getElementById('last-btn');
+        const wrestlerCards = document.querySelectorAll('.wrestler-card');
 
-    const banzuke = data.banzuke;
-    const day = data.day;
-    const matches = data.matches;
+        // Global variables
+        let matches = [];
+        let currentMatchIndex = 0;
+        let reverseOrder = false;
 
-    const key = `${banzuke}-${day}-picks`;
-    let saved = JSON.parse(localStorage.getItem(key) || '{}');
-
-    const container = document.getElementById('matches');
-    container.innerHTML = '';
-
-    matches.forEach((m, i) => {
-      const matchDiv = document.createElement('div');
-      matchDiv.className = 'match';
-
-      const header = document.createElement('div');
-      header.className = 'bout-header';
-      header.textContent = `Bout ${m.bout}`;
-      matchDiv.appendChild(header);
-
-      const eastName = m.east || "Unknown East";
-      const westName = m.west || "Unknown West";
-
-      // East radio
-      const eastLabel = document.createElement('label');
-      const eastInput = document.createElement('input');
-      eastInput.type = 'radio';
-      eastInput.name = `match-${i}`;
-      eastInput.value = eastName;
-      if (saved[i] === eastName) eastInput.checked = true;
-      eastInput.addEventListener('change', () => {
-        saved[i] = eastName;
-        localStorage.setItem(key, JSON.stringify(saved));
-      });
-      eastLabel.appendChild(eastInput);
-      eastLabel.append(` ${eastName} (East)`);
-
-      // West radio
-      const westLabel = document.createElement('label');
-      const westInput = document.createElement('input');
-      westInput.type = 'radio';
-      westInput.name = `match-${i}`;
-      westInput.value = westName;
-      if (saved[i] === westName) westInput.checked = true;
-      westInput.addEventListener('change', () => {
-        saved[i] = westName;
-        localStorage.setItem(key, JSON.stringify(saved));
-      });
-      westLabel.appendChild(westInput);
-      westLabel.append(` ${westName} (West)`);
-
-      matchDiv.appendChild(eastLabel);
-      matchDiv.appendChild(westLabel);
-
-      // show result if winner present
-      if (m.winner) {
-        if (saved[i] === m.winner) {
-          matchDiv.classList.add('correct');
-        } else {
-          matchDiv.classList.add('wrong');
+        // Fetch JSON data
+        async function loadMatchData() {
+            try {
+                const response = await fetch('matches.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load match data');
+                }
+                matches = await response.json();
+                
+                if (matches.length === 0) {
+                    throw new Error('No match data available');
+                }
+                
+                totalMatchesElement.textContent = matches.length;
+                displayCurrentMatch();
+            } catch (error) {
+                document.querySelector('.match-container').innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>${error.message}</p>
+                        <p>Please make sure matches.json is available in the same directory.</p>
+                    </div>
+                `;
+                console.error('Error loading match data:', error);
+            }
         }
-        const result = document.createElement('div');
-        result.textContent = `Winner: ${m.winner}`;
-        matchDiv.appendChild(result);
-      }
 
-      // fallback: show raw line if parsing failed
-      if ((!eastName || !westName) && m.raw) {
-        const rawDiv = document.createElement('div');
-        rawDiv.className = 'raw';
-        rawDiv.textContent = m.raw;
-        matchDiv.appendChild(rawDiv);
-      }
+        // Display the current match
+        function displayCurrentMatch() {
+            if (matches.length === 0) return;
+            
+            const match = matches[currentMatchIndex];
+            
+            eastNameElement.textContent = match.east.name;
+            eastIdElement.textContent = `ID: ${match.east.id || 'N/A'}`;
+            westNameElement.textContent = match.west.name;
+            westIdElement.textContent = `ID: ${match.west.id || 'N/A'}`;
+            
+            // Show/hide winner badges
+            eastWinnerElement.style.display = match.winner === 'east' ? 'block' : 'none';
+            westWinnerElement.style.display = match.winner === 'west' ? 'block' : 'none';
+            
+            // Display kimarite if available
+            kimariteElement.textContent = match.kimarite ? `Kimarite: ${match.kimarite}` : 'Kimarite: Not available';
+            
+            // Update match counter
+            currentMatchElement.textContent = currentMatchIndex + 1;
+        }
 
-      container.appendChild(matchDiv);
-    });
+        // Navigate to the next match
+        function nextMatch() {
+            if (reverseOrder) {
+                currentMatchIndex--;
+                if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
+            } else {
+                currentMatchIndex++;
+                if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
+            }
+            displayCurrentMatch();
+        }
 
-  } catch (err) {
-    document.getElementById('matches').textContent = "Error loading matches: " + err;
-    console.error(err);
-  }
-}
+        // Navigate to the previous match
+        function prevMatch() {
+            if (reverseOrder) {
+                currentMatchIndex++;
+                if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
+            } else {
+                currentMatchIndex--;
+                if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
+            }
+            displayCurrentMatch();
+        }
 
-// Load the matches when the page loads
-loadMatches();
-</script>
+        // Toggle reverse order
+        function toggleReverseOrder() {
+            reverseOrder = !reverseOrder;
+            reverseBtn.innerHTML = reverseOrder ? 
+                '<i class="fas fa-exchange-alt"></i> Normal Order' : 
+                '<i class="fas fa-exchange-alt"></i> Reverse Order';
+        }
+
+        // Go to first match
+        function goToFirstMatch() {
+            currentMatchIndex = reverseOrder ? matches.length - 1 : 0;
+            displayCurrentMatch();
+        }
+
+        // Go to last match
+        function goToLastMatch() {
+            currentMatchIndex = reverseOrder ? 0 : matches.length - 1;
+            displayCurrentMatch();
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevMatch);
+        nextBtn.addEventListener('click', nextMatch);
+        reverseBtn.addEventListener('click', toggleReverseOrder);
+        firstBtn.addEventListener('click', goToFirstMatch);
+        lastBtn.addEventListener('click', goToLastMatch);
+
+        // Click on cards to navigate
+        wrestlerCards.forEach(card => {
+            card.addEventListener('click', nextMatch);
+        });
+
+        // Initialize
+        loadMatchData();
+    </script>
 </body>
 </html>
