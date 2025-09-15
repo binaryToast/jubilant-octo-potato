@@ -14,16 +14,11 @@ def scrape_sumo_bouts(basho=None, day=None):
     
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # Find Makuuchi table by caption
-    makuuchi_table = None
-    for table in soup.find_all('table', class_='tk_table'):
-        caption = table.find('caption')
-        if caption and 'Makuuchi' in caption.text:
-            makuuchi_table = table
-            break
+    # Get the first table with class 'tk_table' (Makuuchi is the top division)
+    makuuchi_table = soup.find('table', class_='tk_table')
     
     if not makuuchi_table:
-        raise ValueError("Makuuchi table not found")
+        raise ValueError("No sumo bout table found on the page")
     
     bouts = []
     for row in makuuchi_table.find_all('tr')[1:]:  # Skip header row
@@ -44,9 +39,14 @@ def scrape_sumo_bouts(basho=None, day=None):
         # Determine winner and kimarite
         kimarite = cells[1].text.strip()
         winner = None
-        if 'background-color' in east_cell.get('style', ''):
+        
+        # Check for background color to determine winner
+        east_style = east_cell.get('style', '')
+        west_style = west_cell.get('style', '')
+        
+        if 'background-color' in east_style and 'background-color' not in west_style:
             winner = 'east'
-        elif 'background-color' in west_cell.get('style', ''):
+        elif 'background-color' in west_style and 'background-color' not in east_style:
             winner = 'west'
         
         # For future bouts, kimarite might be empty
@@ -66,9 +66,11 @@ def scrape_sumo_bouts(basho=None, day=None):
 def extract_wrestler_info(cell):
     link = cell.find('a')
     if link:
+        href = link.get('href', '')
+        wrestler_id = href.split('=')[-1] if '=' in href else None
         return {
             "name": link.text.strip(),
-            "id": link['href'].split('=')[-1]
+            "id": wrestler_id
         }
     return {"name": cell.text.strip(), "id": None}
 
@@ -84,6 +86,7 @@ def main():
             day = int(day)
         except ValueError:
             day = None
+            print("Warning: DAY environment variable is not a valid integer")
     
     try:
         bouts = scrape_sumo_bouts(basho, day)
