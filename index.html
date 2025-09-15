@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sumo Match Viewer</title>
+    <title>Sumo Match Predictor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -23,14 +23,83 @@
             align-items: center;
         }
         
-        .container {
-            max-width: 1000px;
+        .main-container {
+            display: flex;
+            max-width: 1400px;
             width: 100%;
+            gap: 20px;
+        }
+        
+        .predictions-panel {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .predictions-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a2a6c;
+        }
+        
+        .predictions-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+        
+        .prediction-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #f8f8f8;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .prediction-correct {
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .prediction-incorrect {
+            border-left: 4px solid #f44336;
+        }
+        
+        .prediction-pending {
+            border-left: 4px solid #ff9800;
+        }
+        
+        .copy-btn {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .copy-btn:hover {
+            background: #2a3a9c;
+        }
+        
+        .container {
+            flex-grow: 1;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            margin-top: 20px;
         }
         
         header {
@@ -84,14 +153,6 @@
             transform: translateY(0);
         }
         
-        .btn-reverse {
-            background: #b21f1f;
-        }
-        
-        .btn-reverse:hover {
-            background: #c22f2f;
-        }
-        
         .match-container {
             display: flex;
             justify-content: space-around;
@@ -116,6 +177,10 @@
         .wrestler-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wrestler-card.selected {
+            box-shadow: 0 0 0 3px #fdbb2d;
         }
         
         .east {
@@ -204,6 +269,21 @@
             color: #b21f1f;
         }
         
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .predictions-panel {
+                width: 100%;
+                order: 2;
+            }
+            
+            .container {
+                order: 1;
+            }
+        }
+        
         @media (max-width: 768px) {
             .match-container {
                 flex-direction: column;
@@ -227,61 +307,74 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Sumo Match Viewer</h1>
-            <div class="subtitle">Experience the excitement of sumo wrestling</div>
-        </header>
-        
-        <div class="controls">
-            <button class="btn" id="prev-btn">
-                <i class="fas fa-arrow-left"></i> Previous Match
-            </button>
-            <button class="btn" id="next-btn">
-                Next Match <i class="fas fa-arrow-right"></i>
-            </button>
-            <button class="btn btn-reverse" id="reverse-btn">
-                <i class="fas fa-exchange-alt"></i> Reverse Order
-            </button>
-            <button class="btn" id="first-btn">
-                <i class="fas fa-fast-backward"></i> First Match
-            </button>
-            <button class="btn" id="last-btn">
-                Last Match <i class="fas fa-fast-forward"></i>
+    <div class="main-container">
+        <div class="predictions-panel">
+            <div class="predictions-header">
+                <h2>Your Predictions</h2>
+                <p>Click on a wrestler to predict the winner</p>
+            </div>
+            <div class="predictions-list" id="predictions-list">
+                <!-- Predictions will be added here dynamically -->
+                <p id="no-predictions">No predictions yet. Start by selecting winners for each match.</p>
+            </div>
+            <button class="copy-btn" id="copy-btn">
+                <i class="fas fa-copy"></i> Copy Predictions to Clipboard
             </button>
         </div>
         
-        <div class="match-info">
-            Match <span id="current-match">1</span> of <span id="total-matches">0</span>
-        </div>
-        
-        <div class="match-container">
-            <div class="wrestler-card east">
-                <div class="winner-badge" id="east-winner">WINNER</div>
-                <h3>East</h3>
-                <div class="wrestler-name" id="east-name">Loading...</div>
-                <div class="wrestler-id" id="east-id">ID: --</div>
+        <div class="container">
+            <header>
+                <h1>Sumo Match Predictor</h1>
+                <div class="subtitle">Predict winners and track your choices</div>
+            </header>
+            
+            <div class="controls">
+                <button class="btn" id="prev-btn">
+                    <i class="fas fa-arrow-left"></i> Previous Match
+                </button>
+                <button class="btn" id="next-btn">
+                    Next Match <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn" id="first-btn">
+                    <i class="fas fa-fast-backward"></i> First Match
+                </button>
+                <button class="btn" id="last-btn">
+                    Last Match <i class="fas fa-fast-forward"></i>
+                </button>
             </div>
             
-            <div class="vs">VS</div>
-            
-            <div class="wrestler-card west">
-                <div class="winner-badge" id="west-winner">WINNER</div>
-                <h3>West</h3>
-                <div class="wrestler-name" id="west-name">Loading...</div>
-                <div class="wrestler-id" id="west-id">ID: --</div>
+            <div class="match-info">
+                Match <span id="current-match">1</span> of <span id="total-matches">0</span>
             </div>
+            
+            <div class="match-container">
+                <div class="wrestler-card east" id="east-card">
+                    <div class="winner-badge" id="east-winner">WINNER</div>
+                    <h3>East</h3>
+                    <div class="wrestler-name" id="east-name">Loading...</div>
+                    <div class="wrestler-id" id="east-id">ID: --</div>
+                </div>
+                
+                <div class="vs">VS</div>
+                
+                <div class="wrestler-card west" id="west-card">
+                    <div class="winner-badge" id="west-winner">WINNER</div>
+                    <h3>West</h3>
+                    <div class="wrestler-name" id="west-name">Loading...</div>
+                    <div class="wrestler-id" id="west-id">ID: --</div>
+                </div>
+            </div>
+            
+            <div class="kimarite" id="kimarite">Kimarite: Not available</div>
         </div>
-        
-        <div class="kimarite" id="kimarite">Kimarite: Not available</div>
     </div>
     
     <div class="instructions">
         <h2>How to Use</h2>
-        <p>This page displays sumo wrestling matches from the matches.json file.</p>
-        <p>Use the navigation buttons to move between matches. Click "Reverse Order" to go through matches in reverse.</p>
-        <p>You can also click on either wrestler card to advance to the next match.</p>
-        <p>Winner is highlighted with a gold badge.</p>
+        <p>Click on either wrestler to predict the winner for the current match.</p>
+        <p>Your predictions will be recorded in the left panel.</p>
+        <p>Use the navigation buttons to move between matches.</p>
+        <p>Click "Copy Predictions" to copy your choices to the clipboard.</p>
     </div>
 
     <script>
@@ -289,24 +382,27 @@
         const eastNameElement = document.getElementById('east-name');
         const eastIdElement = document.getElementById('east-id');
         const eastWinnerElement = document.getElementById('east-winner');
+        const eastCard = document.getElementById('east-card');
         const westNameElement = document.getElementById('west-name');
         const westIdElement = document.getElementById('west-id');
         const westWinnerElement = document.getElementById('west-winner');
+        const westCard = document.getElementById('west-card');
         const kimariteElement = document.getElementById('kimarite');
         const currentMatchElement = document.getElementById('current-match');
         const totalMatchesElement = document.getElementById('total-matches');
+        const predictionsList = document.getElementById('predictions-list');
+        const noPredictionsElement = document.getElementById('no-predictions');
+        const copyButton = document.getElementById('copy-btn');
         
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        const reverseBtn = document.getElementById('reverse-btn');
         const firstBtn = document.getElementById('first-btn');
         const lastBtn = document.getElementById('last-btn');
-        const wrestlerCards = document.querySelectorAll('.wrestler-card');
 
         // Global variables
         let matches = [];
         let currentMatchIndex = 0;
-        let reverseOrder = false;
+        let userPredictions = {};
 
         // Fetch JSON data
         async function loadMatchData() {
@@ -355,63 +451,154 @@
             
             // Update match counter
             currentMatchElement.textContent = currentMatchIndex + 1;
+            
+            // Update selection state
+            updateCardSelection();
+            
+            // Update predictions list
+            updatePredictionsList();
+        }
+
+        // Update card selection state
+        function updateCardSelection() {
+            const prediction = userPredictions[currentMatchIndex];
+            
+            // Reset selection
+            eastCard.classList.remove('selected');
+            westCard.classList.remove('selected');
+            
+            // Apply selection if user has made a prediction
+            if (prediction === 'east') {
+                eastCard.classList.add('selected');
+            } else if (prediction === 'west') {
+                westCard.classList.add('selected');
+            }
+        }
+
+        // Update predictions list
+        function updatePredictionsList() {
+            // Clear the list
+            predictionsList.innerHTML = '';
+            
+            // Check if we have any predictions
+            if (Object.keys(userPredictions).length === 0) {
+                predictionsList.appendChild(noPredictionsElement);
+                return;
+            }
+            
+            // Add each prediction to the list
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    const match = matches[i];
+                    const prediction = userPredictions[i];
+                    const actual = match.winner;
+                    
+                    const predictionItem = document.createElement('div');
+                    predictionItem.className = 'prediction-item';
+                    
+                    // Add appropriate class based on prediction correctness
+                    if (actual) {
+                        predictionItem.classList.add(
+                            prediction === actual ? 'prediction-correct' : 'prediction-incorrect'
+                        );
+                    } else {
+                        predictionItem.classList.add('prediction-pending');
+                    }
+                    
+                    const predictionText = document.createElement('div');
+                    predictionText.textContent = `Match ${i+1}: ${prediction === 'east' ? match.east.name : match.west.name}`;
+                    
+                    const predictionStatus = document.createElement('div');
+                    if (actual) {
+                        predictionStatus.textContent = prediction === actual ? '✓' : '✗';
+                        predictionStatus.style.color = prediction === actual ? '#4CAF50' : '#f44336';
+                        predictionStatus.style.fontWeight = 'bold';
+                    } else {
+                        predictionStatus.textContent = '?';
+                        predictionStatus.style.color = '#ff9800';
+                    }
+                    
+                    predictionItem.appendChild(predictionText);
+                    predictionItem.appendChild(predictionStatus);
+                    predictionsList.appendChild(predictionItem);
+                }
+            }
+        }
+
+        // Record user prediction
+        function recordPrediction(side) {
+            userPredictions[currentMatchIndex] = side;
+            updateCardSelection();
+            updatePredictionsList();
+        }
+
+        // Copy predictions to clipboard
+        function copyPredictionsToClipboard() {
+            if (Object.keys(userPredictions).length === 0) {
+                alert('No predictions to copy!');
+                return;
+            }
+            
+            let text = "My Sumo Predictions:\n\n";
+            
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    const match = matches[i];
+                    const prediction = userPredictions[i];
+                    const wrestlerName = prediction === 'east' ? match.east.name : match.west.name;
+                    
+                    text += `Match ${i+1}: ${wrestlerName}\n`;
+                }
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary feedback
+                const originalText = copyButton.innerHTML;
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyButton.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy predictions to clipboard');
+            });
         }
 
         // Navigate to the next match
         function nextMatch() {
-            if (reverseOrder) {
-                currentMatchIndex--;
-                if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
-            } else {
-                currentMatchIndex++;
-                if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
-            }
+            currentMatchIndex++;
+            if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
             displayCurrentMatch();
         }
 
         // Navigate to the previous match
         function prevMatch() {
-            if (reverseOrder) {
-                currentMatchIndex++;
-                if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
-            } else {
-                currentMatchIndex--;
-                if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
-            }
+            currentMatchIndex--;
+            if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
             displayCurrentMatch();
-        }
-
-        // Toggle reverse order
-        function toggleReverseOrder() {
-            reverseOrder = !reverseOrder;
-            reverseBtn.innerHTML = reverseOrder ? 
-                '<i class="fas fa-exchange-alt"></i> Normal Order' : 
-                '<i class="fas fa-exchange-alt"></i> Reverse Order';
         }
 
         // Go to first match
         function goToFirstMatch() {
-            currentMatchIndex = reverseOrder ? matches.length - 1 : 0;
+            currentMatchIndex = 0;
             displayCurrentMatch();
         }
 
         // Go to last match
         function goToLastMatch() {
-            currentMatchIndex = reverseOrder ? 0 : matches.length - 1;
+            currentMatchIndex = matches.length - 1;
             displayCurrentMatch();
         }
 
         // Event listeners
         prevBtn.addEventListener('click', prevMatch);
         nextBtn.addEventListener('click', nextMatch);
-        reverseBtn.addEventListener('click', toggleReverseOrder);
         firstBtn.addEventListener('click', goToFirstMatch);
         lastBtn.addEventListener('click', goToLastMatch);
-
-        // Click on cards to navigate
-        wrestlerCards.forEach(card => {
-            card.addEventListener('click', nextMatch);
-        });
+        eastCard.addEventListener('click', () => recordPrediction('east'));
+        westCard.addEventListener('click', () => recordPrediction('west'));
+        copyButton.addEventListener('click', copyPredictionsToClipboard);
 
         // Initialize
         loadMatchData();
