@@ -2,6 +2,52 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
+from datetime import datetime, timedelta
+import zoneinfo  # Python 3.9+
+import calendar
+
+def get_current_basho_and_day():
+    """Return the current basho (banzuke) and day based on Japan's date."""
+    # 1. Current time in Japan
+    jst = zoneinfo.ZoneInfo("Asia/Tokyo")
+    now = datetime.now(jst).date()
+
+    # 2. Tournament months (odd months starting Jan)
+    tourney_months = [1, 3, 5, 7, 9, 11]
+
+    # 3. Find the most recent tournament start
+    year = now.year
+    basho_start = None
+    basho_month = None
+
+    for m in reversed(tourney_months):
+        start_date = second_sunday(year, m)
+        if now >= start_date:
+            basho_start = start_date
+            basho_month = m
+            break
+    # If we're before January basho this year, roll back to previous November
+    if basho_start is None:
+        year -= 1
+        basho_month = 11
+        basho_start = second_sunday(year, basho_month)
+
+    # 4. Compute day of tournament (1–15)
+    day = (now - basho_start).days + 1
+    if day < 1 or day > 15:
+        day = None  # Outside active days
+
+    # 5. Make a banzuke code (e.g., 202509 for Sep 2025 basho)
+    banzuke = f"{year}{basho_month:02d}"
+
+    return banzuke, day
+
+def second_sunday(year, month):
+    """Return the date of the second Sunday of a given month/year."""
+    c = calendar.Calendar(firstweekday=calendar.SUNDAY)
+    sundays = [day for day in c.itermonthdates(year, month)
+               if day.weekday() == 6 and day.month == month]
+    return sundays[1]
 
 def scrape_sumo_bouts(basho=None, day=None):
     base_url = "https://sumodb.sumogames.de/Results.aspx"
@@ -91,6 +137,14 @@ def main():
     day = os.environ.get('DAY')
     output_file = 'matches.json'
     
+    if basho is None or day is None:
+        auto_banzuke, auto_day = get_current_basho_and_day()
+    if banzuke is None:
+        basho = auto_banzuke
+    if day is None:
+        day = auto_day
+
+    print(f"Using banzuke {banzuke}, day {day}")
     # Convert day to integer if provided
     if day:
         try:
