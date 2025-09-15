@@ -1,154 +1,154 @@
 {
   "banzuke": "202509",
-  "day": 2,
-  "fetched_at_utc": "2025-09-15T04:51:37.711982Z",
+  "day": 1,
+  "fetched_at_utc": "2025-09-15T04:55:06.595891Z",
   "matches": [
     {
       "bout": 1,
-      "east": "J1w",
-      "west": "Oshoumi (1-0)",
+      "east": "J1e",
+      "west": "Daiseizan (1-0)",
       "winner": null,
-      "raw": "J1w     Oshoumi (1-0)                           M17w    Hitoshi (0-1)"
+      "raw": "J1e     Daiseizan (1-0)         uwatenage       M18e    Shishi (0-1)"
     },
     {
       "bout": 2,
-      "east": "M16e",
-      "west": "Tomokaze (1-0)",
-      "winner": null,
-      "raw": "M16e    Tomokaze (1-0)                          M18e    Shishi (0-1)"
-    },
-    {
-      "bout": 3,
       "east": "M17e",
       "west": "Ryuden (1-0)",
       "winner": null,
-      "raw": "M17e    Ryuden (1-0)                            M16w    Nishikigi (0-1)"
+      "raw": "M17e    Ryuden (1-0)            oshidashi       M17w    Hitoshi (0-1)"
+    },
+    {
+      "bout": 3,
+      "east": "M16e",
+      "west": "Tomokaze (1-0)",
+      "winner": null,
+      "raw": "M16e    Tomokaze (1-0)          oshidashi       M16w    Nishikigi (0-1)"
     },
     {
       "bout": 4,
-      "east": "M14e",
-      "west": "Sadanoumi (1-0)",
+      "east": "M15e",
+      "west": "Tobizaru (1-0)",
       "winner": null,
-      "raw": "M14e    Sadanoumi (1-0)                         M15e    Tobizaru (1-0)"
+      "raw": "M15e    Tobizaru (1-0)          oshidashi       M15w    Shonannoumi (0-1)"
     },
     {
       "bout": 5,
-      "east": "M15w",
-      "west": "Shonannoumi (0-1)",
+      "east": "M14e",
+      "west": "Sadanoumi (1-0)",
       "winner": null,
-      "raw": "M15w    Shonannoumi (0-1)                       M14w    Asakoryu (0-1)"
+      "raw": "M14e    Sadanoumi (1-0)         yorikiri        M14w    Asakoryu (0-1)"
     },
     {
       "bout": 6,
-      "east": "M13w",
-      "west": "Tokihayate (0-1)",
-      "winner": null,
-      "raw": "M13w    Tokihayate (0-1)                        M12w    Mitakeumi (0-1)"
-    },
-    {
-      "bout": 7,
       "east": "M13e",
       "west": "Meisei (1-0)",
       "winner": null,
-      "raw": "M13e    Meisei (1-0)                            M11w    Roga (1-0)"
+      "raw": "M13e    Meisei (1-0)            oshidashi       M13w    Tokihayate (0-1)"
+    },
+    {
+      "bout": 7,
+      "east": "M11w",
+      "west": "Roga (1-0)",
+      "winner": null,
+      "raw": "M11w    Roga (1-0)              yorikiri        M12w    Mitakeumi (0-1)"
     },
     {
       "bout": 8,
-      "east": "M10e",
-      "west": "Daieisho (1-0)",
+      "east": "M11e",
+      "west": "Shodai (1-0)",
       "winner": null,
-      "raw": "M10e    Daieisho (1-0)                          M11e    Shodai (1-0)"
+      "raw": "M11e    Shodai (1-0)            yorikiri        M10w    Churanoumi (0-1)"
     },
     {
       "bout": 9,
-      "east": "M10w",
-      "west": "Churanoumi (0-1)",
+      "east": "M10e",
+      "west": "Daieisho (1-0)",
       "winner": null,
-      "raw": "M10w    Churanoumi (0-1)                        M9w     Fujinokawa (0-1)"
+      "raw": "M10e    Daieisho (1-0)          oshidashi       M9w     Fujinokawa (0-1)"
     },
     {
       "bout": 10,
-      "east": "M8e",
-      "west": "Ura (1-0)",
+      "east": "M9e",
+      "west": "Midorifuji (1-0)",
       "winner": null,
-      "raw": "M8e     Ura (1-0)                               M9e     Midorifuji (1-0)"
+      "raw": "M9e     Midorifuji (1-0)        shitatenage     M8w     Kinbozan (0-1)"
     },
     {
       "bout": 11,
-      "east": "M8w",
-      "west": "Kinbozan (0-1)",
+      "east": "M8e",
+      "west": "Ura (1-0)",
       "winner": null,
-      "raw": "M8w     Kinbozan (0-1)                          M7w     Oshoma (0-1)"
+      "raw": "M8e     Ura (1-0)               oshidashi       M7w     Oshoma (0-1)"
     },
     {
       "bout": 12,
-      "east": "M6e",
-      "west": "Onokatsu (1-0)",
+      "east": "M7e",
+      "west": "Takanosho (1-0)",
       "winner": null,
-      "raw": "M6e     Onokatsu (1-0)                          M7e     Takanosho (1-0)"
+      "raw": "M7e     Takanosho (1-0)         yorikiri        M6w     Kusano (0-1)"
     },
     {
       "bout": 13,
-      "east": "M6w",
-      "west": "Kusano (0-1)",
+      "east": "M6e",
+      "west": "Onokatsu (1-0)",
       "winner": null,
-      "raw": "M6w     Kusano (0-1)                            M5w     Ichiyamamoto (0-1)"
+      "raw": "M6e     Onokatsu (1-0)          yorikiri        M5w     Ichiyamamoto (0-1)"
     },
     {
       "bout": 14,
-      "east": "M4e",
-      "west": "Hiradoumi (1-0)",
-      "winner": null,
-      "raw": "M4e     Hiradoumi (1-0)                         M5e     Kotoshoho (0-1)"
-    },
-    {
-      "bout": 15,
       "east": "M4w",
       "west": "Wakamotoharu (1-0)",
       "winner": null,
-      "raw": "M4w     Wakamotoharu (1-0)                      M3w     Gonoyama (0-1)"
+      "raw": "M4w     Wakamotoharu (1-0)      yorikiri        M5e     Kotoshoho (0-1)"
+    },
+    {
+      "bout": 15,
+      "east": "M4e",
+      "west": "Hiradoumi (1-0)",
+      "winner": null,
+      "raw": "M4e     Hiradoumi (1-0)         hatakikomi      M3w     Gonoyama (0-1)"
     },
     {
       "bout": 16,
       "east": "M3e",
       "west": "Atamifuji (1-0)",
       "winner": null,
-      "raw": "M3e     Atamifuji (1-0)                         K1w     Aonishiki (0-1)"
+      "raw": "M3e     Atamifuji (1-0)         yorikiri        K1e     Takayasu (0-1)"
     },
     {
       "bout": 17,
-      "east": "S1e",
-      "west": "Wakatakakage (0-1)",
+      "east": "S1w",
+      "west": "Kirishima (1-0)",
       "winner": null,
-      "raw": "S1e     Wakatakakage (0-1)                      M2w     Oho (0-1)"
+      "raw": "S1w     Kirishima (1-0)         yorikiri        M2w     Oho (0-1)"
     },
     {
       "bout": 18,
-      "east": "M1w",
-      "west": "Abi (0-1)",
+      "east": "M2e",
+      "west": "Hakuoho (1-0)",
       "winner": null,
-      "raw": "M1w     Abi (0-1)                               S1w     Kirishima (1-0)"
+      "raw": "M2e     Hakuoho (1-0)           oshidashi       S1e     Wakatakakage (0-1)"
     },
     {
       "bout": 19,
       "east": "O1e",
       "west": "Kotozakura (1-0)",
       "winner": null,
-      "raw": "O1e     Kotozakura (1-0)                        M2e     Hakuoho (1-0)"
+      "raw": "O1e     Kotozakura (1-0)        oshidashi       M1w     Abi (0-1)"
     },
     {
       "bout": 20,
-      "east": "Y1e",
-      "west": "Onosato (1-0)",
+      "east": "Y1wYO",
+      "west": "Hoshoryu (1-0)",
       "winner": null,
-      "raw": "Y1e     Onosato (1-0)                           M1e     Tamawashi (0-1)"
+      "raw": "Y1wYO   Hoshoryu (1-0)          watashikomi     M1e     Tamawashi (0-1)"
     },
     {
       "bout": 21,
-      "east": "K1e",
-      "west": "Takayasu (0-1)",
+      "east": "Y1e",
+      "west": "Onosato (1-0)",
       "winner": null,
-      "raw": "K1e     Takayasu (0-1)                          Y1wYO   Hoshoryu (1-0)"
+      "raw": "Y1e     Onosato (1-0)           yoritaoshi      K1w     Aonishiki (0-1)"
     },
     {
       "bout": 22,
