@@ -50,7 +50,8 @@
         .predictions-list {
             flex-grow: 1;
             overflow-y: auto;
-            max-height: 500px;
+            max-height: 300px;
+            margin-bottom: 15px;
         }
         
         .prediction-item {
@@ -82,7 +83,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
-            margin-top: 20px;
+            margin-top: 10px;
             transition: all 0.3s;
             display: flex;
             align-items: center;
@@ -269,6 +270,38 @@
             color: #b21f1f;
         }
         
+        .import-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .import-textarea {
+            width: 100%;
+            height: 80px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            font-family: monospace;
+        }
+        
+        .stats-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stats-numbers {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #1a2a6c;
+        }
+        
         @media (max-width: 1024px) {
             .main-container {
                 flex-direction: column;
@@ -317,9 +350,28 @@
                 <!-- Predictions will be added here dynamically -->
                 <p id="no-predictions">No predictions yet. Start by selecting winners for each match.</p>
             </div>
+            
+            <div class="stats-section">
+                <h3>Your Results</h3>
+                <div class="stats-numbers">
+                    <span id="correct-count">0</span> / <span id="total-predictions">0</span> Correct
+                </div>
+                <button class="copy-btn" id="copy-results-btn">
+                    <i class="fas fa-copy"></i> Copy Results
+                </button>
+            </div>
+            
             <button class="copy-btn" id="copy-btn">
-                <i class="fas fa-copy"></i> Copy Predictions to Clipboard
+                <i class="fas fa-copy"></i> Copy Predictions
             </button>
+            
+            <div class="import-section">
+                <h3>Import Predictions</h3>
+                <textarea class="import-textarea" id="import-textarea" placeholder="Paste exported predictions here..."></textarea>
+                <button class="copy-btn" id="import-btn">
+                    <i class="fas fa-file-import"></i> Import Predictions
+                </button>
+            </div>
         </div>
         
         <div class="container">
@@ -375,6 +427,7 @@
         <p>Your predictions will be recorded in the left panel.</p>
         <p>Use the navigation buttons to move between matches.</p>
         <p>Click "Copy Predictions" to copy your choices to the clipboard.</p>
+        <p>Start from the last match and work backwards through the list.</p>
     </div>
 
     <script>
@@ -393,6 +446,11 @@
         const predictionsList = document.getElementById('predictions-list');
         const noPredictionsElement = document.getElementById('no-predictions');
         const copyButton = document.getElementById('copy-btn');
+        const copyResultsButton = document.getElementById('copy-results-btn');
+        const correctCountElement = document.getElementById('correct-count');
+        const totalPredictionsElement = document.getElementById('total-predictions');
+        const importTextarea = document.getElementById('import-textarea');
+        const importButton = document.getElementById('import-btn');
         
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
@@ -403,6 +461,36 @@
         let matches = [];
         let currentMatchIndex = 0;
         let userPredictions = {};
+
+        // Load predictions from cookie
+        function loadPredictionsFromCookie() {
+            try {
+                const cookieData = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('sumoPredictions='));
+                
+                if (cookieData) {
+                    const predictionsString = decodeURIComponent(cookieData.split('=')[1]);
+                    userPredictions = JSON.parse(predictionsString);
+                }
+            } catch (e) {
+                console.error('Error loading predictions from cookie:', e);
+                userPredictions = {};
+            }
+        }
+
+        // Save predictions to cookie
+        function savePredictionsToCookie() {
+            try {
+                const predictionsString = JSON.stringify(userPredictions);
+                const expiryDate = new Date();
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1); // 1 year expiry
+                
+                document.cookie = `sumoPredictions=${encodeURIComponent(predictionsString)}; expires=${expiryDate.toUTCString()}; path=/`;
+            } catch (e) {
+                console.error('Error saving predictions to cookie:', e);
+            }
+        }
 
         // Fetch JSON data
         async function loadMatchData() {
@@ -417,8 +505,15 @@
                     throw new Error('No match data available');
                 }
                 
+                // Load predictions from cookie
+                loadPredictionsFromCookie();
+                
+                // Start at the final match (reverse order)
+                currentMatchIndex = matches.length - 1;
+                
                 totalMatchesElement.textContent = matches.length;
                 displayCurrentMatch();
+                updateStats();
             } catch (error) {
                 document.querySelector('.match-container').innerHTML = `
                     <div class="error">
@@ -525,11 +620,36 @@
             }
         }
 
+        // Update statistics
+        function updateStats() {
+            let correct = 0;
+            let total = 0;
+            
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    total++;
+                    if (matches[i].winner && userPredictions[i] === matches[i].winner) {
+                        correct++;
+                    }
+                }
+            }
+            
+            correctCountElement.textContent = correct;
+            totalPredictionsElement.textContent = total;
+        }
+
         // Record user prediction
         function recordPrediction(side) {
             userPredictions[currentMatchIndex] = side;
             updateCardSelection();
             updatePredictionsList();
+            updateStats();
+            savePredictionsToCookie();
+            
+            // Automatically move to the previous match (reverse order)
+            setTimeout(() => {
+                prevMatch();
+            }, 500);
         }
 
         // Copy predictions to clipboard
@@ -565,17 +685,104 @@
             });
         }
 
-        // Navigate to the next match
+        // Copy results to clipboard
+        function copyResultsToClipboard() {
+            if (Object.keys(userPredictions).length === 0) {
+                alert('No results to copy!');
+                return;
+            }
+            
+            let correct = 0;
+            let total = 0;
+            let text = "Sumo Prediction Results:\n\n";
+            
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    total++;
+                    const match = matches[i];
+                    const prediction = userPredictions[i];
+                    const wrestlerName = prediction === 'east' ? match.east.name : match.west.name;
+                    const isCorrect = match.winner && prediction === match.winner;
+                    
+                    if (isCorrect) correct++;
+                    
+                    text += `Match ${i+1}: ${wrestlerName} ${isCorrect ? '✓' : (match.winner ? '✗' : '?')}\n`;
+                }
+            }
+            
+            text = `Correct: ${correct}/${total}\n\n` + text;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary feedback
+                const originalText = copyResultsButton.innerHTML;
+                copyResultsButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyResultsButton.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy results to clipboard');
+            });
+        }
+
+        // Import predictions from text
+        function importPredictions() {
+            const text = importTextarea.value.trim();
+            if (!text) {
+                alert('Please paste predictions to import');
+                return;
+            }
+            
+            try {
+                const lines = text.split('\n');
+                const newPredictions = {};
+                
+                for (const line of lines) {
+                    if (line.startsWith('Match')) {
+                        const matchNumber = parseInt(line.split(':')[0].replace('Match', '').trim()) - 1;
+                        if (isNaN(matchNumber) || matchNumber < 0 || matchNumber >= matches.length) continue;
+                        
+                        const wrestlerName = line.split(':')[1].trim();
+                        
+                        // Find which wrestler this name corresponds to
+                        if (matches[matchNumber].east.name === wrestlerName) {
+                            newPredictions[matchNumber] = 'east';
+                        } else if (matches[matchNumber].west.name === wrestlerName) {
+                            newPredictions[matchNumber] = 'west';
+                        }
+                    }
+                }
+                
+                // Merge with existing predictions
+                userPredictions = {...userPredictions, ...newPredictions};
+                
+                // Save and update UI
+                savePredictionsToCookie();
+                updatePredictionsList();
+                updateStats();
+                displayCurrentMatch();
+                
+                // Show success message
+                alert(`Successfully imported ${Object.keys(newPredictions).length} predictions`);
+                importTextarea.value = '';
+            } catch (e) {
+                console.error('Error importing predictions:', e);
+                alert('Failed to import predictions. Please check the format.');
+            }
+        }
+
+        // Navigate to the next match (which is actually the previous match in reverse order)
         function nextMatch() {
-            currentMatchIndex++;
-            if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
+            currentMatchIndex--;
+            if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
             displayCurrentMatch();
         }
 
-        // Navigate to the previous match
+        // Navigate to the previous match (which is actually the next match in reverse order)
         function prevMatch() {
-            currentMatchIndex--;
-            if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
+            currentMatchIndex++;
+            if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
             displayCurrentMatch();
         }
 
@@ -599,6 +806,8 @@
         eastCard.addEventListener('click', () => recordPrediction('east'));
         westCard.addEventListener('click', () => recordPrediction('west'));
         copyButton.addEventListener('click', copyPredictionsToClipboard);
+        copyResultsButton.addEventListener('click', copyResultsToClipboard);
+        importButton.addEventListener('click', importPredictions);
 
         // Initialize
         loadMatchData();
