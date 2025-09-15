@@ -91,8 +91,28 @@
             gap: 8px;
         }
         
+        .clear-btn {
+            background: #b21f1f;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
         .copy-btn:hover {
             background: #2a3a9c;
+        }
+        
+        .clear-btn:hover {
+            background: #d32f2f;
         }
         
         .container {
@@ -204,16 +224,20 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         
+        .wrestler-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 10px auto;
+            border: 3px solid #ddd;
+            display: block;
+        }
+        
         .wrestler-name {
             font-size: 1.8rem;
             margin: 15px 0;
             color: #1a2a6c;
-        }
-        
-        .wrestler-id {
-            color: #777;
-            font-size: 1rem;
-            margin-bottom: 20px;
         }
         
         .vs {
@@ -336,6 +360,11 @@
             .btn {
                 width: 80%;
             }
+            
+            .wrestler-image {
+                width: 120px;
+                height: 120px;
+            }
         }
     </style>
 </head>
@@ -363,6 +392,10 @@
             
             <button class="copy-btn" id="copy-btn">
                 <i class="fas fa-copy"></i> Copy Predictions
+            </button>
+            
+            <button class="clear-btn" id="clear-btn">
+                <i class="fas fa-trash"></i> Clear All Choices
             </button>
             
             <div class="import-section">
@@ -403,8 +436,8 @@
                 <div class="wrestler-card east" id="east-card">
                     <div class="winner-badge" id="east-winner">WINNER</div>
                     <h3>East</h3>
+                    <img class="wrestler-image" id="east-image" src="" alt="East Wrestler">
                     <div class="wrestler-name" id="east-name">Loading...</div>
-                    <div class="wrestler-id" id="east-id">ID: --</div>
                 </div>
                 
                 <div class="vs">VS</div>
@@ -412,8 +445,8 @@
                 <div class="wrestler-card west" id="west-card">
                     <div class="winner-badge" id="west-winner">WINNER</div>
                     <h3>West</h3>
+                    <img class="wrestler-image" id="west-image" src="" alt="West Wrestler">
                     <div class="wrestler-name" id="west-name">Loading...</div>
-                    <div class="wrestler-id" id="west-id">ID: --</div>
                 </div>
             </div>
             
@@ -433,11 +466,11 @@
     <script>
         // DOM elements
         const eastNameElement = document.getElementById('east-name');
-        const eastIdElement = document.getElementById('east-id');
+        const eastImageElement = document.getElementById('east-image');
         const eastWinnerElement = document.getElementById('east-winner');
         const eastCard = document.getElementById('east-card');
         const westNameElement = document.getElementById('west-name');
-        const westIdElement = document.getElementById('west-id');
+        const westImageElement = document.getElementById('west-image');
         const westWinnerElement = document.getElementById('west-winner');
         const westCard = document.getElementById('west-card');
         const kimariteElement = document.getElementById('kimarite');
@@ -446,6 +479,7 @@
         const predictionsList = document.getElementById('predictions-list');
         const noPredictionsElement = document.getElementById('no-predictions');
         const copyButton = document.getElementById('copy-btn');
+        const clearButton = document.getElementById('clear-btn');
         const copyResultsButton = document.getElementById('copy-results-btn');
         const correctCountElement = document.getElementById('correct-count');
         const totalPredictionsElement = document.getElementById('total-predictions');
@@ -533,9 +567,22 @@
             const match = matches[currentMatchIndex];
             
             eastNameElement.textContent = match.east.name;
-            eastIdElement.textContent = `ID: ${match.east.id || 'N/A'}`;
             westNameElement.textContent = match.west.name;
-            westIdElement.textContent = `ID: ${match.west.id || 'N/A'}`;
+            
+            // Set wrestler images
+            if (match.east.id) {
+                eastImageElement.src = `images/${match.east.id}.png`;
+                eastImageElement.onerror = function() {
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+                };
+            }
+            
+            if (match.west.id) {
+                westImageElement.src = `images/${match.west.id}.png`;
+                westImageElement.onerror = function() {
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+                };
+            }
             
             // Show/hide winner badges
             eastWinnerElement.style.display = match.winner === 'east' ? 'block' : 'none';
@@ -636,6 +683,23 @@
             
             correctCountElement.textContent = correct;
             totalPredictionsElement.textContent = total;
+        }
+
+        // Clear all predictions
+        function clearAllPredictions() {
+            if (Object.keys(userPredictions).length === 0) {
+                alert('No predictions to clear!');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to clear all your predictions?')) {
+                userPredictions = {};
+                updatePredictionsList();
+                updateStats();
+                updateCardSelection();
+                savePredictionsToCookie();
+                alert('All predictions have been cleared.');
+            }
         }
 
         // Record user prediction
@@ -806,6 +870,7 @@
         eastCard.addEventListener('click', () => recordPrediction('east'));
         westCard.addEventListener('click', () => recordPrediction('west'));
         copyButton.addEventListener('click', copyPredictionsToClipboard);
+        clearButton.addEventListener('click', clearAllPredictions);
         copyResultsButton.addEventListener('click', copyResultsToClipboard);
         importButton.addEventListener('click', importPredictions);
 
