@@ -51,7 +51,6 @@ def choose_banzuke_and_day(today):
     second_sun = second_sunday_of(b_year, b_month)
     day = (today - second_sun).days + 1
     if day < 1:
-        # If today before second Sunday, default to day 1 (useful for tests/upcoming basho)
         day = 1
     if day > TOURNAMENT_DAYS:
         day = TOURNAMENT_DAYS
@@ -60,69 +59,56 @@ def choose_banzuke_and_day(today):
 
 def parse_matches_from_text(text):
     """
-    Extract lines between 'Makuuchi' and 'Juryo'. Return list of dicts:
-    { day, bout, east, west, winner, raw }
-    The parser tries to split columns by two-or-more spaces (common in text export).
-    If parsing fails for a line, we include the raw line so frontend can still show it.
+    Extract Makuuchi matches from SumoDB Results_text.aspx text export.
+    Makuuchi is the last section on the page.
+    Returns a list of dicts: { bout, east, west, winner, raw }
     """
-    lines = [l.rstrip() for l in text.splitlines() if l.strip()]
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
     matches = []
     capture = False
     bout_num = 1
+
     for line in lines:
         if line.startswith("Makuuchi"):
             capture = True
             continue
         if not capture:
             continue
-        if line.startswith("Juryo"):
-            break
+        # skip lines that are section headers
+        if re.match(r'^[A-Za-z]+$', line):
+            continue
 
         raw = line
         east = None
         west = None
         winner = None
 
-        # look for asterisk marking winner
+        # detect winner asterisk
         if "*" in line:
-            # determine which side contains the star
-            # remove star for name extraction
             clean_line = line.replace("*", "")
-            # but keep a marker for later
-            star_side = 'both' if line.count("*") > 1 else None
         else:
             clean_line = line
-            star_side = None
 
-        # split by two or more spaces (text export columns)
+        # split by two or more spaces
         cols = re.split(r'\s{2,}', clean_line.strip())
         try:
             if len(cols) >= 2:
-                left = cols[0].strip()
+                left = re.sub(r'^\d+\s*', '', cols[0]).strip()
                 right = cols[1].strip()
-                # remove leading bout/rank numbers from left (e.g. "1 Hoshoryu")
-                left = re.sub(r'^\d+\s*', '', left)
-                # remove trailing records like "10-5" from names if present
-                left = re.sub(r'\s+\d+-\d+.*$', '', left).strip()
-                right = re.sub(r'\s+\d+-\d+.*$', '', right).strip()
-                # If right contains parentheses or extra notes, strip them
-                right = re.sub(r'\s*\(.*$', '', right).strip()
-
-                east = left if left else None
-                west = right if right else None
-
-                # find winner if we detected the asterisk in original
-                if "*" in line:
-                    # if the asterisk was in the left part of the original line, mark east
-                    # crude check: see which column contains '*' in original line
-                    orig_cols = re.split(r'\s{2,}', line.strip())
-                    if len(orig_cols) >= 2:
-                        if "*" in orig_cols[0]:
-                            winner = east
-                        elif "*" in orig_cols[1]:
-                            winner = west
+                # remove trailing records like "10-5" or parentheses
+                left = re.sub(r'\s+\d+-\d+.*$', '', left)
+                right = re.sub(r'\s+\d+-\d+.*$', '', right)
+                east = left
+                west = right
+                # winner detection
+                orig_cols = re.split(r'\s{2,}', line.strip())
+                if len(orig_cols) >= 2:
+                    if "*" in orig_cols[0]:
+                        winner = east
+                    elif "*" in orig_cols[1]:
+                        winner = west
             else:
-                # fallback: try to split by " - " or " vs "
+                # fallback: split by " - " or " vs "
                 m = re.split(r'\s+-\s+|\s+vs\.?\s+|\s+v\s+', clean_line)
                 if len(m) >= 2:
                     east = re.sub(r'^\d+\s*', '', m[0]).strip()
@@ -161,7 +147,6 @@ def main():
         if not day:
             day = computed_day
 
-    # Safety caps
     try:
         day = int(day)
     except Exception:
