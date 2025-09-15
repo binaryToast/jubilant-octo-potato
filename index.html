@@ -1,132 +1,104 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Site Placeholder</title>
-
-  <!-- Simple meta for GitHub Pages preview -->
-  <meta name="description" content="Placeholder page for a GitHub Pages site." />
-
-  <style>
-    /* Minimal, responsive, accessible styling */
-    :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#9aa4b2;
-      --accent:#5eead4;
-      --glass: rgba(255,255,255,0.03);
-      --radius:14px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-                   Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
-                   "Segoe UI Emoji", "Segoe UI Symbol";
-    }
-    html,body{height:100%;margin:0}
-    body{
-      background: linear-gradient(180deg, #071028 0%, #081022 60%), var(--bg);
-      color: #e6eef6;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    .card{
-      width:100%;
-      max-width:880px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--radius);
-      padding:36px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      border: 1px solid rgba(255,255,255,0.03);
-      backdrop-filter: blur(6px);
-    }
-
-    header{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      margin-bottom:18px;
-    }
-
-    .logo{
-      width:56px;
-      height:56px;
-      display:grid;
-      place-items:center;
-      border-radius:12px;
-      background: linear-gradient(135deg, rgba(94,234,212,0.12), rgba(255,255,255,0.02));
-      border: 1px solid rgba(94,234,212,0.12);
-      font-weight:700;
-      color:var(--accent);
-      font-size:22px;
-      box-shadow: 0 6px 18px rgba(4,10,26,0.5);
-    }
-
-    h1{margin:0;font-size:22px;letter-spacing:-0.01em}
-    p.lead{margin:8px 0 18px; color:var(--muted)}
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
-    }
-
-    a.btn{
-      display:inline-block;
-      text-decoration:none;
-      padding:10px 14px;
-      border-radius:10px;
-      background:var(--glass);
-      color: #e6eef6;
-      border:1px solid rgba(255,255,255,0.03);
-      font-weight:600;
-      font-size:14px;
-    }
-
-    a.ghost{
-      background:transparent;
-      border:1px dashed rgba(255,255,255,0.04);
-      color:var(--muted);
-      font-weight:600;
-    }
-
-    footer{margin-top:20px;color:var(--muted);font-size:13px}
-
-    @media (max-width:520px){
-      .card{padding:20px}
-      .logo{width:48px;height:48px;font-size:18px}
-      h1{font-size:18px}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sumo Scrandle</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #0b1220; color: #eee; padding: 20px; }
+  h1 { margin-top: 0; }
+  .match {
+    display: flex; 
+    flex-direction: column; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+    background: #202a3a; 
+    border-radius: 6px;
+  }
+  .bout-header { font-weight: bold; margin-bottom: 5px; }
+  label { display: block; margin: 2px 0; }
+  .correct { background: #144c26; }
+  .wrong { background: #5a1c1c; }
+</style>
 </head>
 <body>
-  <main class="card" role="main" aria-labelledby="site-title">
-    <header>
-      <div class="logo" aria-hidden="true">GH</div>
-      <div>
-        <h1 id="site-title">This site is coming soon</h1>
-        <p class="lead">You’ve landed on a placeholder page. Add content here by editing <code>index.html</code> in the repository root.</p>
-      </div>
-    </header>
+<h1>Sumo Scrandle</h1>
+<p>Pick the winners for today’s Makuuchi bouts!</p>
+<div id="matches"></div>
 
-    <section>
-      <p>
-        Use this page while you're building. Replace the content, add styles, or drop in a static site generator later.
-      </p>
+<script>
+const banzuke = "202509"; // example
+const day = 2;            // example
 
-      <div class="actions" aria-hidden="true">
-        <a class="btn" href="https://github.com/" target="_blank" rel="noopener">Open repository</a>
-        <a class="btn ghost" href="#" onclick="alert('Edit index.html in your repo and push to GitHub.'); return false;">How to update</a>
-      </div>
-    </section>
+async function loadMatches() {
+  // Replace with your real matches.json later
+  const response = await fetch('matches.json');
+  const matches = await response.json();
+  renderMatches(matches);
+}
 
-    <footer>
-      <small>Published with GitHub Pages • Remove this file when you replace the placeholder.</small>
-    </footer>
-  </main>
+function renderMatches(matches) {
+  const key = `${banzuke}-${day}-picks`;
+  let saved = JSON.parse(localStorage.getItem(key) || '{}');
+
+  const container = document.getElementById('matches');
+  container.innerHTML = '';
+
+  matches.forEach((m, i) => {
+    const matchDiv = document.createElement('div');
+    matchDiv.className = 'match';
+    const header = document.createElement('div');
+    header.className = 'bout-header';
+    header.textContent = `Bout ${m.bout}`;
+    matchDiv.appendChild(header);
+
+    // radio buttons
+    const eastLabel = document.createElement('label');
+    const eastInput = document.createElement('input');
+    eastInput.type = 'radio';
+    eastInput.name = `match-${i}`;
+    eastInput.value = m.east;
+    if (saved[i] === m.east) eastInput.checked = true;
+    eastInput.addEventListener('change', () => {
+      saved[i] = m.east;
+      localStorage.setItem(key, JSON.stringify(saved));
+    });
+    eastLabel.appendChild(eastInput);
+    eastLabel.append(` ${m.east} (East)`);
+
+    const westLabel = document.createElement('label');
+    const westInput = document.createElement('input');
+    westInput.type = 'radio';
+    westInput.name = `match-${i}`;
+    westInput.value = m.west;
+    if (saved[i] === m.west) westInput.checked = true;
+    westInput.addEventListener('change', () => {
+      saved[i] = m.west;
+      localStorage.setItem(key, JSON.stringify(saved));
+    });
+    westLabel.appendChild(westInput);
+    westLabel.append(` ${m.west} (West)`);
+
+    matchDiv.appendChild(eastLabel);
+    matchDiv.appendChild(westLabel);
+
+    // show result if winner present
+    if (m.winner) {
+      if (saved[i] === m.winner) {
+        matchDiv.classList.add('correct');
+      } else {
+        matchDiv.classList.add('wrong');
+      }
+      const result = document.createElement('div');
+      result.textContent = `Winner: ${m.winner}`;
+      matchDiv.appendChild(result);
+    }
+
+    container.appendChild(matchDiv);
+  });
+}
+
+loadMatches();
+</script>
 </body>
 </html>
