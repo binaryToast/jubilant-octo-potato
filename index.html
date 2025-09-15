@@ -16,9 +16,11 @@
     border-radius: 6px;
   }
   .bout-header { font-weight: bold; margin-bottom: 5px; }
-  label { display: block; margin: 2px 0; }
+  label { display: block; margin: 2px 0; cursor: pointer; }
+  input[type="radio"] { margin-right: 5px; }
   .correct { background: #144c26; }
   .wrong { background: #5a1c1c; }
+  .raw { font-style: italic; color: #aaa; margin-top: 3px; }
 </style>
 </head>
 <body>
@@ -27,18 +29,13 @@
 <div id="matches"></div>
 
 <script>
-const banzuke = "202509"; // example
-const day = 2;            // example
+const keyPrefix = 'sumo-picks-';
 
 async function loadMatches() {
-  // Replace with your real matches.json later
-  const response = await fetch('matches.json');
-  const matches = await response.json();
-  renderMatches(matches);
-}
-
-function renderMatches(matches) {
-  const key = `${banzuke}-${day}-picks`;
+  const res = await fetch('matches.json');
+  const data = await res.json();
+  const matches = data.matches;
+  const key = `${keyPrefix}${data.banzuke}-${data.day}`;
   let saved = JSON.parse(localStorage.getItem(key) || '{}');
 
   const container = document.getElementById('matches');
@@ -47,48 +44,46 @@ function renderMatches(matches) {
   matches.forEach((m, i) => {
     const matchDiv = document.createElement('div');
     matchDiv.className = 'match';
+
     const header = document.createElement('div');
     header.className = 'bout-header';
     header.textContent = `Bout ${m.bout}`;
     matchDiv.appendChild(header);
 
-    // radio buttons
-    const eastLabel = document.createElement('label');
-    const eastInput = document.createElement('input');
-    eastInput.type = 'radio';
-    eastInput.name = `match-${i}`;
-    eastInput.value = m.east;
-    if (saved[i] === m.east) eastInput.checked = true;
-    eastInput.addEventListener('change', () => {
-      saved[i] = m.east;
-      localStorage.setItem(key, JSON.stringify(saved));
+    // Determine names to display
+    const eastName = m.east || (m.raw ? m.raw.split(' vs ')[0] : 'East');
+    const westName = m.west || (m.raw ? m.raw.split(' vs ')[1] : 'West');
+
+    // Create radio buttons
+    [ [eastName,'East'], [westName,'West'] ].forEach(([name, side]) => {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = `match-${i}`;
+      input.value = name;
+      if (saved[i] === name) input.checked = true;
+      input.addEventListener('change', () => {
+        saved[i] = name;
+        localStorage.setItem(key, JSON.stringify(saved));
+        updateMatchColor(matchDiv, name, m.winner);
+      });
+      label.appendChild(input);
+      label.append(` ${name} (${side})`);
+      matchDiv.appendChild(label);
     });
-    eastLabel.appendChild(eastInput);
-    eastLabel.append(` ${m.east} (East)`);
 
-    const westLabel = document.createElement('label');
-    const westInput = document.createElement('input');
-    westInput.type = 'radio';
-    westInput.name = `match-${i}`;
-    westInput.value = m.west;
-    if (saved[i] === m.west) westInput.checked = true;
-    westInput.addEventListener('change', () => {
-      saved[i] = m.west;
-      localStorage.setItem(key, JSON.stringify(saved));
-    });
-    westLabel.appendChild(westInput);
-    westLabel.append(` ${m.west} (West)`);
+    // Show raw line if parsing failed
+    if (!m.east || !m.west) {
+      const rawDiv = document.createElement('div');
+      rawDiv.className = 'raw';
+      rawDiv.textContent = m.raw;
+      matchDiv.appendChild(rawDiv);
+    }
 
-    matchDiv.appendChild(eastLabel);
-    matchDiv.appendChild(westLabel);
-
-    // show result if winner present
+    // Update color if winner is known
     if (m.winner) {
-      if (saved[i] === m.winner) {
-        matchDiv.classList.add('correct');
-      } else {
-        matchDiv.classList.add('wrong');
-      }
+      const picked = saved[i];
+      updateMatchColor(matchDiv, picked, m.winner);
       const result = document.createElement('div');
       result.textContent = `Winner: ${m.winner}`;
       matchDiv.appendChild(result);
@@ -96,6 +91,16 @@ function renderMatches(matches) {
 
     container.appendChild(matchDiv);
   });
+}
+
+function updateMatchColor(div, picked, winner) {
+  div.classList.remove('correct','wrong');
+  if (!winner || !picked) return;
+  if (picked === winner) {
+    div.classList.add('correct');
+  } else {
+    div.classList.add('wrong');
+  }
 }
 
 loadMatches();
