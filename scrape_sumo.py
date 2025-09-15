@@ -25,28 +25,39 @@ def scrape_sumo_bouts(basho=None, day=None):
         cells = row.find_all('td')
         
         # Skip rows that don't have enough cells for a bout
-        if len(cells) < 3:
+        if len(cells) < 5:
             continue
             
-        # Extract wrestlers and result
-        east_cell = cells[0]
-        west_cell = cells[2]
+        # Extract information from the correct columns
+        # Column 1: East result (hoshi_shiro.gif for win, hoshi_kuro.gif for loss)
+        # Column 2: East rikishi
+        # Column 3: Kimarite
+        # Column 4: West rikishi
+        # Column 5: West result
+        
+        east_result_cell = cells[0]
+        east_rikishi_cell = cells[1]
+        kimarite_cell = cells[2]
+        west_rikishi_cell = cells[3]
+        west_result_cell = cells[4]
         
         # Get wrestler names and IDs
-        east_wrestler = extract_wrestler_info(east_cell)
-        west_wrestler = extract_wrestler_info(west_cell)
+        east_wrestler = extract_wrestler_info(east_rikishi_cell)
+        west_wrestler = extract_wrestler_info(west_rikishi_cell)
         
-        # Determine winner and kimarite
-        kimarite = cells[1].text.strip()
+        # Determine winner based on result images
         winner = None
+        kimarite = kimarite_cell.text.strip()
         
-        # Check for background color to determine winner
-        east_style = east_cell.get('style', '')
-        west_style = west_cell.get('style', '')
+        # Check for win/loss images
+        east_win = east_result_cell.find('img', src=lambda x: x and 'hoshi_shiro.gif' in x)
+        east_loss = east_result_cell.find('img', src=lambda x: x and 'hoshi_kuro.gif' in x)
+        west_win = west_result_cell.find('img', src=lambda x: x and 'hoshi_shiro.gif' in x)
+        west_loss = west_result_cell.find('img', src=lambda x: x and 'hoshi_kuro.gif' in x)
         
-        if 'background-color' in east_style and 'background-color' not in west_style:
+        if east_win and west_loss:
             winner = 'east'
-        elif 'background-color' in west_style and 'background-color' not in east_style:
+        elif west_win and east_loss:
             winner = 'west'
         
         # For future bouts, kimarite might be empty
