@@ -1,0 +1,224 @@
+{
+  "banzuke": "202509",
+  "day": 2,
+  "fetched_at_utc": "2025-09-15T04:15:43.161083Z",
+  "matches": [
+    {
+      "bout": 1,
+      "east": "J1w",
+      "west": "Oshoumi",
+      "winner": null,
+      "raw": "J1w     Oshoumi (1-0)                           M17w    Hitoshi (0-1)"
+    },
+    {
+      "bout": 2,
+      "east": "M16e",
+      "west": "Tomokaze",
+      "winner": null,
+      "raw": "M16e    Tomokaze (1-0)                          M18e    Shishi (0-1)"
+    },
+    {
+      "bout": 3,
+      "east": "M17e",
+      "west": "Ryuden",
+      "winner": null,
+      "raw": "M17e    Ryuden (1-0)                            M16w    Nishikigi (0-1)"
+    },
+    {
+      "bout": 4,
+      "east": "M14e",
+      "west": "Sadanoumi",
+      "winner": null,
+      "raw": "M14e    Sadanoumi (1-0)                         M15e    Tobizaru (1-0)"
+    },
+    {
+      "bout": 5,
+      "east": "M15w",
+      "west": "Shonannoumi",
+      "winner": null,
+      "raw": "M15w    Shonannoumi (0-1)                       M14w    Asakoryu (0-1)"
+    },
+    {
+      "bout": 6,
+      "east": "M13w",
+      "west": "Tokihayate",
+      "winner": null,
+      "raw": "M13w    Tokihayate (0-1)                        M12w    Mitakeumi (0-1)"
+    },
+    {
+      "bout": 7,
+      "east": "M13e",
+      "west": "Meisei",
+      "winner": null,
+      "raw": "M13e    Meisei (1-0)                            M11w    Roga (1-0)"
+    },
+    {
+      "bout": 8,
+      "east": "M10e",
+      "west": "Daieisho",
+      "winner": null,
+      "raw": "M10e    Daieisho (1-0)                          M11e    Shodai (1-0)"
+    },
+    {
+      "bout": 9,
+      "east": "M10w",
+      "west": "Churanoumi",
+      "winner": null,
+      "raw": "M10w    Churanoumi (0-1)                        M9w     Fujinokawa (0-1)"
+    },
+    {
+      "bout": 10,
+      "east": "M8e",
+      "west": "Ura",
+      "winner": null,
+      "raw": "M8e     Ura (1-0)                               M9e     Midorifuji (1-0)"
+    },
+    {
+      "bout": 11,
+      "east": "M8w",
+      "west": "Kinbozan",
+      "winner": null,
+      "raw": "M8w     Kinbozan (0-1)                          M7w     Oshoma (0-1)"
+    },
+    {
+      "bout": 12,
+      "east": "M6e",
+      "west": "Onokatsu",
+      "winner": null,
+      "raw": "M6e     Onokatsu (1-0)                          M7e     Takanosho (1-0)"
+    },
+    {
+      "bout": 13,
+      "east": "M6w",
+      "west": "Kusano",
+      "winner": null,
+      "raw": "M6w     Kusano (0-1)                            M5w     Ichiyamamoto (0-1)"
+    },
+    {
+      "bout": 14,
+      "east": "M4e",
+      "west": "Hiradoumi",
+      "winner": null,
+      "raw": "M4e     Hiradoumi (1-0)                         M5e     Kotoshoho (0-1)"
+    },
+    {
+      "bout": 15,
+      "east": "M4w",
+      "west": "Wakamotoharu",
+      "winner": null,
+      "raw": "M4w     Wakamotoharu (1-0)                      M3w     Gonoyama (0-1)"
+    },
+    {
+      "bout": 16,
+      "east": "M3e",
+      "west": "Atamifuji",
+      "winner": null,
+      "raw": "M3e     Atamifuji (1-0)                         K1w     Aonishiki (0-1)"
+    },
+    {
+      "bout": 17,
+      "east": "S1e",
+      "west": "Wakatakakage",
+      "winner": null,
+      "raw": "S1e     Wakatakakage (0-1)                      M2w     Oho (0-1)"
+    },
+    {
+      "bout": 18,
+      "east": "M1w",
+      "west": "Abi",
+      "winner": null,
+      "raw": "M1w     Abi (0-1)                               S1w     Kirishima (1-0)"
+    },
+    {
+      "bout": 19,
+      "east": "O1e",
+      "west": "Kotozakura",
+      "winner": null,
+      "raw": "O1e     Kotozakura (1-0)                        M2e     Hakuoho (1-0)"
+    },
+    {
+      "bout": 20,
+      "east": "Y1e",
+      "west": "Onosato",
+      "winner": null,
+      "raw": "Y1e     Onosato (1-0)                           M1e     Tamawashi (0-1)"
+    },
+    {
+      "bout": 21,
+      "east": "K1e",
+      "west": "Takayasu",
+      "winner": null,
+      "raw": "K1e     Takayasu (0-1)                          Y1wYO   Hoshoryu (1-0)"
+    },
+    {
+      "bout": 22,
+      "east": null,
+      "west": null,
+      "winner": null,
+      "raw": "home"
+    },
+    {
+      "bout": 23,
+      "east": "",
+      "west": "banzuke",
+      "winner": null,
+      "raw": "    - banzuke"
+    },
+    {
+      "bout": 24,
+      "east": "",
+      "west": "torikumi",
+      "winner": null,
+      "raw": "    - torikumi"
+    },
+    {
+      "bout": 25,
+      "east": "",
+      "west": "yusho",
+      "winner": null,
+      "raw": "    - yusho"
+    },
+    {
+      "bout": 26,
+      "east": "",
+      "west": "sansho",
+      "winner": null,
+      "raw": "    - sansho"
+    },
+    {
+      "bout": 27,
+      "east": "",
+      "west": "rikishi",
+      "winner": null,
+      "raw": "    - rikishi"
+    },
+    {
+      "bout": 28,
+      "east": "",
+      "west": "kabu",
+      "winner": null,
+      "raw": "    - kabu"
+    },
+    {
+      "bout": 29,
+      "east": "",
+      "west": "query",
+      "winner": null,
+      "raw": "    - query"
+    },
+    {
+      "bout": 30,
+      "east": "",
+      "west": "日本語",
+      "winner": null,
+      "raw": "    - 日本語"
+    },
+    {
+      "bout": 31,
+      "east": null,
+      "west": null,
+      "winner": null,
+      "raw": "We thank our sponsors adplorer.de and adplorer.fr for providing our hosting."
+    }
+  ]
+}
