@@ -99,4 +99,102 @@ def parse_matches_from_text(text):
         try:
             if len(cols) >= 2:
                 left = cols[0].strip()
-                ri
+                right = cols[1].strip()
+                # remove leading bout/rank numbers from left (e.g. "1 Hoshoryu")
+                left = re.sub(r'^\d+\s*', '', left)
+                # remove trailing records like "10-5" from names if present
+                left = re.sub(r'\s+\d+-\d+.*$', '', left).strip()
+                right = re.sub(r'\s+\d+-\d+.*$', '', right).strip()
+                # If right contains parentheses or extra notes, strip them
+                right = re.sub(r'\s*\(.*$', '', right).strip()
+
+                east = left if left else None
+                west = right if right else None
+
+                # find winner if we detected the asterisk in original
+                if "*" in line:
+                    # if the asterisk was in the left part of the original line, mark east
+                    # crude check: see which column contains '*' in original line
+                    orig_cols = re.split(r'\s{2,}', line.strip())
+                    if len(orig_cols) >= 2:
+                        if "*" in orig_cols[0]:
+                            winner = east
+                        elif "*" in orig_cols[1]:
+                            winner = west
+            else:
+                # fallback: try to split by " - " or " vs "
+                m = re.split(r'\s+-\s+|\s+vs\.?\s+|\s+v\s+', clean_line)
+                if len(m) >= 2:
+                    east = re.sub(r'^\d+\s*', '', m[0]).strip()
+                    west = re.sub(r'\s+\d+-\d+.*$', '', m[1]).strip()
+        except Exception:
+            east = None
+            west = None
+
+        matches.append({
+            "bout": bout_num,
+            "east": east,
+            "west": west,
+            "winner": winner,
+            "raw": raw
+        })
+        bout_num += 1
+
+    return matches
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--banzuke", help="YYYYMM banzuke code (override)", type=str)
+    parser.add_argument("--day", help="day number (override)", type=int)
+    args = parser.parse_args()
+
+    # priority: CLI args -> env vars -> computed
+    banzuke = args.banzuke or os.getenv("BANZUKE")
+    day = args.day or (int(os.getenv("DAY")) if os.getenv("DAY") else None)
+
+    today_utc = datetime.utcnow().date()
+
+    if not banzuke or not day:
+        computed_banzuke, computed_day = choose_banzuke_and_day(today_utc)
+        if not banzuke:
+            banzuke = computed_banzuke
+        if not day:
+            day = computed_day
+
+    # Safety caps
+    try:
+        day = int(day)
+    except Exception:
+        print("Invalid day value:", day, file=sys.stderr)
+        sys.exit(2)
+
+    if day < 1:
+        day = 1
+    if day > TOURNAMENT_DAYS:
+        day = TOURNAMENT_DAYS
+
+    print(f"Fetching banzuke={banzuke} day={day}")
+
+    url = f"https://sumodb.sumogames.de/Results_text.aspx?b={banzuke}&d={day}"
+    resp = requests.get(url, timeout=20)
+    resp.raise_for_status()
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    page_text = soup.get_text()
+    matches = parse_matches_from_text(page_text)
+
+    # Add top-level metadata
+    output = {
+        "banzuke": banzuke,
+        "day": day,
+        "fetched_at_utc": datetime.utcnow().isoformat() + "Z",
+        "matches": matches
+    }
+
+    with open("matches.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+
+    print(f"Wrote {len(matches)} bouts to matches.json")
+
+if __name__ == "__main__":
+    main()
