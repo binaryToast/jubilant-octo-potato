@@ -2,8 +2,15 @@ name: Scrape SumoDB
 
 on:
   schedule:
-    - cron: '0 1 * * *'   # every day at 01:00 UTC (10:00 JST)
-  workflow_dispatch:      # allow manual run
+    - cron: '0 1 * * *'   # every day at 01:00 UTC (~10:00 JST)
+  workflow_dispatch:
+    inputs:
+      banzuke:
+        description: 'Optional: banzuke code YYYYMM (for manual test)'
+        required: false
+      day:
+        description: 'Optional: day number (for manual test)'
+        required: false
 
 jobs:
   scrape:
@@ -24,7 +31,11 @@ jobs:
           pip install requests beautifulsoup4
 
       - name: Run scraper
-        run: python scrape_sumo.py
+        env:
+          BANZUKE: ${{ github.event.inputs.banzuke }}
+          DAY: ${{ github.event.inputs.day }}
+        run: |
+          python scrape_sumo.py
 
       - name: Commit and push if changed
         run: |
