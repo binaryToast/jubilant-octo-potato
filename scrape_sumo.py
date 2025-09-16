@@ -136,14 +136,13 @@ def main():
     basho = os.environ.get('BANZUKE')
     day = os.environ.get('DAY')
     output_file = 'matches.json'
-    
-    if basho is None or day is None:
-        auto_banzuke, auto_day = get_current_basho_and_day()
+    auto_banzuke, auto_day = get_current_basho_and_day()
     if basho is None:
+        print(f"auto basho")
         basho = auto_banzuke
     if day is None:
+        print(f"auto day")
         day = auto_day
-
     print(f"Using banzuke {basho}, day {day}")
     # Convert day to integer if provided
     if day:
