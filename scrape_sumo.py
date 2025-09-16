@@ -139,7 +139,7 @@ def main():
     
     if basho is None or day is None:
         auto_banzuke, auto_day = get_current_basho_and_day()
-    if banzuke is None:
+    if basho is None:
         basho = auto_banzuke
     if day is None:
         day = auto_day
