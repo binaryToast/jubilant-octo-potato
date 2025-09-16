@@ -1017,7 +1017,7 @@
         }
 
         function throwSalt(x, y, velocityX, velocityY) {
-            const particleCount = 20 + Math.floor(Math.abs(velocityX + velocityY) / 10);
+            const particleCount = 40 + Math.floor(Math.abs(velocityX + velocityY) / 10);
             
             for (let i = 0; i < particleCount; i++) {
                 createSaltParticle(x, y, velocityX, velocityY);
@@ -1029,7 +1029,7 @@ function createSaltParticle(x, y, velocityX, velocityY) {
     particle.className = 'salt-particle';
     
     // Randomize size and position slightly
-    const size = 4 + Math.random() * 6;
+    const size = 8 + Math.random() * 8;
     particle.style.width = size + 'px';
     particle.style.height = size + 'px';
     particle.style.zIndex = 9999; // Ensure it's on top
@@ -1043,7 +1043,7 @@ function createSaltParticle(x, y, velocityX, velocityY) {
 
     // Randomize velocity and direction
     const angle = Math.atan2(velocityY, velocityX) + (Math.random() - 0.5) * 0.5;
-    const speed = 2 + Math.random() * 2;
+    const speed = 4 + Math.random() * 4;
     let vx = Math.cos(angle) * speed;
     let vy = Math.sin(angle) * speed;
 
