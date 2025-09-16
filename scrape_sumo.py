@@ -6,6 +6,51 @@ from datetime import datetime, timedelta
 import zoneinfo  # Python 3.9+
 import calendar
 
+def get_yusho_arasoi_data():
+    """
+    Scrapes the Makuuchi Yusho Arasoi table from https://sumodb.sumogames.de/Banzuke.aspx
+    and returns a dict grouping rikishi by current win count.
+    Output format:
+    {
+        "10": ["Hoshoryu 10-2", "Takakeisho 10-2"],
+        "9": ["Wakamotoharu 9-3", ...],
+        ...
+    }
+    """
+    url = "https://sumodb.sumogames.de/Banzuke.aspx"
+    response = requests.get(url)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Find the left column (should have Yusho arasoi)
+    header = soup.find("h3", string=lambda s: s and "Yusho arasoi" in s)
+    if not header:
+        raise RuntimeError("Could not find Yusho arasoi header")
+    table = header.find_next("table")
+    if not table:
+        raise RuntimeError("Could not find Yusho arasoi table")
+
+    records = {}
+    for row in table.find_all("tr")[1:]:  # skip table header
+        cells = row.find_all("td")
+        if len(cells) < 3:
+            continue
+        name = cells[1].get_text(strip=True)
+        record = cells[2].get_text(strip=True)
+        wins = record.split('-')[0]
+        try:
+            wins_int = int(wins)
+        except ValueError:
+            continue
+        entry = f"{name} {record}"
+        records.setdefault(wins, []).append(entry)
+
+    # Sort by descending win count, and names alphabetically within each group
+    sorted_records = {
+        str(w): sorted(records[str(w)]) for w in sorted(records.keys(), key=int, reverse=True)
+    }
+    return sorted_records
+
 def get_current_basho_and_day():
     """Return the current basho (banzuke) and day based on Japan's date."""
     # 1. Current time in Japan
@@ -136,7 +181,6 @@ def main():
     # auto_banzuke, auto_day = get_current_basho_and_day()
     basho = os.environ.get('BANZUKE')
     day = os.environ.get('DAY')
-    output_file = 'matches.json'
     if not basho or not day:
         basho, day = get_current_basho_and_day()
         print(f"incomplete basho data, using automatic")
@@ -152,9 +196,16 @@ def main():
     
     try:
         bouts = scrape_sumo_bouts(basho, day)
+        leaders = get_yusho_arasoi_data()
+        output_file = 'matches.json'
         
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(bouts, f, indent=2, ensure_ascii=False)
+        
+        output_file = 'leaders.json'
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(leaders, f, indent=2, ensure_ascii=False)
         
         print(f"Successfully saved {len(bouts)} bouts to {output_file}")
         
