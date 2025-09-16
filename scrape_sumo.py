@@ -133,16 +133,16 @@ def extract_wrestler_info(cell):
 
 def main():
     # Get parameters from environment variables (for GitHub Actions)
-    basho = os.environ.get('BANZUKE')
-    day = os.environ.get('DAY')
-    output_file = 'matches.json'
     auto_banzuke, auto_day = get_current_basho_and_day()
-    if basho is None:
-        print(f"auto basho")
-        basho = auto_banzuke
-    if day is None:
-        print(f"auto day")
-        day = auto_day
+    basho = os.environ.get('BANZUKE',auto_banzuke)
+    day = os.environ.get('DAY',auto_day)
+    output_file = 'matches.json'
+   # if basho is None:
+   #     print(f"auto basho")
+   #     basho = auto_banzuke
+   # if day is None:
+   #     print(f"auto day")
+   #     day = auto_day
     print(f"Using banzuke {basho}, day {day}")
     # Convert day to integer if provided
     if day:
