@@ -270,48 +270,28 @@
             font-size: 1.2rem;
         }
         
-        .yusho-arasoi {
-            width: 100%;
+        .instructions {
+            text-align: center;
+            padding: 20px;
+            color: white;
             max-width: 800px;
             margin-top: 20px;
             background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
-            overflow: hidden;
         }
         
-        .yusho-header {
-            background: #1a2a6c;
-            color: white;
-            padding: 15px;
+        .loading {
             text-align: center;
+            padding: 30px;
             font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            color: #1a2a6c;
         }
         
-        .yusho-container {
-            height: 500px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .yusho-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .yusho-fallback {
-            padding: 20px;
-            color: white;
+        .error {
             text-align: center;
-        }
-        
-        .yusho-fallback a {
-            color: #fdbb2d;
-            text-decoration: underline;
+            padding: 30px;
+            font-size: 1.5rem;
+            color: #b21f1f;
         }
         
         .import-section {
@@ -384,10 +364,6 @@
             .wrestler-image {
                 width: 120px;
                 height: 240px;
-            }
-            
-            .yusho-container {
-                height: 400px;
             }
         }
     </style>
@@ -476,19 +452,12 @@
         </div>
     </div>
     
-    <div class="yusho-arasoi">
-        <div class="yusho-header">
-            <i class="fas fa-trophy"></i>
-            <h2>Makuuchi Yusho Arasoi</h2>
-            <i class="fas fa-trophy"></i>
-        </div>
-        <div class="yusho-container">
-            <iframe class="yusho-iframe" id="yusho-iframe" src="https://sumodb.sumogames.de/Banzuke.aspx" frameborder="0"></iframe>
-            <div class="yusho-fallback" id="yusho-fallback" style="display: none;">
-                <p>Unable to load the Makuuchi Yusho Arasoi directly.</p>
-                <p>Please visit the <a href="https://sumodb.sumogames.de/Banzuke.aspx" target="_blank">SumoDB Banzuke page</a> to view the latest standings.</p>
-            </div>
-        </div>
+    <div class="instructions">
+        <h2>How to Use</h2>
+        <p>Click on either wrestler to predict the winner for the current match.</p>
+        <p>Your predictions will be recorded in the left panel.</p>
+        <p>Use the navigation buttons to move between matches.</p>
+        <p>Click "Copy Predictions" to copy your choices to the clipboard.</p>
     </div>
 
     <script>
@@ -513,8 +482,6 @@
         const totalPredictionsElement = document.getElementById('total-predictions');
         const importTextarea = document.getElementById('import-textarea');
         const importButton = document.getElementById('import-btn');
-        const yushoIframe = document.getElementById('yusho-iframe');
-        const yushoFallback = document.getElementById('yusho-fallback');
         
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
@@ -525,32 +492,6 @@
         let matches = [];
         let currentMatchIndex = 0;
         let userPredictions = {};
-
-        // Check if iframe loaded successfully
-        yushoIframe.onload = function() {
-            try {
-                // Try to access iframe content to check if it's allowed
-                const iframeDoc = yushoIframe.contentDocument || yushoIframe.contentWindow.document;
-                // If we can access it, check for specific content
-                if (iframeDoc.body.innerHTML.includes("X-Frame-Options") || 
-                    iframeDoc.body.innerHTML.includes("deny") || 
-                    iframeDoc.body.innerHTML.includes("sameorigin")) {
-                    showFallback();
-                }
-            } catch (e) {
-                // Cross-origin error, show fallback
-                showFallback();
-            }
-        };
-
-        yushoIframe.onerror = function() {
-            showFallback();
-        };
-
-        function showFallback() {
-            yushoIframe.style.display = 'none';
-            yushoFallback.style.display = 'block';
-        }
 
         // Load predictions from cookie
         function loadPredictionsFromCookie() {
