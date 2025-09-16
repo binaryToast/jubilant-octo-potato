@@ -138,10 +138,10 @@ def main():
     basho = os.environ.get('BANZUKE')
     day = os.environ.get('DAY')
     output_file = 'matches.json'
-    if basho is 0:
+    if not basho:
         print(f"auto basho")
         basho = auto_banzuke
-    if day is 0:
+    if not day:
         print(f"auto day")
         day = auto_day
     print(f"Using banzuke {basho}, day {day}")
