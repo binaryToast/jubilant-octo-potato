@@ -373,7 +373,6 @@
         <div class="predictions-panel">
             <div class="predictions-header">
                 <h2>Your Predictions</h2>
-                <p>Click on a wrestler to predict the winner</p>
             </div>
             <div class="predictions-list" id="predictions-list">
                 <!-- Predictions will be added here dynamically -->
@@ -410,7 +409,6 @@
         <div class="container">
             <header>
                 <h1>Sumo Match Predictor</h1>
-                <div class="subtitle">Predict winners and track your choices</div>
             </header>
             
             <div class="controls">
@@ -661,6 +659,11 @@
                     
                     predictionItem.appendChild(predictionText);
                     predictionItem.appendChild(predictionStatus);
+                    // 🔥 New feature: Click to jump to that match
+                    predictionItem.addEventListener('click', () => {
+                        currentMatchIndex = i;
+                        displayCurrentMatch();
+                    });
                     predictionsList.appendChild(predictionItem);
                 }
             }
