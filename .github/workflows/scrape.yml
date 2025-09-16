@@ -2,7 +2,8 @@ name: Scrape SumoDB
 
 on:
   schedule:
-    - cron: '0 1 * * *'   # every day at 01:00 UTC (~10:00 JST)
+    - cron: '0 1 * * *'     # 10:00 JST
+    - cron: '5 10 * * *'    # 19:05 JST
   workflow_dispatch:
     inputs:
       banzuke:
