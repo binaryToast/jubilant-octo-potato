@@ -22,13 +22,14 @@ def get_yusho_arasoi_data():
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # Find the left column (should have Yusho arasoi)
-    header = soup.find("h3", string=lambda s: s and "Yusho arasoi" in s)
-    if not header:
-        raise RuntimeError("Could not find Yusho arasoi header")
-    table = header.find_next("table")
+    # Find the <u>Makuuchi Yusho Arasoi:</u> tag
+    start_u = soup.find("u", string="Makuuchi Yusho Arasoi:")
+    if not start_u:
+        raise RuntimeError("Could not find Makuuchi Yusho Arasoi header")
+    # The table will be the next sibling after this tag
+    table = start_u.find_next("table")
     if not table:
-        raise RuntimeError("Could not find Yusho arasoi table")
+        raise RuntimeError("Could not find Makuuchi Yusho Arasoi table")
 
     records = {}
     for row in table.find_all("tr")[1:]:  # skip table header
