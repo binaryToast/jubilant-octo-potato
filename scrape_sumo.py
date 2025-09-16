@@ -144,7 +144,7 @@ def main():
     if day is None:
         day = auto_day
 
-    print(f"Using banzuke {banzuke}, day {day}")
+    print(f"Using banzuke {basho}, day {day}")
     # Convert day to integer if provided
     if day:
         try:
