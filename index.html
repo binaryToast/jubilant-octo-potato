@@ -528,7 +528,7 @@
         // Fetch JSON data
         async function loadMatchData() {
             try {
-                const response = await fetch('matches.json');
+                const response = await fetch('matches.json', { cache: 'no-store' });
                 if (!response.ok) {
                     throw new Error('Failed to load match data');
                 }
