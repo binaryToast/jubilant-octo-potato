@@ -21,6 +21,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
         
         .main-container {
@@ -28,6 +29,7 @@
             max-width: 1400px;
             width: 100%;
             gap: 20px;
+            z-index: 1;
         }
         
         .predictions-panel {
@@ -326,6 +328,57 @@
             color: #1a2a6c;
         }
         
+        /* Salt Basket Styles */
+        .salt-basket {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            z-index: 100;
+            cursor: grab;
+            transition: transform 0.2s;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        
+        .salt-basket.left {
+            left: 20px;
+        }
+        
+        .salt-basket.right {
+            right: 20px;
+        }
+        
+        .salt-basket:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+        
+        .salt-basket img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .salt-particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0.9;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+        
         @media (max-width: 1024px) {
             .main-container {
                 flex-direction: column;
@@ -365,10 +418,33 @@
                 width: 120px;
                 height: 240px;
             }
+            
+            .salt-basket {
+                width: 50px;
+                height: 50px;
+                bottom: 10px;
+            }
+            
+            .salt-basket.left {
+                left: 10px;
+            }
+            
+            .salt-basket.right {
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Salt Baskets -->
+    <div class="salt-basket left" id="salt-basket-left">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyMCIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U0FMVDwvdGV4dD4KPC9zdmc+" alt="Salt Basket">
+    </div>
+    
+    <div class="salt-basket right" id="salt-basket-right">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyMCIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U0FMVDwvdGV4dD4KPC9zdmc+" alt="Salt Basket">
+    </div>
+    
     <div class="main-container">
         <div class="predictions-panel">
             <div class="predictions-header">
@@ -458,6 +534,7 @@
         <p>Your predictions will be recorded in the left panel.</p>
         <p>Use the navigation buttons to move between matches.</p>
         <p>Click "Copy Predictions" to copy your choices to the clipboard.</p>
+        <p><strong>New Feature:</strong> Drag the salt baskets from the corners to purify the ring!</p>
     </div>
 
     <script>
@@ -488,10 +565,20 @@
         const firstBtn = document.getElementById('first-btn');
         const lastBtn = document.getElementById('last-btn');
 
+        // Salt basket elements
+        const saltBasketLeft = document.getElementById('salt-basket-left');
+        const saltBasketRight = document.getElementById('salt-basket-right');
+
         // Global variables
         let matches = [];
         let currentMatchIndex = 0;
         let userPredictions = {};
+
+        // Salt throwing variables
+        let isDragging = false;
+        let dragStartX, dragStartY;
+        let currentBasket = null;
+        let saltParticles = [];
 
         // Load predictions from cookie
         function loadPredictionsFromCookie() {
@@ -864,6 +951,130 @@
             displayCurrentMatch();
         }
 
+        // Salt throwing functionality
+        function startDrag(e) {
+            isDragging = true;
+            currentBasket = this;
+            dragStartX = e.clientX || e.touches[0].clientX;
+            dragStartY = e.clientY || e.touches[0].clientY;
+            
+            // Add event listeners for dragging and dropping
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('touchmove', doDrag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+            
+            // Prevent default to avoid text selection
+            e.preventDefault();
+        }
+
+        function doDrag(e) {
+            if (!isDragging) return;
+            
+            const currentX = e.clientX || e.touches[0].clientX;
+            const currentY = e.clientY || e.touches[0].clientY;
+            
+            // Move the basket with the cursor/finger
+            currentBasket.style.left = (currentX - 30) + 'px';
+            currentBasket.style.top = (currentY - 30) + 'px';
+            currentBasket.style.right = 'auto';
+            currentBasket.style.bottom = 'auto';
+        }
+
+        function stopDrag(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            
+            const endX = e.clientX || e.changedTouches[0].clientX;
+            const endY = e.clientY || e.changedTouches[0].clientY;
+            
+            // Calculate throw velocity based on drag distance
+            const velocityX = endX - dragStartX;
+            const velocityY = endY - dragStartY;
+            
+            // Throw salt particles
+            throwSalt(endX, endY, velocityX, velocityY);
+            
+            // Reset basket position
+            setTimeout(() => {
+                if (currentBasket.id === 'salt-basket-left') {
+                    currentBasket.style.left = '20px';
+                    currentBasket.style.right = 'auto';
+                } else {
+                    currentBasket.style.left = 'auto';
+                    currentBasket.style.right = '20px';
+                }
+                currentBasket.style.top = 'auto';
+                currentBasket.style.bottom = '20px';
+            }, 300);
+            
+            // Remove event listeners
+            document.removeEventListener('mousemove', doDrag);
+            document.removeEventListener('touchmove', doDrag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        function throwSalt(x, y, velocityX, velocityY) {
+            const particleCount = 20 + Math.floor(Math.abs(velocityX + velocityY) / 10);
+            
+            for (let i = 0; i < particleCount; i++) {
+                createSaltParticle(x, y, velocityX, velocityY);
+            }
+        }
+
+        function createSaltParticle(x, y, velocityX, velocityY) {
+            const particle = document.createElement('div');
+            particle.className = 'salt-particle';
+            
+            // Randomize size and position slightly
+            const size = 4 + Math.random() * 6;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Position at throw origin
+            particle.style.left = (x - size/2) + 'px';
+            particle.style.top = (y - size/2) + 'px';
+            
+            // Add to document
+            document.body.appendChild(particle);
+            
+            // Randomize velocity and direction
+            const angle = Math.atan2(velocityY, velocityX) + (Math.random() - 0.5) * 0.5;
+            const speed = 1 + Math.random() * 2;
+            const vx = Math.cos(angle) * speed;
+            const vy = Math.sin(angle) * speed;
+            
+            // Animate the particle
+            let posX = x;
+            let posY = y;
+            let gravity = 0.1;
+            let opacity = 1;
+            
+            const animateParticle = () => {
+                posX += vx;
+                posY += vy;
+                vy += gravity;
+                opacity -= 0.01;
+                
+                particle.style.left = posX + 'px';
+                particle.style.top = posY + 'px';
+                particle.style.opacity = opacity;
+                
+                if (opacity > 0) {
+                    requestAnimationFrame(animateParticle);
+                } else {
+                    particle.remove();
+                }
+            };
+            
+            requestAnimationFrame(animateParticle);
+            
+            // Add to particles array for tracking
+            saltParticles.push(particle);
+        }
+
         // Event listeners
         prevBtn.addEventListener('click', prevMatch);
         nextBtn.addEventListener('click', nextMatch);
@@ -875,6 +1086,12 @@
         clearButton.addEventListener('click', clearAllPredictions);
         copyResultsButton.addEventListener('click', copyResultsToClipboard);
         importButton.addEventListener('click', importPredictions);
+
+        // Salt basket event listeners
+        saltBasketLeft.addEventListener('mousedown', startDrag);
+        saltBasketLeft.addEventListener('touchstart', startDrag);
+        saltBasketRight.addEventListener('mousedown', startDrag);
+        saltBasketRight.addEventListener('touchstart', startDrag);
 
         // Initialize
         loadMatchData();
