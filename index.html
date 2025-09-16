@@ -1024,56 +1024,53 @@
             }
         }
 
-        function createSaltParticle(x, y, velocityX, velocityY) {
-            const particle = document.createElement('div');
-            particle.className = 'salt-particle';
-            
-            // Randomize size and position slightly
-            const size = 4 + Math.random() * 6;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            
-            // Position at throw origin
-            particle.style.left = (x - size/2) + 'px';
-            particle.style.top = (y - size/2) + 'px';
-            
-            // Add to document
-            document.body.appendChild(particle);
-            
-            // Randomize velocity and direction
-            const angle = Math.atan2(velocityY, velocityX) + (Math.random() - 0.5) * 0.5;
-            const speed = 1 + Math.random() * 2;
-            const vx = Math.cos(angle) * speed;
-            const vy = Math.sin(angle) * speed;
-            
-            // Animate the particle
-            let posX = x;
-            let posY = y;
-            let gravity = 0.1;
-            let opacity = 1;
-            
-            const animateParticle = () => {
-                posX += vx;
-                posY += vy;
-                vy += gravity;
-                opacity -= 0.01;
-                
-                particle.style.left = posX + 'px';
-                particle.style.top = posY + 'px';
-                particle.style.opacity = opacity;
-                
-                if (opacity > 0) {
-                    requestAnimationFrame(animateParticle);
-                } else {
-                    particle.remove();
-                }
-            };
-            
+function createSaltParticle(x, y, velocityX, velocityY) {
+    const particle = document.createElement('div');
+    particle.className = 'salt-particle';
+    
+    // Randomize size and position slightly
+    const size = 4 + Math.random() * 6;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.zIndex = 9999; // Ensure it's on top
+
+    // Position at throw origin
+    particle.style.left = (x - size/2) + 'px';
+    particle.style.top = (y - size/2) + 'px';
+    particle.style.opacity = 1;
+
+    document.body.appendChild(particle);
+
+    // Randomize velocity and direction
+    const angle = Math.atan2(velocityY, velocityX) + (Math.random() - 0.5) * 0.5;
+    const speed = 2 + Math.random() * 2;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed;
+
+    let posX = x;
+    let posY = y;
+    let gravity = 0.12;
+    let opacity = 1;
+
+    function animateParticle() {
+        posX += vx;
+        posY += vy;
+        vy += gravity;
+        opacity -= 0.012;
+
+        particle.style.left = posX + 'px';
+        particle.style.top = posY + 'px';
+        particle.style.opacity = opacity;
+
+        if (opacity > 0) {
             requestAnimationFrame(animateParticle);
-            
-            // Add to particles array for tracking
-            saltParticles.push(particle);
+        } else {
+            if (particle.parentNode) particle.parentNode.removeChild(particle);
         }
+    }
+
+    requestAnimationFrame(animateParticle);
+}
 
         // Event listeners
         prevBtn.addEventListener('click', prevMatch);
