@@ -665,6 +665,7 @@
             if (matches.length === 0) return;
             
             const match = matches[currentMatchIndex];
+            const prediction = userPredictions[currentMatchIndex];
             
             eastNameElement.textContent = match.east.name;
             westNameElement.textContent = match.west.name;
@@ -685,8 +686,8 @@
             }
             
             // Show/hide winner badges
-            eastWinnerElement.style.display = match.winner === 'east' ? 'block' : 'none';
-            westWinnerElement.style.display = match.winner === 'west' ? 'block' : 'none';
+            eastWinnerElement.style.display = (match.winner === 'east' && prediction !== undefined) ? 'block' : 'none';
+            westWinnerElement.style.display = (match.winner === 'west' && prediction !== undefined) ? 'block' : 'none';
             
             // Display kimarite if available
             kimariteElement.textContent = match.kimarite ? `Kimarite: ${match.kimarite}` : 'Kimarite: Not available';
