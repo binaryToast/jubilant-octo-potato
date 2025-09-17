@@ -484,7 +484,7 @@
         
         <div class="container">
             <header>
-                <h1>Sumo Match Predictor</h1>
+                <h1>Sumo-dle</h1>
             </header>
             
             <div class="controls">
@@ -1053,14 +1053,14 @@ function createSaltParticle(x, y, velocityX, velocityY) {
 
     let posX = x;
     let posY = y;
-    let gravity = 0.12;
+    let gravity = 0.1;
     let opacity = 1;
 
     function animateParticle() {
         posX += vx;
         posY += vy;
         vy += gravity;
-        opacity -= 0.012;
+        opacity -= 0.01;
 
         particle.style.left = posX + 'px';
         particle.style.top = posY + 'px';
