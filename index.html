@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sumo Match Predictor</title>
+    <title>Sumodle</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -530,7 +530,7 @@
     
     <div class="instructions">
         <h2>How to Use</h2>
-        <p>Click on either wrestler to predict the winner for the current match.</p>
+        <p>Click on either wrestler to predict the winner for the displayed match.</p>
         <p>Your predictions will be recorded in the left panel.</p>
         <p>Use the navigation buttons to move between matches.</p>
         <p>Click "Copy Predictions" to copy your choices to the clipboard.</p>
@@ -839,45 +839,49 @@
         }
 
         // Copy results to clipboard
-        function copyResultsToClipboard() {
-            if (Object.keys(userPredictions).length === 0) {
-                alert('No results to copy!');
-                return;
-            }
+    function copyResultsToClipboard() {
+        if (Object.keys(userPredictions).length === 0) {
+            alert('No results to copy!');
+            return;
+        }
+    
+        let correct = 0;
+        let total = 0;
+        let emojiString = '';
+    
+        for (let i = 0; i < matches.length; i++) {
+            if (userPredictions[i] !== undefined) {
+                total++;
+                const match = matches[i];
+                const prediction = userPredictions[i];
+                const isCorrect = match.winner && prediction === match.winner;
             
-            let correct = 0;
-            let total = 0;
-            let text = "Sumo Prediction Results:\n\n";
-            
-            for (let i = 0; i < matches.length; i++) {
-                if (userPredictions[i] !== undefined) {
-                    total++;
-                    const match = matches[i];
-                    const prediction = userPredictions[i];
-                    const wrestlerName = prediction === 'east' ? match.east.name : match.west.name;
-                    const isCorrect = match.winner && prediction === match.winner;
-                    
-                    if (isCorrect) correct++;
-                    
-                    text += `Match ${i+1}: ${wrestlerName} ${isCorrect ? '✓' : (match.winner ? '✗' : '?')}\n`;
+                if (isCorrect) {
+                    correct++;
+                    emojiString += '🟩';
+                } else if (match.winner) {
+                    emojiString += '🟥';
+                } else {
+                    emojiString += '⬜';
                 }
             }
-            
-            text = `Correct: ${correct}/${total}\n\n` + text;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                // Show temporary feedback
-                const originalText = copyResultsButton.innerHTML;
-                copyResultsButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                
-                setTimeout(() => {
-                    copyResultsButton.innerHTML = originalText;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Failed to copy results to clipboard');
-            });
-        }
+    }
+    
+    const text = `${correct}/${total}\n${emojiString}`;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        // Show temporary feedback
+        const originalText = copyResultsButton.innerHTML;
+        copyResultsButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        
+        setTimeout(() => {
+            copyResultsButton.innerHTML = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Failed to copy results to clipboard');
+    });
+}
 
         // Import predictions from text
         function importPredictions() {
