@@ -9,7 +9,7 @@
       "id": "12453"
     },
     "kimarite": "4-3",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -21,7 +21,7 @@
       "id": "12451"
     },
     "kimarite": "5-3",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -33,7 +33,7 @@
       "id": "12688"
     },
     "kimarite": "7-1",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -45,7 +45,7 @@
       "id": "12094"
     },
     "kimarite": "4-7",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -57,7 +57,7 @@
       "id": "12231"
     },
     "kimarite": "1-0",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -69,7 +69,7 @@
       "id": "5944"
     },
     "kimarite": "21-20[-1]",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -81,7 +81,7 @@
       "id": "12314"
     },
     "kimarite": "2-1",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -93,7 +93,7 @@
       "id": "11980"
     },
     "kimarite": "1-0",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -105,7 +105,7 @@
       "id": "12362"
     },
     "kimarite": "5-7",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -117,7 +117,7 @@
       "id": "12884"
     },
     "kimarite": "0-1",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -129,7 +129,7 @@
       "id": "12717"
     },
     "kimarite": "1-0",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -141,7 +141,7 @@
       "id": "12721"
     },
     "kimarite": "3-4",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -153,7 +153,7 @@
       "id": "12800"
     },
     "kimarite": "0-1",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -165,7 +165,7 @@
       "id": "12320"
     },
     "kimarite": "0-3",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -177,7 +177,7 @@
       "id": "12516"
     },
     "kimarite": "3-4",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -189,7 +189,7 @@
       "id": "12210"
     },
     "kimarite": "9-13",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -201,7 +201,7 @@
       "id": "12162"
     },
     "kimarite": "3-3",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -213,7 +213,7 @@
       "id": "12710"
     },
     "kimarite": "0-3",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -225,7 +225,7 @@
       "id": "12599"
     },
     "kimarite": "1-0",
-    "winner": west
+    "winner": "west"
   },
   {
     "east": {
@@ -237,7 +237,7 @@
       "id": "12351"
     },
     "kimarite": "0-2",
-    "winner": east
+    "winner": "east"
   },
   {
     "east": {
@@ -249,6 +249,6 @@
       "id": "6596"
     },
     "kimarite": "1-0",
-    "winner": east
+    "winner": "east"
   }
 ]
