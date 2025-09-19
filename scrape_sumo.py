@@ -55,7 +55,7 @@ def scrape_sumo_bouts(basho=None, day=None):
     if basho and day:
         params = {"b": basho, "d": day}
     
-    response = requests.get(base_url, params=params)
+    response = requests.get(base_url, params=params, verify=False)
     response.raise_for_status()
     
     soup = BeautifulSoup(response.text, 'html.parser')
