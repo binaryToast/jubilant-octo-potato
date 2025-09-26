@@ -8,8 +8,8 @@
       "name": "Wakatakakage",
       "id": "12370"
     },
-    "kimarite": "4-2",
-    "winner": null
+    "kimarite": "yorikiri5-2",
+    "winner": "east"
   },
   {
     "east": {
@@ -20,8 +20,8 @@
       "name": "Hoshoryu",
       "id": "12451"
     },
-    "kimarite": "9-14",
-    "winner": null
+    "kimarite": "yorikiri10-14",
+    "winner": "east"
   },
   {
     "east": {
@@ -32,8 +32,8 @@
       "name": "Kirishima",
       "id": "12231"
     },
-    "kimarite": "10-10",
-    "winner": null
+    "kimarite": "yorikiri10-11",
+    "winner": "west"
   },
   {
     "east": {
@@ -44,8 +44,8 @@
       "name": "Wakamotoharu",
       "id": "11980"
     },
-    "kimarite": "7-3[-1]",
-    "winner": null
+    "kimarite": "yorikiri8-3[-1]",
+    "winner": "east"
   },
   {
     "east": {
@@ -56,8 +56,8 @@
       "name": "Aonishiki",
       "id": "12839"
     },
-    "kimarite": "0-0",
-    "winner": null
+    "kimarite": "watashikomi0-1",
+    "winner": "west"
   },
   {
     "east": {
@@ -68,8 +68,8 @@
       "name": "Hiradoumi",
       "id": "12314"
     },
-    "kimarite": "7-2",
-    "winner": null
+    "kimarite": "yorikiri7-3",
+    "winner": "west"
   },
   {
     "east": {
@@ -80,8 +80,8 @@
       "name": "Abi",
       "id": "12094"
     },
-    "kimarite": "1-4",
-    "winner": null
+    "kimarite": "uwatenage1-5",
+    "winner": "west"
   },
   {
     "east": {
@@ -92,8 +92,8 @@
       "name": "Onokatsu",
       "id": "12840"
     },
-    "kimarite": "3-3[-1]",
-    "winner": null
+    "kimarite": "yorikiri4-3[-1]",
+    "winner": "east"
   },
   {
     "east": {
@@ -104,8 +104,8 @@
       "name": "Oho",
       "id": "12453"
     },
-    "kimarite": "5-2",
-    "winner": null
+    "kimarite": "hatakikomi5-3",
+    "winner": "west"
   },
   {
     "east": {
@@ -116,8 +116,8 @@
       "name": "Gonoyama",
       "id": "12688"
     },
-    "kimarite": "4-2",
-    "winner": null
+    "kimarite": "yorikiri5-2",
+    "winner": "east"
   },
   {
     "east": {
@@ -128,8 +128,8 @@
       "name": "Ichiyamamoto",
       "id": "12362"
     },
-    "kimarite": "3-1",
-    "winner": null
+    "kimarite": "hatakikomi4-1",
+    "winner": "east"
   },
   {
     "east": {
@@ -140,8 +140,8 @@
       "name": "Kusano",
       "id": "12884"
     },
-    "kimarite": "0-1",
-    "winner": null
+    "kimarite": "yoritaoshi0-2",
+    "winner": "west"
   },
   {
     "east": {
@@ -152,8 +152,8 @@
       "name": "Oshoma",
       "id": "12717"
     },
-    "kimarite": "0-1",
-    "winner": null
+    "kimarite": "yorikiri1-1",
+    "winner": "east"
   },
   {
     "east": {
@@ -164,8 +164,8 @@
       "name": "Tokihayate",
       "id": "12542"
     },
-    "kimarite": "2-1",
-    "winner": null
+    "kimarite": "oshidashi3-1",
+    "winner": "east"
   },
   {
     "east": {
@@ -176,8 +176,8 @@
       "name": "Kinbozan",
       "id": "12721"
     },
-    "kimarite": "2-1",
-    "winner": null
+    "kimarite": "hatakikomi2-2",
+    "winner": "west"
   },
   {
     "east": {
@@ -188,8 +188,8 @@
       "name": "Nishikigi",
       "id": "6596"
     },
-    "kimarite": "11-4",
-    "winner": null
+    "kimarite": "yorikiri12-4",
+    "winner": "east"
   },
   {
     "east": {
@@ -200,8 +200,8 @@
       "name": "Fujinokawa",
       "id": "12800"
     },
-    "kimarite": "0-3",
-    "winner": null
+    "kimarite": "tsukidashi1-3",
+    "winner": "east"
   },
   {
     "east": {
@@ -212,8 +212,8 @@
       "name": "Asakoryu",
       "id": "12710"
     },
-    "kimarite": "0-0",
-    "winner": null
+    "kimarite": "oshidashi0-1",
+    "winner": "west"
   },
   {
     "east": {
@@ -224,8 +224,8 @@
       "name": "Churanoumi",
       "id": "12320"
     },
-    "kimarite": "2-2",
-    "winner": null
+    "kimarite": "uwatenage3-2",
+    "winner": "east"
   },
   {
     "east": {
@@ -236,8 +236,8 @@
       "name": "Tomokaze",
       "id": "12427"
     },
-    "kimarite": "2-3",
-    "winner": null
+    "kimarite": "hatakikomi2-4",
+    "winner": "west"
   },
   {
     "east": {
@@ -248,7 +248,7 @@
       "name": "Shonannoumi",
       "id": "12162"
     },
-    "kimarite": "3-0",
-    "winner": null
+    "kimarite": "shitatenage4-0",
+    "winner": "east"
   }
 ]
