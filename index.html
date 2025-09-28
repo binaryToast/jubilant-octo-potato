@@ -14,15 +14,18 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #333;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
+    /* Background gradient behind image */
+    background: 
+        url('images/background.png') center/cover no-repeat, 
+        linear-gradient(to bottom, black, #d2b48c); /* sandy dohyo color */
+    color: #333;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
         
         .main-container {
             display: flex;
