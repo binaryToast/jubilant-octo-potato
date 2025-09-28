@@ -1,8 +1,9 @@
 name: Scrape SumoDB
 
 on:
-  schedule:
-    - cron: '2 0,9 * * *'  # 9:02 JST and 18:02 JST (0:02 and 9:02 UTC)
+ # disabled while no basho
+ # schedule:
+ #   - cron: '2 0,9 * * *'  # 9:02 JST and 18:02 JST (0:02 and 9:02 UTC)
   workflow_dispatch:
     inputs:
       banzuke:
