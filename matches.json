@@ -1,0 +1,242 @@
+[
+  {
+    "east": {
+      "name": "Oshoumi",
+      "id": "Oshoumi"
+    },
+    "west": {
+      "name": "Kotoeiho",
+      "id": "Kotoeiho"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Hitoshi",
+      "id": "Hitoshi"
+    },
+    "west": {
+      "name": "Shishi",
+      "id": "Shishi"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Nishikigi",
+      "id": "Nishikigi"
+    },
+    "west": {
+      "name": "Ryuden",
+      "id": "Ryuden"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Shonannoumi",
+      "id": "Shonannoumi"
+    },
+    "west": {
+      "name": "Tobizaru",
+      "id": "Tobizaru"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Asakoryu",
+      "id": "Asakoryu"
+    },
+    "west": {
+      "name": "Sadanoumi",
+      "id": "Sadanoumi"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Mitakeumi",
+      "id": "Mitakeumi"
+    },
+    "west": {
+      "name": "Tokihayate",
+      "id": "Tokihayate"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Roga",
+      "id": "Roga"
+    },
+    "west": {
+      "name": "Takerufuji",
+      "id": "Takerufuji"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Churanoumi",
+      "id": "Churanoumi"
+    },
+    "west": {
+      "name": "Shodai",
+      "id": "Shodai"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Fujinokawa",
+      "id": "Fujinokawa"
+    },
+    "west": {
+      "name": "Daieisho",
+      "id": "Daieisho"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Kinbozan",
+      "id": "Kinbozan"
+    },
+    "west": {
+      "name": "Midorifuji",
+      "id": "Midorifuji"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Oshoma",
+      "id": "Oshoma"
+    },
+    "west": {
+      "name": "Takanosho",
+      "id": "Takanosho"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Ichiyamamoto",
+      "id": "Ichiyamamoto"
+    },
+    "west": {
+      "name": "Onokatsu",
+      "id": "Onokatsu"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Wakamotoharu",
+      "id": "Wakamotoharu"
+    },
+    "west": {
+      "name": "Kotoshoho",
+      "id": "Kotoshoho"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Gonoyama",
+      "id": "Gonoyama"
+    },
+    "west": {
+      "name": "Hiradoumi",
+      "id": "Hiradoumi"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Aonishiki",
+      "id": "Aonishiki"
+    },
+    "west": {
+      "name": "Atamifuji",
+      "id": "Atamifuji"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Abi",
+      "id": "Abi"
+    },
+    "west": {
+      "name": "Takayasu",
+      "id": "Takayasu"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Kirishima",
+      "id": "Kirishima"
+    },
+    "west": {
+      "name": "Oho",
+      "id": "Oho"
+    },
+    "kimarite": "",
+    "winner": "west"
+  },
+  {
+    "east": {
+      "name": "Tamawashi",
+      "id": "Tamawashi"
+    },
+    "west": {
+      "name": "Wakatakakage",
+      "id": "Wakatakakage"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Hoshoryu",
+      "id": "Hoshoryu"
+    },
+    "west": {
+      "name": "Hakuoho",
+      "id": "Hakuoho"
+    },
+    "kimarite": "",
+    "winner": "east"
+  },
+  {
+    "east": {
+      "name": "Ura",
+      "id": "Ura"
+    },
+    "west": {
+      "name": "Onosato",
+      "id": "Onosato"
+    },
+    "kimarite": "",
+    "winner": "west"
+  }
+]
