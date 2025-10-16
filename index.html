@@ -664,7 +664,9 @@
                 loadPredictionsFromCookie();
                 
                 // Start at the final match (reverse order)
-                currentMatchIndex = matches.length - 1;
+                //currentMatchIndex = matches.length - 1;
+                //starting at match 1 for LONDON basho
+                currentMatchIndex = 0;
                 
                 totalMatchesElement.textContent = matches.length;
                 displayCurrentMatch();
