@@ -500,10 +500,10 @@
             
             <div class="controls">
                 <button class="btn" id="prev-btn">
-                    <i class="fas fa-arrow-left"></i> Next Match
+                    <i class="fas fa-arrow-left"></i> Previous Match
                 </button>
                 <button class="btn" id="next-btn">
-                    Previous Match <i class="fas fa-arrow-right"></i>
+                    Next Match <i class="fas fa-arrow-right"></i>
                 </button>
                 <button class="btn" id="first-btn">
                     <i class="fas fa-fast-backward"></i> First Match
@@ -839,9 +839,9 @@
             updateStats();
             savePredictionsToCookie();
             
-            // Automatically move to the previous match (reverse order)
+            // Automatically move to the next match
             setTimeout(() => {
-                prevMatch();
+                nextMatch();
             }, 500);
         }
 
