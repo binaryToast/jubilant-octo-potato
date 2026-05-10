@@ -449,11 +449,15 @@
 <body>
     <!-- Salt Baskets fun -->
     <div class="salt-basket left" id="salt-basket-left">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyMCIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U0FMVDwvdGV4dD4KPC9zdmc+" alt="Salt Basket">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAKICAGPGNPCMNSZSBJED0iMzAiIGN5PSIzMCIgcj0iMjgiIGZpbGw9IiNEQkE0MzYiIHN0cm9rZT0iIzhCNjQzMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgCiAgPHBhdGggZD0iTSAxNSAxMCBRIDMwIDUgNDUgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzg2NjMzNCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAKICAGKGM="
+        style="opacity: 0.9"
+      />
     </div>
     
     <div class="salt-basket right" id="salt-basket-right">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyMCIgZmlsbD0iI2Y1ZjVmNSIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8dGV4dCB4PSIzMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzU1NSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U0FMVDwvdGV4dD4KPC9zdmc+" alt="Salt Basket">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAKICagpgnpcmnnbgud0iMzAiIGN5PSIzMCIgcj0iMjgiIGZpbGw9IiNEQkE0MzYiIHN0cm9rZT0iIzhCNjQzMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgCiAgPHBhdGggZD0iTSAxNSAxMCBRIDMwIDUgNDUgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzg2NjMzNCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAKICAGKGM="
+        style="opacity: 0.9"
+      />
     </div>
     
     <div class="main-container">
@@ -697,20 +701,25 @@
             if (match.east.id) {
                 eastImageElement.src = `images/${match.east.id}.jpg`;
                 eastImageElement.onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
                 };
             }
             
             if (match.west.id) {
                 westImageElement.src = `images/${match.west.id}.jpg`;
                 westImageElement.onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
                 };
             }
             
-            // Show/hide winner badges
-            eastWinnerElement.style.display = (match.winner === 'east' && prediction !== undefined) ? 'block' : 'none';
-            westWinnerElement.style.display = (match.winner === 'west' && prediction !== undefined) ? 'block' : 'none';
+            // Show/hide winner badges based on winner ID
+            if (match.winner) {
+                eastWinnerElement.style.display = (match.winner === match.east.id && prediction !== undefined) ? 'block' : 'none';
+                westWinnerElement.style.display = (match.winner === match.west.id && prediction !== undefined) ? 'block' : 'none';
+            } else {
+                eastWinnerElement.style.display = 'none';
+                westWinnerElement.style.display = 'none';
+            }
             
             // Display kimarite if available
             kimariteElement.textContent = match.kimarite ? `Kimarite: ${match.kimarite}` : 'Kimarite: Not available';
@@ -764,8 +773,10 @@
                     
                     // Add appropriate class based on prediction correctness
                     if (actual) {
+                        // Compare wrestler ID with the prediction side
+                        const predictedWrestlerId = prediction === 'east' ? match.east.id : match.west.id;
                         predictionItem.classList.add(
-                            prediction === actual ? 'prediction-correct' : 'prediction-incorrect'
+                            predictedWrestlerId === actual ? 'prediction-correct' : 'prediction-incorrect'
                         );
                     } else {
                         predictionItem.classList.add('prediction-pending');
@@ -776,8 +787,9 @@
                     
                     const predictionStatus = document.createElement('div');
                     if (actual) {
-                        predictionStatus.textContent = prediction === actual ? '✓' : '✗';
-                        predictionStatus.style.color = prediction === actual ? '#4CAF50' : '#f44336';
+                        const predictedWrestlerId = prediction === 'east' ? match.east.id : match.west.id;
+                        predictionStatus.textContent = predictedWrestlerId === actual ? '✓' : '✗';
+                        predictionStatus.style.color = predictedWrestlerId === actual ? '#4CAF50' : '#f44336';
                         predictionStatus.style.fontWeight = 'bold';
                     } else {
                         predictionStatus.textContent = '?';
@@ -804,8 +816,11 @@
             for (let i = 0; i < matches.length; i++) {
                 if (userPredictions[i] !== undefined) {
                     total++;
-                    if (matches[i].winner && userPredictions[i] === matches[i].winner) {
-                        correct++;
+                    if (matches[i].winner) {
+                        const predictedWrestlerId = userPredictions[i] === 'east' ? matches[i].east.id : matches[i].west.id;
+                        if (predictedWrestlerId === matches[i].winner) {
+                            correct++;
+                        }
                     }
                 }
             }
@@ -879,49 +894,50 @@
         }
 
         // Copy results to clipboard
-    function copyResultsToClipboard() {
-        if (Object.keys(userPredictions).length === 0) {
-            alert('No results to copy!');
-            return;
-        }
-    
-        let correct = 0;
-        let total = 0;
-        let emojiString = '';
-    
-        for (let i = 0; i < matches.length; i++) {
-            if (userPredictions[i] !== undefined) {
-                total++;
-                const match = matches[i];
-                const prediction = userPredictions[i];
-                const isCorrect = match.winner && prediction === match.winner;
-            
-                if (isCorrect) {
-                    correct++;
-                    emojiString += '🟩';
-                } else if (match.winner) {
-                    emojiString += '🟥';
-                } else {
-                    emojiString += '⬜';
+        function copyResultsToClipboard() {
+            if (Object.keys(userPredictions).length === 0) {
+                alert('No results to copy!');
+                return;
+            }
+        
+            let correct = 0;
+            let total = 0;
+            let emojiString = '';
+        
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    total++;
+                    const match = matches[i];
+                    const prediction = userPredictions[i];
+                    const predictedWrestlerId = prediction === 'east' ? match.east.id : match.west.id;
+                    const isCorrect = match.winner && predictedWrestlerId === match.winner;
+                
+                    if (isCorrect) {
+                        correct++;
+                        emojiString += '🟩';
+                    } else if (match.winner) {
+                        emojiString += '🟥';
+                    } else {
+                        emojiString += '⬜';
+                    }
                 }
             }
-    }
-    
-    const text = `Your Results: ${correct}/${total} Correct\n${emojiString}`;
-    
-    navigator.clipboard.writeText(text).then(() => {
-        // Show temporary feedback
-        const originalText = copyResultsButton.innerHTML;
-        copyResultsButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
         
-        setTimeout(() => {
-            copyResultsButton.innerHTML = originalText;
-        }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Failed to copy results to clipboard');
-    });
-}
+            const text = `Your Results: ${correct}/${total} Correct\n${emojiString}`;
+        
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary feedback
+                const originalText = copyResultsButton.innerHTML;
+                copyResultsButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyResultsButton.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy results to clipboard');
+            });
+        }
 
         // Import predictions from text
         function importPredictions() {
@@ -972,14 +988,14 @@
         // Navigate to the next match (which is actually the previous match in reverse order)
         function nextMatch() {
             currentMatchIndex++;
-            if (currentMatchIndex < 0) currentMatchIndex = matches.length - 1;
+            if (currentMatchIndex >= matches.length) currentMatchIndex = matches.length - 1;
             displayCurrentMatch();
         }
 
         // Navigate to the previous match (which is actually the next match in reverse order)
         function prevMatch() {
             currentMatchIndex--;
-            if (currentMatchIndex >= matches.length) currentMatchIndex = 0;
+            if (currentMatchIndex < 0) currentMatchIndex = 0;
             displayCurrentMatch();
         }
 
@@ -998,154 +1014,94 @@
         // Salt throwing functionality
         function startDrag(e) {
             isDragging = true;
-            currentBasket = this;
-            dragStartX = e.clientX || e.touches[0].clientX;
-            dragStartY = e.clientY || e.touches[0].clientY;
-            
-            // Add event listeners for dragging and dropping
-            document.addEventListener('mousemove', doDrag);
-            document.addEventListener('touchmove', doDrag);
-            document.addEventListener('mouseup', stopDrag);
-            document.addEventListener('touchend', stopDrag);
-            
-            // Prevent default to avoid text selection
-            e.preventDefault();
+            currentBasket = e.currentTarget;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
         }
 
-        function doDrag(e) {
-            if (!isDragging) return;
-            
-            const currentX = e.clientX || e.touches[0].clientX;
-            const currentY = e.clientY || e.touches[0].clientY;
-            
-            // Move the basket with the cursor/finger
-            currentBasket.style.left = (currentX - 30) + 'px';
-            currentBasket.style.top = (currentY - 30) + 'px';
-            currentBasket.style.right = 'auto';
-            currentBasket.style.bottom = 'auto';
-        }
-
-        function stopDrag(e) {
-            if (!isDragging) return;
-            
+        function stopDrag() {
             isDragging = false;
-            
-            const endX = e.clientX || e.changedTouches[0].clientX;
-            const endY = e.clientY || e.changedTouches[0].clientY;
-            
-            // Calculate throw velocity based on drag distance
-            const velocityX = endX - dragStartX;
-            const velocityY = endY - dragStartY;
-            
-            // Throw salt particles
-            throwSalt(endX, endY, velocityX, velocityY);
-            
-            // Reset basket position
-            setTimeout(() => {
-                if (currentBasket.id === 'salt-basket-left') {
-                    currentBasket.style.left = '20px';
-                    currentBasket.style.right = 'auto';
-                } else {
-                    currentBasket.style.left = 'auto';
-                    currentBasket.style.right = '20px';
-                }
-                currentBasket.style.top = 'auto';
-                currentBasket.style.bottom = '20px';
-            }, 300);
-            
-            // Remove event listeners
-            document.removeEventListener('mousemove', doDrag);
-            document.removeEventListener('touchmove', doDrag);
-            document.removeEventListener('mouseup', stopDrag);
-            document.removeEventListener('touchend', stopDrag);
+            currentBasket = null;
         }
 
-        function throwSalt(x, y, velocityX, velocityY) {
-            const particleCount = 40 + Math.floor(Math.abs(velocityX + velocityY) / 10);
-            
-            for (let i = 0; i < particleCount; i++) {
-                createSaltParticle(x, y, velocityX, velocityY);
+        function throwSalt(e) {
+            if (!isDragging || !currentBasket) return;
+
+            const deltaX = e.clientX - dragStartX;
+            const deltaY = e.clientY - dragStartY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            // Only throw salt if drag distance is significant
+            if (distance > 30) {
+                const angle = Math.atan2(deltaY, deltaX);
+                const speed = Math.min(distance / 5, 15);
+
+                // Create multiple salt particles
+                for (let i = 0; i < 12; i++) {
+                    const particleAngle = angle + (Math.random() - 0.5) * Math.PI / 3;
+                    const particle = document.createElement('div');
+                    particle.className = 'salt-particle';
+                    particle.style.left = e.clientX + 'px';
+                    particle.style.top = e.clientY + 'px';
+                    document.body.appendChild(particle);
+
+                    const vx = Math.cos(particleAngle) * speed + (Math.random() - 0.5) * 2;
+                    const vy = Math.sin(particleAngle) * speed + (Math.random() - 0.5) * 2;
+                    let x = e.clientX;
+                    let y = e.clientY;
+                    let life = 60;
+
+                    function animate() {
+                        life--;
+                        x += vx;
+                        y += vy;
+                        particle.style.left = x + 'px';
+                        particle.style.top = y + 'px';
+                        particle.style.opacity = life / 60;
+
+                        if (life > 0) {
+                            requestAnimationFrame(animate);
+                        } else {
+                            particle.remove();
+                        }
+                    }
+                    animate();
+                }
             }
         }
 
-function createSaltParticle(x, y, velocityX, velocityY) {
-    const particle = document.createElement('div');
-    particle.className = 'salt-particle';
-    
-    // Randomize size and position slightly
-    const size = 8 + Math.random() * 8;
-    particle.style.width = size + 'px';
-    particle.style.height = size + 'px';
-    particle.style.zIndex = 9999; // Ensure it's on top
-
-    // Position at throw origin
-    particle.style.left = (x - size/2) + 'px';
-    particle.style.top = (y - size/2) + 'px';
-    particle.style.opacity = 1;
-
-    document.body.appendChild(particle);
-
-    // Randomize velocity and direction
-    const angle = Math.atan2(velocityY, velocityX) + (Math.random() - 0.5) * 0.5;
-    const speed = 4 + Math.random() * 4;
-    let vx = Math.cos(angle) * speed;
-    let vy = Math.sin(angle) * speed;
-
-    let posX = x;
-    let posY = y;
-    let gravity = 0.1;
-    let opacity = 1;
-
-    function animateParticle() {
-        posX += vx;
-        posY += vy;
-        vy += gravity;
-        opacity -= 0.01;
-
-        particle.style.left = posX + 'px';
-        particle.style.top = posY + 'px';
-        particle.style.opacity = opacity;
-
-        if (opacity > 0) {
-            requestAnimationFrame(animateParticle);
-        } else {
-            if (particle.parentNode) particle.parentNode.removeChild(particle);
-        }
-    }
-
-    requestAnimationFrame(animateParticle);
-}
-
         // Event listeners
-        prevBtn.addEventListener('click', prevMatch);
-        nextBtn.addEventListener('click', nextMatch);
-        firstBtn.addEventListener('click', goToFirstMatch);
-        lastBtn.addEventListener('click', goToLastMatch);
         eastCard.addEventListener('click', () => recordPrediction('east'));
         westCard.addEventListener('click', () => recordPrediction('west'));
         copyButton.addEventListener('click', copyPredictionsToClipboard);
         clearButton.addEventListener('click', clearAllPredictions);
         copyResultsButton.addEventListener('click', copyResultsToClipboard);
         importButton.addEventListener('click', importPredictions);
+        
+        prevBtn.addEventListener('click', prevMatch);
+        nextBtn.addEventListener('click', nextMatch);
+        firstBtn.addEventListener('click', goToFirstMatch);
+        lastBtn.addEventListener('click', goToLastMatch);
 
-        // Salt basket event listeners
+        // Salt basket events
         saltBasketLeft.addEventListener('mousedown', startDrag);
-        saltBasketLeft.addEventListener('touchstart', startDrag);
         saltBasketRight.addEventListener('mousedown', startDrag);
-        saltBasketRight.addEventListener('touchstart', startDrag);
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('mousemove', throwSalt);
+
+        // Banzuke toggle
+        document.getElementById('show-banzuke-btn').addEventListener('click', () => {
+            document.getElementById('banzuke-iframe-container').style.display = 'block';
+            document.getElementById('show-banzuke-btn').style.display = 'none';
+        });
+
+        document.getElementById('hide-banzuke-btn').addEventListener('click', () => {
+            document.getElementById('banzuke-iframe-container').style.display = 'none';
+            document.getElementById('show-banzuke-btn').style.display = 'block';
+        });
 
         // Initialize
         loadMatchData();
-
-    // Banzuke Table Toggle Logic
-    document.getElementById('show-banzuke-btn').onclick = function() {
-        document.getElementById('banzuke-iframe-container').style.display = 'block';
-        this.style.display = 'none';
-    };
-    document.getElementById('hide-banzuke-btn').onclick = function() {
-        document.getElementById('banzuke-iframe-container').style.display = 'none';
-        document.getElementById('show-banzuke-btn').style.display = 'block';
-    };
     </script>
 </body>
 </html>
