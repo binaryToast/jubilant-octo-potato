@@ -365,10 +365,9 @@
             transform: scale(0.95);
         }
         
-        .salt-basket img {
+        .salt-basket svg {
             width: 100%;
             height: 100%;
-            object-fit: contain;
             filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
         }
         
@@ -449,15 +448,33 @@
 <body>
     <!-- Salt Baskets fun -->
     <div class="salt-basket left" id="salt-basket-left">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAKICAGPGNPCMNSZSBJED0iMzAiIGN5PSIzMCIgcj0iMjgiIGZpbGw9IiNEQkE0MzYiIHN0cm9rZT0iIzhCNjQzMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgCiAgPHBhdGggZD0iTSAxNSAxMCBRIDMwIDUgNDUgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzg2NjMzNCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAKICAGKGM="
-        style="opacity: 0.9"
-      />
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <!-- Basket shape -->
+            <ellipse cx="30" cy="20" rx="20" ry="12" fill="#D2A679" stroke="#8B6F47" stroke-width="1"/>
+            <path d="M 10 20 Q 10 35 15 40 L 45 40 Q 50 35 50 20" fill="#C9956F" stroke="#8B6F47" stroke-width="1"/>
+            <!-- Weave pattern -->
+            <line x1="15" y1="22" x2="45" y2="22" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="14" y1="26" x2="46" y2="26" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="30" x2="47" y2="30" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="34" x2="47" y2="34" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <!-- Handle -->
+            <path d="M 20 20 Q 30 5 40 20" fill="none" stroke="#8B6F47" stroke-width="2"/>
+        </svg>
     </div>
     
     <div class="salt-basket right" id="salt-basket-right">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAKICagpgnpcmnnbgud0iMzAiIGN5PSIzMCIgcj0iMjgiIGZpbGw9IiNEQkE0MzYiIHN0cm9rZT0iIzhCNjQzMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgCiAgPHBhdGggZD0iTSAxNSAxMCBRIDMwIDUgNDUgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzg2NjMzNCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAKICAGKGM="
-        style="opacity: 0.9"
-      />
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <!-- Basket shape -->
+            <ellipse cx="30" cy="20" rx="20" ry="12" fill="#D2A679" stroke="#8B6F47" stroke-width="1"/>
+            <path d="M 10 20 Q 10 35 15 40 L 45 40 Q 50 35 50 20" fill="#C9956F" stroke="#8B6F47" stroke-width="1"/>
+            <!-- Weave pattern -->
+            <line x1="15" y1="22" x2="45" y2="22" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="14" y1="26" x2="46" y2="26" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="30" x2="47" y2="30" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="34" x2="47" y2="34" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <!-- Handle -->
+            <path d="M 20 20 Q 30 5 40 20" fill="none" stroke="#8B6F47" stroke-width="2"/>
+        </svg>
     </div>
     
     <div class="main-container">
@@ -701,14 +718,14 @@
             if (match.east.id) {
                 eastImageElement.src = `images/${match.east.id}.jpg`;
                 eastImageElement.onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiBhbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
                 };
             }
             
             if (match.west.id) {
                 westImageElement.src = `images/${match.west.id}.jpg`;
                 westImageElement.onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiBhbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
                 };
             }
             
@@ -999,80 +1016,23 @@
             displayCurrentMatch();
         }
 
-        // Go to first match
-        function goToFirstMatch() {
+        // Navigate to the first match
+        function firstMatch() {
             currentMatchIndex = 0;
             displayCurrentMatch();
         }
 
-        // Go to last match
-        function goToLastMatch() {
+        // Navigate to the last match
+        function lastMatch() {
             currentMatchIndex = matches.length - 1;
             displayCurrentMatch();
         }
 
-        // Salt throwing functionality
-        function startDrag(e) {
-            isDragging = true;
-            currentBasket = e.currentTarget;
-            dragStartX = e.clientX;
-            dragStartY = e.clientY;
-        }
-
-        function stopDrag() {
-            isDragging = false;
-            currentBasket = null;
-        }
-
-        function throwSalt(e) {
-            if (!isDragging || !currentBasket) return;
-
-            const deltaX = e.clientX - dragStartX;
-            const deltaY = e.clientY - dragStartY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-            // Only throw salt if drag distance is significant
-            if (distance > 30) {
-                const angle = Math.atan2(deltaY, deltaX);
-                const speed = Math.min(distance / 5, 15);
-
-                // Create multiple salt particles
-                for (let i = 0; i < 12; i++) {
-                    const particleAngle = angle + (Math.random() - 0.5) * Math.PI / 3;
-                    const particle = document.createElement('div');
-                    particle.className = 'salt-particle';
-                    particle.style.left = e.clientX + 'px';
-                    particle.style.top = e.clientY + 'px';
-                    document.body.appendChild(particle);
-
-                    const vx = Math.cos(particleAngle) * speed + (Math.random() - 0.5) * 2;
-                    const vy = Math.sin(particleAngle) * speed + (Math.random() - 0.5) * 2;
-                    let x = e.clientX;
-                    let y = e.clientY;
-                    let life = 60;
-
-                    function animate() {
-                        life--;
-                        x += vx;
-                        y += vy;
-                        particle.style.left = x + 'px';
-                        particle.style.top = y + 'px';
-                        particle.style.opacity = life / 60;
-
-                        if (life > 0) {
-                            requestAnimationFrame(animate);
-                        } else {
-                            particle.remove();
-                        }
-                    }
-                    animate();
-                }
-            }
-        }
-
-        // Event listeners
+        // Event listeners for wrestler selection
         eastCard.addEventListener('click', () => recordPrediction('east'));
         westCard.addEventListener('click', () => recordPrediction('west'));
+
+        // Event listeners for buttons
         copyButton.addEventListener('click', copyPredictionsToClipboard);
         clearButton.addEventListener('click', clearAllPredictions);
         copyResultsButton.addEventListener('click', copyResultsToClipboard);
@@ -1080,28 +1040,96 @@
         
         prevBtn.addEventListener('click', prevMatch);
         nextBtn.addEventListener('click', nextMatch);
-        firstBtn.addEventListener('click', goToFirstMatch);
-        lastBtn.addEventListener('click', goToLastMatch);
+        firstBtn.addEventListener('click', firstMatch);
+        lastBtn.addEventListener('click', lastMatch);
 
-        // Salt basket events
-        saltBasketLeft.addEventListener('mousedown', startDrag);
-        saltBasketRight.addEventListener('mousedown', startDrag);
-        document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('mousemove', throwSalt);
+        // Salt basket drag functionality
+        function createSaltParticles(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'salt-particle';
+                const angle = (Math.PI * 2 * i) / 8;
+                const velocity = 3 + Math.random() * 3;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                document.body.appendChild(particle);
+                
+                const startTime = Date.now();
+                const duration = 1500;
+                
+                const animate = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+                    
+                    if (progress < 1) {
+                        particle.style.left = (x + vx * elapsed / 20) + 'px';
+                        particle.style.top = (y + vy * elapsed / 20 + (elapsed * elapsed) / 4000) + 'px';
+                        particle.style.opacity = (1 - progress) * 0.9;
+                        requestAnimationFrame(animate);
+                    } else {
+                        particle.remove();
+                    }
+                };
+                
+                animate();
+            }
+        }
 
-        // Banzuke toggle
-        document.getElementById('show-banzuke-btn').addEventListener('click', () => {
-            document.getElementById('banzuke-iframe-container').style.display = 'block';
-            document.getElementById('show-banzuke-btn').style.display = 'none';
+        function handleBasketMouseDown(e) {
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            currentBasket = e.currentTarget;
+            e.currentTarget.style.opacity = '0.7';
+        }
+
+        function handleMouseMove(e) {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - dragStartX;
+            const deltaY = e.clientY - dragStartY;
+            
+            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                createSaltParticles(e.clientX, e.clientY);
+            }
+            
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+        }
+
+        function handleMouseUp() {
+            isDragging = false;
+            if (currentBasket) {
+                currentBasket.style.opacity = '0.9';
+                currentBasket = null;
+            }
+        }
+
+        saltBasketLeft.addEventListener('mousedown', handleBasketMouseDown);
+        saltBasketRight.addEventListener('mousedown', handleBasketMouseDown);
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+
+        // Banzuke toggle functionality
+        const showBanzukeBtn = document.getElementById('show-banzuke-btn');
+        const hideBanzukeBtn = document.getElementById('hide-banzuke-btn');
+        const banzukeContainer = document.getElementById('banzuke-iframe-container');
+
+        showBanzukeBtn.addEventListener('click', () => {
+            banzukeContainer.style.display = 'block';
+            showBanzukeBtn.style.display = 'none';
         });
 
-        document.getElementById('hide-banzuke-btn').addEventListener('click', () => {
-            document.getElementById('banzuke-iframe-container').style.display = 'none';
-            document.getElementById('show-banzuke-btn').style.display = 'block';
+        hideBanzukeBtn.addEventListener('click', () => {
+            banzukeContainer.style.display = 'none';
+            showBanzukeBtn.style.display = 'block';
         });
 
-        // Initialize
-        loadMatchData();
+        // Load the match data on page load
+        window.addEventListener('load', loadMatchData);
     </script>
 </body>
 </html>
