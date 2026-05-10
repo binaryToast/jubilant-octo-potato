@@ -88,11 +88,11 @@ def scrape_sumo_bouts(basho=None, day=None):
         bouts.append({
             "east": {
                 "name": bout.get("eastShikona", ""),
-                "nskId": get_nskid_for_wrestler(east_id)
+                "id": get_nskid_for_wrestler(east_id)
             },
             "west": {
                 "name": bout.get("westShikona", ""),
-                "nskId": get_nskid_for_wrestler(west_id)
+                "id": get_nskid_for_wrestler(west_id)
             },
             "kimarite": bout.get("kimarite", None) or None,
             "winner": bout.get("winnerId", 0) or None
