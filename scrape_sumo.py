@@ -48,6 +48,18 @@ def second_sunday(year, month):
                if day.weekday() == 6 and day.month == month]
     return sundays[1]
 
+def get_nskid_for_wrestler(wrestler_id):
+    """Fetch nskId for a wrestler from the rikishi API."""
+    try:
+        url = f"https://www.sumo-api.com/api/rikishi/{wrestler_id}"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        return data.get("nskId")
+    except Exception as e:
+        print(f"Warning: Could not fetch nskId for wrestler {wrestler_id}: {e}")
+        return None
+
 def scrape_sumo_bouts(basho=None, day=None):
     """Fetch sumo bouts from the sumo-api.com API."""
     if not basho or not day:
@@ -70,14 +82,17 @@ def scrape_sumo_bouts(basho=None, day=None):
     
     bouts = []
     for bout in bouts_data:
+        east_id = bout.get("eastId")
+        west_id = bout.get("westId")
+        
         bouts.append({
             "east": {
                 "name": bout.get("eastShikona", ""),
-                "id": bout.get("eastId", None)
+                "nskId": get_nskid_for_wrestler(east_id)
             },
             "west": {
                 "name": bout.get("westShikona", ""),
-                "id": bout.get("westId", None)
+                "nskId": get_nskid_for_wrestler(west_id)
             },
             "kimarite": bout.get("kimarite", None) or None,
             "winner": bout.get("winnerId", 0) or None
