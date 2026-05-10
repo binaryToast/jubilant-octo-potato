@@ -1,3 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumodle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+    /* Background gradient behind image */
+    background: 
+    url('images/Background.jpg') center/contain no-repeat, 
+    /*linear-gradient(90deg, transparent 49%, #cf142b 49%, #cf142b 51%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, #cf142b 49%, #cf142b 51%, transparent 51%),
+    linear-gradient(90deg, transparent 47%, #fff 47%, #fff 53%, transparent 53%),
+    linear-gradient(0deg, transparent 47%, #fff 47%, #fff 53%, transparent 53%),
+    linear-gradient(-26.56505117707799deg, transparent 49%, #cf142b 49%, #cf142b 51%, transparent 51%),
+    linear-gradient(26.56505117707799deg, transparent 49%, #cf142b 49%, #cf142b 51%, transparent 51%),
+    linear-gradient(-26.56505117707799deg, transparent 47%, #fff 47%, #fff 53%, transparent 53%),
+    linear-gradient(26.56505117707799deg, transparent 47%, #fff 47%, #fff 53%, transparent 53%),*/
+    linear-gradient(0deg, #00247d 0%, #00247d 100%);
+    color: #333;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+        
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            width: 100%;
+            gap: 20px;
+            z-index: 1;
+        }
+        
+        .predictions-panel {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .predictions-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a2a6c;
+        }
+        
+        .predictions-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 300px;
+            margin-bottom: 15px;
+        }
+        
+        .prediction-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #f8f8f8;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .prediction-correct {
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .prediction-incorrect {
+            border-left: 4px solid #f44336;
+        }
+        
+        .prediction-pending {
+            border-left: 4px solid #ff9800;
+        }
+        
+        .copy-btn {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .clear-btn {
+            background: #b21f1f;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .copy-btn:hover {
+            background: #2a3a9c;
+        }
+        
+        .clear-btn:hover {
+            background: #d32f2f;
+        }
+        
+        .container {
+            flex-grow: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #1a2a6c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            background: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn:hover {
+            background: #2a3a9c;
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .match-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .wrestler-card {
+            width: 280px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .wrestler-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wrestler-card.selected {
+            box-shadow: 0 0 0 3px #fdbb2d;
+        }
+        
+        .east {
+            border-top: 5px solid #1a2a6c;
+        }
+        
+        .west {
+            border-top: 5px solid #b21f1f;
+        }
+        
+        .winner-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: #fdbb2d;
+            color: #333;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wrestler-image {
+            width: 150px;
+            height: 260px;
+            border-radius: 5%;
+            object-fit: cover;
+            margin: 10px auto;
+            border: 3px solid #ddd;
+            display: block;
+        }
+        
+        .wrestler-name {
+            font-size: 1.8rem;
+            margin: 15px 0;
+            color: #1a2a6c;
+        }
+        
+        .vs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #b21f1f;
+            margin: 0 10px;
+        }
+        
+        .kimarite {
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5rem;
+            color: #1a2a6c;
+            font-weight: bold;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 80%;
+        }
+        
+        .match-info {
+            text-align: center;
+            padding: 15px;
+            background: #f0f0f0;
+            border-top: 1px solid #ddd;
+            font-size: 1.2rem;
+        }
+        
+        .instructions {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            max-width: 800px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.5rem;
+            color: #1a2a6c;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.5rem;
+            color: #b21f1f;
+        }
+        
+        .import-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .import-textarea {
+            width: 100%;
+            height: 80px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            font-family: monospace;
+        }
+        
+        .stats-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stats-numbers {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #1a2a6c;
+        }
+        
+        /* Salt Basket Styles */
+        .salt-basket {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            z-index: 100;
+            cursor: grab;
+            transition: transform 0.2s;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        
+        .salt-basket.left {
+            left: 20px;
+        }
+        
+        .salt-basket.right {
+            right: 20px;
+        }
+        
+        .salt-basket:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+        
+        .salt-basket svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .salt-particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0.9;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .predictions-panel {
+                width: 100%;
+                order: 2;
+            }
+            
+            .container {
+                order: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .match-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .vs {
+                margin: 20px 0;
+                transform: rotate(90deg);
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+            }
+            
+            .wrestler-image {
+                width: 120px;
+                height: 240px;
+            }
+            
+            .salt-basket {
+                width: 50px;
+                height: 50px;
+                bottom: 10px;
+            }
+            
+            .salt-basket.left {
+                left: 10px;
+            }
+            
+            .salt-basket.right {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Salt Baskets fun -->
+    <div class="salt-basket left" id="salt-basket-left">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <!-- Basket shape -->
+            <ellipse cx="30" cy="20" rx="20" ry="12" fill="#D2A679" stroke="#8B6F47" stroke-width="1"/>
+            <path d="M 10 20 Q 10 35 15 40 L 45 40 Q 50 35 50 20" fill="#C9956F" stroke="#8B6F47" stroke-width="1"/>
+            <!-- Weave pattern -->
+            <line x1="15" y1="22" x2="45" y2="22" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="14" y1="26" x2="46" y2="26" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="30" x2="47" y2="30" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="34" x2="47" y2="34" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <!-- Handle -->
+            <path d="M 20 20 Q 30 5 40 20" fill="none" stroke="#8B6F47" stroke-width="2"/>
+        </svg>
+    </div>
+    
+    <div class="salt-basket right" id="salt-basket-right">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <!-- Basket shape -->
+            <ellipse cx="30" cy="20" rx="20" ry="12" fill="#D2A679" stroke="#8B6F47" stroke-width="1"/>
+            <path d="M 10 20 Q 10 35 15 40 L 45 40 Q 50 35 50 20" fill="#C9956F" stroke="#8B6F47" stroke-width="1"/>
+            <!-- Weave pattern -->
+            <line x1="15" y1="22" x2="45" y2="22" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="14" y1="26" x2="46" y2="26" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="30" x2="47" y2="30" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <line x1="13" y1="34" x2="47" y2="34" stroke="#8B6F47" stroke-width="0.5" opacity="0.5"/>
+            <!-- Handle -->
+            <path d="M 20 20 Q 30 5 40 20" fill="none" stroke="#8B6F47" stroke-width="2"/>
+        </svg>
+    </div>
+    
+    <div class="main-container">
+        <div class="predictions-panel">
+            <div class="predictions-header">
+                <h2>Your Predictions</h2>
+            </div>
+            <div class="predictions-list" id="predictions-list">
+                <!-- Predictions will be added here dynamically -->
+                <p id="no-predictions">No predictions yet. Start by selecting winners for each match.</p>
+            </div>
+            
+            <div class="stats-section">
+                <h3>Your Results</h3>
+                <div class="stats-numbers">
+                    <span id="correct-count">0</span> / <span id="total-predictions">0</span> Correct
+                </div>
+                <button class="copy-btn" id="copy-results-btn">
+                    <i class="fas fa-copy"></i> Copy Results
+                </button>
+            </div>
+            
+            <button class="copy-btn" id="copy-btn">
+                <i class="fas fa-copy"></i> Copy Predictions
+            </button>
+            
+            <button class="clear-btn" id="clear-btn">
+                <i class="fas fa-trash"></i> Clear All Choices
+            </button>
+            
+            <div class="import-section">
+                <h3>Import Predictions</h3>
+                <textarea class="import-textarea" id="import-textarea" placeholder="Paste exported predictions here..."></textarea>
+                <button class="copy-btn" id="import-btn">
+                    <i class="fas fa-file-import"></i> Import Predictions
+                </button>
+            </div>
+        </div>
+        
+        <div class="container">
+            <header>
+                <h1>Sumo-dle</h1>
+            </header>
+            
+            <div class="controls">
+                <button class="btn" id="prev-btn">
+                    <i class="fas fa-arrow-left"></i> Previous Match
+                </button>
+                <button class="btn" id="next-btn">
+                    Next Match <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn" id="first-btn">
+                    <i class="fas fa-fast-backward"></i> First Match
+                </button>
+                <button class="btn" id="last-btn">
+                    Last Match <i class="fas fa-fast-forward"></i>
+                </button>
+            </div>
+            
+            <div class="match-info">
+                Match <span id="current-match">1</span> of <span id="total-matches">0</span>
+            </div>
+            
+            <div class="match-container">
+                <div class="wrestler-card east" id="east-card">
+                    <div class="winner-badge" id="east-winner">WINNER</div>
+                    <h3>East</h3>
+                    <img class="wrestler-image" id="east-image" src="" alt="East Wrestler">
+                    <div class="wrestler-name" id="east-name">Loading...</div>
+                </div>
+                
+                <div class="vs">VS</div>
+                
+                <div class="wrestler-card west" id="west-card">
+                    <div class="winner-badge" id="west-winner">WINNER</div>
+                    <h3>West</h3>
+                    <img class="wrestler-image" id="west-image" src="" alt="West Wrestler">
+                    <div class="wrestler-name" id="west-name">Loading...</div>
+                </div>
+            </div>
+            
+            <div class="kimarite" id="kimarite">Kimarite: Not available</div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h2>How to Use</h2>
+        <p>Click on either wrestler to predict the winner for the displayed match.</p>
+        <p>Your predictions will be recorded in the left panel.</p>
+        <p>Use the navigation buttons to move between matches.</p>
+        <p>Click "Copy Predictions" to copy your choices to the clipboard.</p>
+        <p><strong>New Feature:</strong> Drag the salt baskets from the corners to purify the ring!</p>
+    </div>
+  <!-- Banzuke Table Toggle & Iframe -->
+<div id="banzuke-toggle" style="
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9999;
+  width:600px;
+  max-width:90vw;
+  text-align:center;
+">
+  <button id="show-banzuke-btn" style="background:#1a2a6c;color:white;padding:10px 20px;border-radius:10px 10px 0 0;border:none;cursor:pointer;width:100%;display:block;">
+    Show sumoDB
+  </button>
+  <div id="banzuke-iframe-container" style="display:none;">
+    <iframe 
+      src="https://sumodb.sumogames.de/Banzuke.aspx"
+      width="100%" 
+      height="450" 
+      style="border:none;background:white;"
+      title="Banzuke Table"></iframe>
+    <button id="hide-banzuke-btn" style="background:#b21f1f;color:white;padding:5px 20px;border:none;border-radius:0 0 10px 10px;cursor:pointer;width:100%;">
+      Hide sumoDB
+    </button>
+  </div>
+</div>
+
+    <script>
+        // DOM elements
+        const eastNameElement = document.getElementById('east-name');
+        const eastImageElement = document.getElementById('east-image');
+        const eastWinnerElement = document.getElementById('east-winner');
+        const eastCard = document.getElementById('east-card');
+        const westNameElement = document.getElementById('west-name');
+        const westImageElement = document.getElementById('west-image');
+        const westWinnerElement = document.getElementById('west-winner');
+        const westCard = document.getElementById('west-card');
+        const kimariteElement = document.getElementById('kimarite');
+        const currentMatchElement = document.getElementById('current-match');
+        const totalMatchesElement = document.getElementById('total-matches');
+        const predictionsList = document.getElementById('predictions-list');
+        const noPredictionsElement = document.getElementById('no-predictions');
+        const copyButton = document.getElementById('copy-btn');
+        const clearButton = document.getElementById('clear-btn');
+        const copyResultsButton = document.getElementById('copy-results-btn');
+        const correctCountElement = document.getElementById('correct-count');
+        const totalPredictionsElement = document.getElementById('total-predictions');
+        const importTextarea = document.getElementById('import-textarea');
+        const importButton = document.getElementById('import-btn');
+        
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const firstBtn = document.getElementById('first-btn');
+        const lastBtn = document.getElementById('last-btn');
+
+        // Salt basket elements
+        const saltBasketLeft = document.getElementById('salt-basket-left');
+        const saltBasketRight = document.getElementById('salt-basket-right');
+
+        // Global variables
+        let matches = [];
+        let currentMatchIndex = 0;
+        let userPredictions = {};
+
+        // Salt throwing variables
+        let isDragging = false;
+        let dragStartX, dragStartY;
+        let currentBasket = null;
+        let saltParticles = [];
+
+        // Load predictions from cookie
+        function loadPredictionsFromCookie() {
+            try {
+                const cookieData = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('sumoPredictions='));
+                
+                if (cookieData) {
+                    const predictionsString = decodeURIComponent(cookieData.split('=')[1]);
+                    userPredictions = JSON.parse(predictionsString);
+                }
+            } catch (e) {
+                console.error('Error loading predictions from cookie:', e);
+                userPredictions = {};
+            }
+        }
+
+        // Save predictions to cookie
+        function savePredictionsToCookie() {
+            try {
+                const predictionsString = JSON.stringify(userPredictions);
+                const expiryDate = new Date();
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1); // 1 year expiry
+                
+                document.cookie = `sumoPredictions=${encodeURIComponent(predictionsString)}; expires=${expiryDate.toUTCString()}; path=/`;
+            } catch (e) {
+                console.error('Error saving predictions to cookie:', e);
+            }
+        }
+
+        // Fetch JSON data
+        async function loadMatchData() {
+            try {
+                const response = await fetch('matches.json', { cache: 'no-store' });
+                if (!response.ok) {
+                    throw new Error('Failed to load match data');
+                }
+                matches = await response.json();
+                
+                if (matches.length === 0) {
+                    throw new Error('No match data available');
+                }
+                
+                // Load predictions from cookie
+                loadPredictionsFromCookie();
+                
+                // Start at the final match (reverse order)
+                //currentMatchIndex = matches.length - 1;
+                //starting at match 1 for LONDON basho
+                currentMatchIndex = 0;
+                
+                totalMatchesElement.textContent = matches.length;
+                displayCurrentMatch();
+                updateStats();
+            } catch (error) {
+                document.querySelector('.match-container').innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>${error.message}</p>
+                        <p>Please make sure matches.json is available in the same directory.</p>
+                    </div>
+                `;
+                console.error('Error loading match data:', error);
+            }
+        }
+
+        // Display the current match
+        function displayCurrentMatch() {
+            if (matches.length === 0) return;
+            
+            const match = matches[currentMatchIndex];
+            const prediction = userPredictions[currentMatchIndex];
+            
+            eastNameElement.textContent = match.east.name;
+            westNameElement.textContent = match.west.name;
+            
+            // Set wrestler images
+            if (match.east.id) {
+                eastImageElement.src = `images/${match.east.id}.jpg`;
+                eastImageElement.onerror = function() {
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiBhbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
+                };
+            }
+            
+            if (match.west.id) {
+                westImageElement.src = `images/${match.west.id}.jpg`;
+                westImageElement.onerror = function() {
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiBhbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
+                };
+            }
+            
+            // Show/hide winner badges based on winner ID
+            if (match.winner) {
+                eastWinnerElement.style.display = (match.winner === match.east.id && prediction !== undefined) ? 'block' : 'none';
+                westWinnerElement.style.display = (match.winner === match.west.id && prediction !== undefined) ? 'block' : 'none';
+            } else {
+                eastWinnerElement.style.display = 'none';
+                westWinnerElement.style.display = 'none';
+            }
+            
+            // Display kimarite if available
+            kimariteElement.textContent = match.kimarite ? `Kimarite: ${match.kimarite}` : 'Kimarite: Not available';
+            
+            // Update match counter
+            currentMatchElement.textContent = currentMatchIndex + 1;
+            
+            // Update selection state
+            updateCardSelection();
+            
+            // Update predictions list
+            updatePredictionsList();
+        }
+
+        // Update card selection state
+        function updateCardSelection() {
+            const prediction = userPredictions[currentMatchIndex];
+            
+            // Reset selection
+            eastCard.classList.remove('selected');
+            westCard.classList.remove('selected');
+            
+            // Apply selection if user has made a prediction
+            if (prediction === 'east') {
+                eastCard.classList.add('selected');
+            } else if (prediction === 'west') {
+                westCard.classList.add('selected');
+            }
+        }
+
+        // Update predictions list
+        function updatePredictionsList() {
+            // Clear the list
+            predictionsList.innerHTML = '';
+            
+            // Check if we have any predictions
+            if (Object.keys(userPredictions).length === 0) {
+                predictionsList.appendChild(noPredictionsElement);
+                return;
+            }
+            
+            // Add each prediction to the list
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    const match = matches[i];
+                    const prediction = userPredictions[i];
+                    const actual = match.winner;
+                    
+                    const predictionItem = document.createElement('div');
+                    predictionItem.className = 'prediction-item';
+                    
+                    // Add appropriate class based on prediction correctness
+                    if (actual) {
+                        // Compare wrestler ID with the prediction side
+                        const predictedWrestlerId = prediction === 'east' ? match.east.id : match.west.id;
+                        predictionItem.classList.add(
+                            predictedWrestlerId === actual ? 'prediction-correct' : 'prediction-incorrect'
+                        );
+                    } else {
+                        predictionItem.classList.add('prediction-pending');
+                    }
+                    
+                    const predictionText = document.createElement('div');
+                    predictionText.textContent = `Match ${i+1}: ${prediction === 'east' ? match.east.name : match.west.name}`;
+                    
+                    const predictionStatus = document.createElement('div');
+                    if (actual) {
+                        const predictedWrestlerId = prediction === 'east' ? match.east.id : match.west.id;
+                        predictionStatus.textContent = predictedWrestlerId === actual ? '✓' : '✗';
+                        predictionStatus.style.color = predictedWrestlerId === actual ? '#4CAF50' : '#f44336';
+                        predictionStatus.style.fontWeight = 'bold';
+                    } else {
+                        predictionStatus.textContent = '?';
+                        predictionStatus.style.color = '#ff9800';
+                    }
+                    
+                    predictionItem.appendChild(predictionText);
+                    predictionItem.appendChild(predictionStatus);
+                    // 🔥 New feature: Click to jump to that match
+                    predictionItem.addEventListener('click', () => {
+                        currentMatchIndex = i;
+                        displayCurrentMatch();
+                    });
+                    predictionsList.appendChild(predictionItem);
+                }
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            let correct = 0;
+            let total = 0;
+            
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    total++;
+                    if (matches[i].winner) {
+                        const predictedWrestlerId = userPredictions[i] === 'east' ? matches[i].east.id : matches[i].west.id;
+                        if (predictedWrestlerId === matches[i].winner) {
+                            correct++;
+                        }
+                    }
+                }
+            }
+            
+            correctCountElement.textContent = correct;
+            totalPredictionsElement.textContent = total;
+        }
+
+        // Clear all predictions
+        function clearAllPredictions() {
+            if (Object.keys(userPredictions).length === 0) {
+                alert('No predictions to clear!');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to clear all your predictions?')) {
+                userPredictions = {};
+                updatePredictionsList();
+                updateStats();
+                updateCardSelection();
+                savePredictionsToCookie();
+                alert('All predictions have been cleared.');
+            }
+        }
+
+        // Record user prediction
+        function recordPrediction(side) {
+            userPredictions[currentMatchIndex] = side;
+            updateCardSelection();
+            updatePredictionsList();
+            updateStats();
+            savePredictionsToCookie();
+            
+            // Automatically move to the next match
+            setTimeout(() => {
+                nextMatch();
+            }, 500);
+        }
+
+        // Copy predictions to clipboard
+        function copyPredictionsToClipboard() {
+            if (Object.keys(userPredictions).length === 0) {
+                alert('No predictions to copy!');
+                return;
+            }
+            
+            let text = "https://binarytoast.github.io/jubilant-octo-potato/\nMy Sumo Predictions:\n\n";
+            
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    const match = matches[i];
+                    const prediction = userPredictions[i];
+                    const wrestlerName = prediction === 'east' ? match.east.name : match.west.name;
+                    
+                    text += `Match ${i+1}: ${wrestlerName}\n`;
+                }
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary feedback
+                const originalText = copyButton.innerHTML;
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyButton.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy predictions to clipboard');
+            });
+        }
+
+        // Copy results to clipboard
+        function copyResultsToClipboard() {
+            if (Object.keys(userPredictions).length === 0) {
+                alert('No results to copy!');
+                return;
+            }
+        
+            let correct = 0;
+            let total = 0;
+            let emojiString = '';
+        
+            for (let i = 0; i < matches.length; i++) {
+                if (userPredictions[i] !== undefined) {
+                    total++;
+                    const match = matches[i];
+                    const prediction = userPredictions[i];
+                    const predictedWrestlerId = prediction === 'east' ? match.east.id : match.west.id;
+                    const isCorrect = match.winner && predictedWrestlerId === match.winner;
+                
+                    if (isCorrect) {
+                        correct++;
+                        emojiString += '🟩';
+                    } else if (match.winner) {
+                        emojiString += '🟥';
+                    } else {
+                        emojiString += '⬜';
+                    }
+                }
+            }
+        
+            const text = `Your Results: ${correct}/${total} Correct\n${emojiString}`;
+        
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary feedback
+                const originalText = copyResultsButton.innerHTML;
+                copyResultsButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyResultsButton.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy results to clipboard');
+            });
+        }
+
+        // Import predictions from text
+        function importPredictions() {
+            const text = importTextarea.value.trim();
+            if (!text) {
+                alert('Please paste predictions to import');
+                return;
+            }
+            
+            try {
+                const lines = text.split('\n');
+                const newPredictions = {};
+                
+                for (const line of lines) {
+                    if (line.startsWith('Match')) {
+                        const matchNumber = parseInt(line.split(':')[0].replace('Match', '').trim()) - 1;
+                        if (isNaN(matchNumber) || matchNumber < 0 || matchNumber >= matches.length) continue;
+                        
+                        const wrestlerName = line.split(':')[1].trim();
+                        
+                        // Find which wrestler this name corresponds to
+                        if (matches[matchNumber].east.name === wrestlerName) {
+                            newPredictions[matchNumber] = 'east';
+                        } else if (matches[matchNumber].west.name === wrestlerName) {
+                            newPredictions[matchNumber] = 'west';
+                        }
+                    }
+                }
+                
+                // Merge with existing predictions
+                userPredictions = {...userPredictions, ...newPredictions};
+                
+                // Save and update UI
+                savePredictionsToCookie();
+                updatePredictionsList();
+                updateStats();
+                displayCurrentMatch();
+                
+                // Show success message
+                alert(`Successfully imported ${Object.keys(newPredictions).length} predictions`);
+                importTextarea.value = '';
+            } catch (e) {
+                console.error('Error importing predictions:', e);
+                alert('Failed to import predictions. Please check the format.');
+            }
+        }
+
+        // Navigate to the next match (which is actually the previous match in reverse order)
+        function nextMatch() {
+            currentMatchIndex++;
+            if (currentMatchIndex >= matches.length) currentMatchIndex = matches.length - 1;
+            displayCurrentMatch();
+        }
+
+        // Navigate to the previous match (which is actually the next match in reverse order)
+        function prevMatch() {
+            currentMatchIndex--;
+            if (currentMatchIndex < 0) currentMatchIndex = 0;
+            displayCurrentMatch();
+        }
+
+        // Navigate to the first match
+        function firstMatch() {
+            currentMatchIndex = 0;
+            displayCurrentMatch();
+        }
+
+        // Navigate to the last match
+        function lastMatch() {
+            currentMatchIndex = matches.length - 1;
+            displayCurrentMatch();
+        }
+
+        // Event listeners for wrestler selection
+        eastCard.addEventListener('click', () => recordPrediction('east'));
+        westCard.addEventListener('click', () => recordPrediction('west'));
+
+        // Event listeners for buttons
+        copyButton.addEventListener('click', copyPredictionsToClipboard);
+        clearButton.addEventListener('click', clearAllPredictions);
+        copyResultsButton.addEventListener('click', copyResultsToClipboard);
+        importButton.addEventListener('click', importPredictions);
+        
+        prevBtn.addEventListener('click', prevMatch);
+        nextBtn.addEventListener('click', nextMatch);
+        firstBtn.addEventListener('click', firstMatch);
+        lastBtn.addEventListener('click', lastMatch);
+
         // Salt basket drag functionality
         function createSaltParticles(x, y) {
             for (let i = 0; i < 8; i++) {
@@ -35,14 +1080,24 @@
 
         function handleBasketMouseDown(e) {
             isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
             currentBasket = e.currentTarget;
-            currentBasket.style.opacity = '0.7';
+            e.currentTarget.style.opacity = '0.7';
         }
 
         function handleMouseMove(e) {
-            if (!isDragging || !currentBasket) return;
+            if (!isDragging) return;
             
-            createSaltParticles(e.clientX, e.clientY);
+            const deltaX = e.clientX - dragStartX;
+            const deltaY = e.clientY - dragStartY;
+            
+            if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+                createSaltParticles(e.clientX, e.clientY);
+            }
+            
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
         }
 
         function handleMouseUp() {
@@ -75,3 +1130,6 @@
 
         // Load the match data on page load
         window.addEventListener('load', loadMatchData);
+    </script>
+</body>
+</html>
