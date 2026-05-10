@@ -84,6 +84,7 @@ def scrape_sumo_bouts(basho=None, day=None):
     for bout in bouts_data:
         east_id = bout.get("eastId")
         west_id = bout.get("westId")
+        winner_id = bout.get("winnerId")
         
         bouts.append({
             "east": {
@@ -95,7 +96,7 @@ def scrape_sumo_bouts(basho=None, day=None):
                 "id": get_nskid_for_wrestler(west_id)
             },
             "kimarite": bout.get("kimarite", None) or None,
-            "winner": bout.get("winnerId", 0) or None
+            "winner": get_nskid_for_wrestler(winner_id) if winner_id else None
         })
     
     return bouts
