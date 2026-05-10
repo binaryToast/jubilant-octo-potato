@@ -60,23 +60,27 @@ def scrape_sumo_bouts(basho=None, day=None):
     
     data = response.json()
     
-    # The API returns a list of bouts
-    if not isinstance(data, list):
-        raise ValueError("Unexpected API response format")
+    # The API returns a dict with torikumi containing the list of bouts
+    if not isinstance(data, dict):
+        raise ValueError(f"Unexpected API response format: expected dict, got {type(data)}")
+    
+    bouts_data = data.get("torikumi", [])
+    if not isinstance(bouts_data, list):
+        raise ValueError(f"Expected 'torikumi' to be a list, got {type(bouts_data)}")
     
     bouts = []
-    for bout in data:
+    for bout in bouts_data:
         bouts.append({
             "east": {
-                "name": bout.get("east", {}).get("shikonaEn", ""),
-                "id": bout.get("east", {}).get("rikishiID", None)
+                "name": bout.get("eastShikona", ""),
+                "id": bout.get("eastId", None)
             },
             "west": {
-                "name": bout.get("west", {}).get("shikonaEn", ""),
-                "id": bout.get("west", {}).get("rikishiID", None)
+                "name": bout.get("westShikona", ""),
+                "id": bout.get("westId", None)
             },
-            "kimarite": bout.get("kimarite", None),
-            "winner": bout.get("winningSide", None)
+            "kimarite": bout.get("kimarite", None) or None,
+            "winner": bout.get("winnerId", 0) or None
         })
     
     return bouts
