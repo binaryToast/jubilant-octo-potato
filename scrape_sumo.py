@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 import json
 import os
 from datetime import datetime, timedelta
@@ -50,86 +49,37 @@ def second_sunday(year, month):
     return sundays[1]
 
 def scrape_sumo_bouts(basho=None, day=None):
-    base_url = "https://sumodb.sumogames.de/Results.aspx"
-    params = {}
-    if basho and day:
-        params = {"b": basho, "d": day}
+    """Fetch sumo bouts from the sumo-api.com API."""
+    if not basho or not day:
+        raise ValueError("basho and day parameters are required")
     
-    response = requests.get(base_url, params=params, verify=False)
+    base_url = f"https://www.sumo-api.com/api/basho/{basho}/torikumi/Makuuchi/{day}"
+    
+    response = requests.get(base_url)
     response.raise_for_status()
     
-    soup = BeautifulSoup(response.text, 'html.parser')
+    data = response.json()
     
-    # Get the first table with class 'tk_table' (Makuuchi is the top division)
-    makuuchi_table = soup.find('table', class_='tk_table')
-    
-    if not makuuchi_table:
-        raise ValueError("No sumo bout table found on the page")
+    # The API returns a list of bouts
+    if not isinstance(data, list):
+        raise ValueError("Unexpected API response format")
     
     bouts = []
-    for row in makuuchi_table.find_all('tr')[1:]:  # Skip header row
-        cells = row.find_all('td')
-        
-        # Skip rows that don't have enough cells for a bout
-        if len(cells) < 5:
-            continue
-            
-        # Extract information from the correct columns
-        # Column 1: East result (hoshi_shiro.gif for win, hoshi_kuro.gif for loss)
-        # Column 2: East rikishi
-        # Column 3: Kimarite
-        # Column 4: West rikishi
-        # Column 5: West result
-        
-        east_result_cell = cells[0]
-        east_rikishi_cell = cells[1]
-        kimarite_cell = cells[2]
-        west_rikishi_cell = cells[3]
-        west_result_cell = cells[4]
-        
-        # Get wrestler names and IDs
-        east_wrestler = extract_wrestler_info(east_rikishi_cell)
-        west_wrestler = extract_wrestler_info(west_rikishi_cell)
-        
-        # Determine winner based on result images
-        winner = None
-        kimarite = kimarite_cell.text.strip()
-        
-        # Check for win/loss images
-        east_win = east_result_cell.find('img', src=lambda x: x and 'hoshi_shiro.gif' in x)
-        east_loss = east_result_cell.find('img', src=lambda x: x and 'hoshi_kuro.gif' in x)
-        west_win = west_result_cell.find('img', src=lambda x: x and 'hoshi_shiro.gif' in x)
-        west_loss = west_result_cell.find('img', src=lambda x: x and 'hoshi_kuro.gif' in x)
-        
-        if east_win and west_loss:
-            winner = 'east'
-        elif west_win and east_loss:
-            winner = 'west'
-        
-        # For future bouts, kimarite might be empty
-        if kimarite == '-' or not kimarite:
-            kimarite = None
-            winner = None
-        
+    for bout in data:
         bouts.append({
-            "east": east_wrestler,
-            "west": west_wrestler,
-            "kimarite": kimarite,
-            "winner": winner
+            "east": {
+                "name": bout.get("east", {}).get("shikonaEn", ""),
+                "id": bout.get("east", {}).get("rikishiID", None)
+            },
+            "west": {
+                "name": bout.get("west", {}).get("shikonaEn", ""),
+                "id": bout.get("west", {}).get("rikishiID", None)
+            },
+            "kimarite": bout.get("kimarite", None),
+            "winner": bout.get("winningSide", None)
         })
     
     return bouts
-
-def extract_wrestler_info(cell):
-    link = cell.find('a')
-    if link:
-        href = link.get('href', '')
-        wrestler_id = href.split('=')[-1] if '=' in href else None
-        return {
-            "name": link.text.strip(),
-            "id": wrestler_id
-        }
-    return {"name": cell.text.strip(), "id": None}
 
 def main():
     # Get parameters from environment variables (for GitHub Actions)
