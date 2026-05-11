@@ -1043,7 +1043,7 @@
         firstBtn.addEventListener('click', firstMatch);
         lastBtn.addEventListener('click', lastMatch);
 
-        // Salt basket drag functionality
+        /* Salt basket drag functionality Broken
         function createSaltParticles(x, y) {
             for (let i = 0; i < 8; i++) {
                 const particle = document.createElement('div');
@@ -1112,7 +1112,147 @@
         saltBasketRight.addEventListener('mousedown', handleBasketMouseDown);
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
+*/
+        // Salt throwing functionality
+        function startDrag(e) {
+            isDragging = true;
+            currentBasket = this;
+            dragStartX = e.clientX || e.touches[0].clientX;
+            dragStartY = e.clientY || e.touches[0].clientY;
+            
+            // Add event listeners for dragging and dropping
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('touchmove', doDrag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+            
+            // Prevent default to avoid text selection
+            e.preventDefault();
+        }
 
+        function doDrag(e) {
+            if (!isDragging) return;
+            
+            const currentX = e.clientX || e.touches[0].clientX;
+            const currentY = e.clientY || e.touches[0].clientY;
+            
+            // Move the basket with the cursor/finger
+            currentBasket.style.left = (currentX - 30) + 'px';
+            currentBasket.style.top = (currentY - 30) + 'px';
+            currentBasket.style.right = 'auto';
+            currentBasket.style.bottom = 'auto';
+        }
+
+        function stopDrag(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            
+            const endX = e.clientX || e.changedTouches[0].clientX;
+            const endY = e.clientY || e.changedTouches[0].clientY;
+            
+            // Calculate throw velocity based on drag distance
+            const velocityX = endX - dragStartX;
+            const velocityY = endY - dragStartY;
+            
+            // Throw salt particles
+            throwSalt(endX, endY, velocityX, velocityY);
+            
+            // Reset basket position
+            setTimeout(() => {
+                if (currentBasket.id === 'salt-basket-left') {
+                    currentBasket.style.left = '20px';
+                    currentBasket.style.right = 'auto';
+                } else {
+                    currentBasket.style.left = 'auto';
+                    currentBasket.style.right = '20px';
+                }
+                currentBasket.style.top = 'auto';
+                currentBasket.style.bottom = '20px';
+            }, 300);
+            
+            // Remove event listeners
+            document.removeEventListener('mousemove', doDrag);
+            document.removeEventListener('touchmove', doDrag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        function throwSalt(x, y, velocityX, velocityY) {
+            const particleCount = 40 + Math.floor(Math.abs(velocityX + velocityY) / 10);
+            
+            for (let i = 0; i < particleCount; i++) {
+                createSaltParticle(x, y, velocityX, velocityY);
+            }
+        }
+
+function createSaltParticle(x, y, velocityX, velocityY) {
+    const particle = document.createElement('div');
+    particle.className = 'salt-particle';
+    
+    // Randomize size and position slightly
+    const size = 8 + Math.random() * 8;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.zIndex = 9999; // Ensure it's on top
+
+    // Position at throw origin
+    particle.style.left = (x - size/2) + 'px';
+    particle.style.top = (y - size/2) + 'px';
+    particle.style.opacity = 1;
+
+    document.body.appendChild(particle);
+
+    // Randomize velocity and direction
+    const angle = Math.atan2(velocityY, velocityX) + (Math.random() - 0.5) * 0.5;
+    const speed = 4 + Math.random() * 4;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed;
+
+    let posX = x;
+    let posY = y;
+    let gravity = 0.1;
+    let opacity = 1;
+
+    function animateParticle() {
+        posX += vx;
+        posY += vy;
+        vy += gravity;
+        opacity -= 0.01;
+
+        particle.style.left = posX + 'px';
+        particle.style.top = posY + 'px';
+        particle.style.opacity = opacity;
+
+        if (opacity > 0) {
+            requestAnimationFrame(animateParticle);
+        } else {
+            if (particle.parentNode) particle.parentNode.removeChild(particle);
+        }
+    }
+
+    requestAnimationFrame(animateParticle);
+}
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevMatch);
+        nextBtn.addEventListener('click', nextMatch);
+        firstBtn.addEventListener('click', goToFirstMatch);
+        lastBtn.addEventListener('click', goToLastMatch);
+        eastCard.addEventListener('click', () => recordPrediction('east'));
+        westCard.addEventListener('click', () => recordPrediction('west'));
+        copyButton.addEventListener('click', copyPredictionsToClipboard);
+        clearButton.addEventListener('click', clearAllPredictions);
+        copyResultsButton.addEventListener('click', copyResultsToClipboard);
+        importButton.addEventListener('click', importPredictions);
+
+        // Salt basket event listeners
+        saltBasketLeft.addEventListener('mousedown', startDrag);
+        saltBasketLeft.addEventListener('touchstart', startDrag);
+        saltBasketRight.addEventListener('mousedown', startDrag);
+        saltBasketRight.addEventListener('touchstart', startDrag);
+
+        
         // Banzuke toggle functionality
         const showBanzukeBtn = document.getElementById('show-banzuke-btn');
         const hideBanzukeBtn = document.getElementById('hide-banzuke-btn');
