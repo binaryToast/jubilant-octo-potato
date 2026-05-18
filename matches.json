@@ -1,75 +1,27 @@
 [
   {
     "east": {
+      "name": "Takerufuji",
+      "id": 4171
+    },
+    "west": {
+      "name": "Oshoumi",
+      "id": 4025
+    },
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
       "name": "Wakanosho",
       "id": 4121
     },
     "west": {
-      "name": "Sadanoumi",
-      "id": 2565
-    },
-    "kimarite": "yorikiri",
-    "winner": 2565
-  },
-  {
-    "east": {
-      "name": "Kotoeiho",
-      "id": 4120
-    },
-    "west": {
-      "name": "Fujiryoga",
-      "id": 4336
-    },
-    "kimarite": "watashikomi",
-    "winner": 4336
-  },
-  {
-    "east": {
-      "name": "Ryuden",
-      "id": 2890
-    },
-    "west": {
-      "name": "Tamawashi",
-      "id": 2629
-    },
-    "kimarite": "tsukihiza",
-    "winner": 2890
-  },
-  {
-    "east": {
-      "name": "Oshoumi",
-      "id": 4025
-    },
-    "west": {
-      "name": "Tokihayate",
-      "id": 3933
-    },
-    "kimarite": "yorikiri",
-    "winner": 3933
-  },
-  {
-    "east": {
-      "name": "Ura",
-      "id": 3616
-    },
-    "west": {
-      "name": "Tobizaru",
-      "id": 3594
-    },
-    "kimarite": "oshidashi",
-    "winner": 3594
-  },
-  {
-    "east": {
       "name": "Roga",
       "id": 3907
     },
-    "west": {
-      "name": "Kinbozan",
-      "id": 4112
-    },
-    "kimarite": "hatakikomi",
-    "winner": 3907
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -77,11 +29,23 @@
       "id": 3620
     },
     "west": {
-      "name": "Hakunofuji",
-      "id": 4187
+      "name": "Fujiryoga",
+      "id": 4336
     },
-    "kimarite": "shitatedashinage",
-    "winner": 3620
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "Kotoeiho",
+      "id": 4120
+    },
+    "west": {
+      "name": "Tobizaru",
+      "id": 3594
+    },
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -89,35 +53,35 @@
       "id": 3990
     },
     "west": {
-      "name": "Nishikifuji",
-      "id": 3742
+      "name": "Tamawashi",
+      "id": 2629
     },
-    "kimarite": "okuridashi",
-    "winner": 3742
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
-      "name": "Oshoma",
-      "id": 4108
+      "name": "Ryuden",
+      "id": 2890
     },
     "west": {
-      "name": "Asanoyama",
-      "id": 3682
+      "name": "Kinbozan",
+      "id": 4112
     },
-    "kimarite": "uwatenage",
-    "winner": 3682
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
-      "name": "Chiyoshoma",
-      "id": 3207
+      "name": "Ura",
+      "id": 3616
     },
     "west": {
-      "name": "Asahakuryu",
-      "id": 4175
+      "name": "Tokihayate",
+      "id": 3933
     },
-    "kimarite": "yorikiri",
-    "winner": 4175
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -125,11 +89,71 @@
       "id": 3485
     },
     "west": {
+      "name": "Hakunofuji",
+      "id": 4187
+    },
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "Chiyoshoma",
+      "id": 3207
+    },
+    "west": {
+      "name": "Asanoyama",
+      "id": 3682
+    },
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "Nishikifuji",
+      "id": 3742
+    },
+    "west": {
       "name": "Fujiseiun",
       "id": 4093
     },
-    "kimarite": "uwatenage",
-    "winner": 3485
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "Churanoumi",
+      "id": 3711
+    },
+    "west": {
+      "name": "Oshoma",
+      "id": 4108
+    },
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "Asahakuryu",
+      "id": 4175
+    },
+    "west": {
+      "name": "Shodai",
+      "id": 3521
+    },
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "Yoshinofuji",
+      "id": 4279
+    },
+    "west": {
+      "name": "Oho",
+      "id": 3844
+    },
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -137,11 +161,11 @@
       "id": 3705
     },
     "west": {
-      "name": "Churanoumi",
-      "id": 3711
+      "name": "Takanosho",
+      "id": 3265
     },
-    "kimarite": "oshidashi",
-    "winner": 3705
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -149,23 +173,11 @@
       "id": 4191
     },
     "west": {
-      "name": "Yoshinofuji",
-      "id": 4279
-    },
-    "kimarite": "oshidashi",
-    "winner": 4279
-  },
-  {
-    "east": {
       "name": "Ichiyamamoto",
       "id": 3753
     },
-    "west": {
-      "name": "Takanosho",
-      "id": 3265
-    },
-    "kimarite": "hikiotoshi",
-    "winner": 3753
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -173,11 +185,11 @@
       "id": 3761
     },
     "west": {
-      "name": "Oho",
-      "id": 3844
+      "name": "Kotoshoho",
+      "id": 3840
     },
-    "kimarite": "yorikiri",
-    "winner": 3761
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -185,35 +197,11 @@
       "id": 4055
     },
     "west": {
-      "name": "Shodai",
-      "id": 3521
-    },
-    "kimarite": "oshidashi",
-    "winner": 4055
-  },
-  {
-    "east": {
-      "name": "Wakamotoharu",
-      "id": 3371
-    },
-    "west": {
-      "name": "Kotoshoho",
-      "id": 3840
-    },
-    "kimarite": "oshidashi",
-    "winner": 3840
-  },
-  {
-    "east": {
-      "name": "Kotozakura",
-      "id": 3661
-    },
-    "west": {
       "name": "Daieisho",
       "id": 3376
     },
-    "kimarite": "oshidashi",
-    "winner": 3376
+    "kimarite": null,
+    "winner": null
   },
   {
     "east": {
@@ -221,10 +209,22 @@
       "id": 3622
     },
     "west": {
+      "name": "Wakamotoharu",
+      "id": 3371
+    },
+    "kimarite": null,
+    "winner": null
+  },
+  {
+    "east": {
+      "name": "Kotozakura",
+      "id": 3661
+    },
+    "west": {
       "name": "Gonoyama",
       "id": 4079
     },
-    "kimarite": "oshidashi",
-    "winner": 4079
+    "kimarite": null,
+    "winner": null
   }
 ]
