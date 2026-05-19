@@ -3,7 +3,8 @@ name: Scrape SumoDB
 on:
   # disabled because of no current basho
   schedule:
-    - cron: '2 0,9 * * *'  # 9:02 JST and 18:02 JST (0:02 and 9:02 UTC)
+    - cron: '2 9,19 * * *' 
+      timezone: "Australia/Brisbane"
   workflow_dispatch:
     inputs:
       banzuke:
