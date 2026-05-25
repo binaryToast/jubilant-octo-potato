@@ -2,9 +2,9 @@ name: Scrape SumoDB
 
 on:
   # disabled because of no current basho
-  schedule:
-    - cron: '2 9,19 * * *' 
-      timezone: "Australia/Brisbane"
+  #schedule:
+  #  - cron: '2 9,19 * * *' 
+  #    timezone: "Australia/Brisbane"
   workflow_dispatch:
     inputs:
       banzuke:
