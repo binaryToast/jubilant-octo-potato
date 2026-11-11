@@ -2,8 +2,8 @@ name: Scrape SumoDB
 
 on:
   schedule:
-   - cron: '2 9,19 * * *' 
-     timezone: "Australia/Brisbane"
+    - cron: '0 11,20 * * *'
+      timezone: "Australia/Brisbane"
   workflow_dispatch:
     inputs:
       banzuke:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Print time
         run: date -u
-        
+
       - name: Checkout repo
         uses: actions/checkout@v3
 
