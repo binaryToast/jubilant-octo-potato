@@ -8,8 +8,8 @@
       "name": "Kitanowaka",
       "id": 3939
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "yorikiri",
+    "winner": 3939
   },
   {
     "east": {
@@ -20,8 +20,8 @@
       "name": "Dewanoryu",
       "id": 3983
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "sukuinage",
+    "winner": 4116
   },
   {
     "east": {
@@ -32,8 +32,8 @@
       "name": "Kyokukaiyu",
       "id": 4232
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "yorikiri",
+    "winner": 4232
   },
   {
     "east": {
@@ -44,8 +44,8 @@
       "name": "Asasuiryu",
       "id": 4285
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "oshidashi",
+    "winner": 4267
   },
   {
     "east": {
