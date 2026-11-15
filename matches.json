@@ -8,8 +8,8 @@
       "name": "Kagayaki",
       "id": 3255
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "oshidashi",
+    "winner": 2629
   },
   {
     "east": {
@@ -20,8 +20,8 @@
       "name": "Dewanoryu",
       "id": 3983
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "yorikiri",
+    "winner": 3983
   },
   {
     "east": {
@@ -32,8 +32,8 @@
       "name": "Daiseizan",
       "id": 4116
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "oshidashi",
+    "winner": 4243
   },
   {
     "east": {
@@ -44,8 +44,8 @@
       "name": "Arashifuji",
       "id": 4267
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "okuridashi",
+    "winner": 3265
   },
   {
     "east": {
@@ -56,8 +56,8 @@
       "name": "Asahakuryu",
       "id": 4175
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "yorikiri",
+    "winner": 3939
   },
   {
     "east": {
@@ -68,8 +68,8 @@
       "name": "Ichiyamamoto",
       "id": 3753
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "yorikiri",
+    "winner": 3753
   },
   {
     "east": {
@@ -80,8 +80,8 @@
       "name": "Oho",
       "id": 3844
     },
-    "kimarite": null,
-    "winner": null
+    "kimarite": "kotenage",
+    "winner": 3844
   },
   {
     "east": {
