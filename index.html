@@ -274,6 +274,18 @@
             margin: 20px auto;
             max-width: 80%;
         }
+
+        .head-to-head {
+            text-align: center;
+            padding: 12px;
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 600;
+            background: #eef1f7;
+            border-radius: 8px;
+            margin: 10px auto;
+            max-width: 80%;
+        }
         
         .match-info {
             text-align: center;
@@ -600,7 +612,7 @@
                     <div class="wrestler-name" id="west-name">Loading...</div>
                 </div>
             </div>
-            
+            <div class="head-to-head" id="head-to-head" style="display: none;"></div>
             <div class="kimarite" id="kimarite">Kimarite: Not available</div>
         </div>
     </div>
@@ -755,6 +767,7 @@
             
             const match = matches[currentMatchIndex];
             const prediction = userPredictions[currentMatchIndex];
+            const headToHeadElement = document.getElementById('head-to-head');
             
             eastNameElement.textContent = match.east.name;
             westNameElement.textContent = match.west.name;
@@ -781,6 +794,19 @@
             } else {
                 eastWinnerElement.style.display = 'none';
                 westWinnerElement.style.display = 'none';
+            }
+
+            // Display head-to-head history if available
+            if (match.history) {
+                const { eastWins, westWins } = match.history;
+                if (eastWins === 0 && westWins === 0) {
+                    headToHeadElement.textContent = 'Head-to-Head: First Meeting';
+                } else {
+                    headToHeadElement.textContent = `Head-to-Head: ${match.east.name} ${eastWins} - ${westWins} ${match.west.name}`;
+                }
+                headToHeadElement.style.display = 'block';
+            } else {
+                headToHeadElement.style.display = 'none';
             }
             
             // Display kimarite if available
