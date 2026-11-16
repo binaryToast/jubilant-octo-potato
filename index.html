@@ -800,9 +800,9 @@
             if (match.history) {
                 const { eastWins, westWins } = match.history;
                 if (eastWins === 0 && westWins === 0) {
-                    headToHeadElement.textContent = 'Head-to-Head: First Meeting';
+                    headToHeadElement.textContent = 'First Meeting';
                 } else {
-                    headToHeadElement.textContent = `Head-to-Head: ${match.east.name} ${eastWins} - ${westWins} ${match.west.name}`;
+                    headToHeadElement.textContent = `${match.east.name} ${eastWins} - ${westWins} ${match.west.name}`;
                 }
                 headToHeadElement.style.display = 'block';
             } else {
