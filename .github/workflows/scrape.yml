@@ -3,7 +3,7 @@ name: Scrape SumoDB
 on:
   schedule:
     # Runs at 10:11 AM AEST (00:11 UTC) and 7:11 PM AEST (09:11 UTC)
-    - cron: '11 0,9 * * *'
+    - cron: '11 2,11 * * *'
   workflow_dispatch:
     inputs:
       banzuke:
