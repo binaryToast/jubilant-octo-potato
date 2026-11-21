@@ -1,18 +1,18 @@
 [
   {
     "east": {
-      "name": "Toshinofuji",
-      "id": 4243
+      "name": "Tamawashi",
+      "id": 2629
     },
     "west": {
-      "name": "Dewanoryu",
-      "id": 3983
+      "name": "Asasuiryu",
+      "id": 4285
     },
-    "kimarite": "uwatenage",
-    "winner": 4243,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 2,
-      "westWins": 2
+      "eastWins": 0,
+      "westWins": 1
     }
   },
   {
@@ -21,30 +21,30 @@
       "id": 3753
     },
     "west": {
-      "name": "Daiseizan",
-      "id": 4116
+      "name": "Kitanowaka",
+      "id": 3939
     },
-    "kimarite": "okuridashi",
-    "winner": 3753,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 1,
-      "westWins": 0
+      "eastWins": 2,
+      "westWins": 3
     }
   },
   {
     "east": {
-      "name": "Arashifuji",
-      "id": 4267
+      "name": "Takanosho",
+      "id": 3265
     },
     "west": {
-      "name": "Oho",
-      "id": 3844
+      "name": "Dewanoryu",
+      "id": 3983
     },
-    "kimarite": "oshidashi",
-    "winner": 3844,
+    "kimarite": null,
+    "winner": null,
     "history": {
       "eastWins": 0,
-      "westWins": 1
+      "westWins": 0
     }
   },
   {
@@ -53,30 +53,62 @@
       "id": 4108
     },
     "west": {
-      "name": "Tamawashi",
-      "id": 2629
+      "name": "Kyokukaiyu",
+      "id": 4232
     },
-    "kimarite": "oshidashi",
-    "winner": 2629,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 2,
-      "westWins": 7
+      "eastWins": 0,
+      "westWins": 0
     }
   },
   {
     "east": {
-      "name": "Kyokukaiyu",
-      "id": 4232
+      "name": "Asahakuryu",
+      "id": 4175
     },
     "west": {
       "name": "Nishikifuji",
       "id": 3742
     },
-    "kimarite": "oshidashi",
-    "winner": 4232,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 1,
+      "eastWins": 3,
+      "westWins": 3
+    }
+  },
+  {
+    "east": {
+      "name": "Roga",
+      "id": 3907
+    },
+    "west": {
+      "name": "Toshinofuji",
+      "id": 4243
+    },
+    "kimarite": null,
+    "winner": null,
+    "history": {
+      "eastWins": 0,
       "westWins": 0
+    }
+  },
+  {
+    "east": {
+      "name": "Daiseizan",
+      "id": 4116
+    },
+    "west": {
+      "name": "Kotoeiho",
+      "id": 4120
+    },
+    "kimarite": null,
+    "winner": null,
+    "history": {
+      "eastWins": 2,
+      "westWins": 6
     }
   },
   {
@@ -85,46 +117,14 @@
       "id": 3840
     },
     "west": {
-      "name": "Kitanowaka",
-      "id": 3939
+      "name": "Arashifuji",
+      "id": 4267
     },
-    "kimarite": "uwatenage",
-    "winner": 3939,
-    "history": {
-      "eastWins": 2,
-      "westWins": 1
-    }
-  },
-  {
-    "east": {
-      "name": "Abi",
-      "id": 3485
-    },
-    "west": {
-      "name": "Kotoeiho",
-      "id": 4120
-    },
-    "kimarite": "oshidashi",
-    "winner": 4120,
+    "kimarite": null,
+    "winner": null,
     "history": {
       "eastWins": 0,
-      "westWins": 2
-    }
-  },
-  {
-    "east": {
-      "name": "Hiradoumi",
-      "id": 3705
-    },
-    "west": {
-      "name": "Tokihayate",
-      "id": 3933
-    },
-    "kimarite": "yorikiri",
-    "winner": 3705,
-    "history": {
-      "eastWins": 4,
-      "westWins": 1
+      "westWins": 0
     }
   },
   {
@@ -133,14 +133,46 @@
       "id": 4171
     },
     "west": {
-      "name": "Asasuiryu",
-      "id": 4285
+      "name": "Tokihayate",
+      "id": 3933
     },
-    "kimarite": "oshidashi",
-    "winner": 4171,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 3,
-      "westWins": 3
+      "eastWins": 4,
+      "westWins": 2
+    }
+  },
+  {
+    "east": {
+      "name": "Oho",
+      "id": 3844
+    },
+    "west": {
+      "name": "Hakunofuji",
+      "id": 4187
+    },
+    "kimarite": null,
+    "winner": null,
+    "history": {
+      "eastWins": 4,
+      "westWins": 2
+    }
+  },
+  {
+    "east": {
+      "name": "Takayasu",
+      "id": 2775
+    },
+    "west": {
+      "name": "Fujiseiun",
+      "id": 4093
+    },
+    "kimarite": null,
+    "winner": null,
+    "history": {
+      "eastWins": 1,
+      "westWins": 0
     }
   },
   {
@@ -149,30 +181,30 @@
       "id": 3616
     },
     "west": {
-      "name": "Takayasu",
-      "id": 2775
+      "name": "Abi",
+      "id": 3485
     },
-    "kimarite": "tsukidashi",
-    "winner": 2775,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 6,
-      "westWins": 6
+      "eastWins": 5,
+      "westWins": 12
     }
   },
   {
     "east": {
-      "name": "Gonoyama",
-      "id": 4079
+      "name": "Daieisho",
+      "id": 3376
     },
     "west": {
-      "name": "Fujiseiun",
-      "id": 4093
+      "name": "Fujiryoga",
+      "id": 4336
     },
-    "kimarite": "yoritaoshi",
-    "winner": 4079,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 2,
-      "westWins": 0
+      "eastWins": 0,
+      "westWins": 1
     }
   },
   {
@@ -181,27 +213,27 @@
       "id": 3682
     },
     "west": {
-      "name": "Roga",
-      "id": 3907
+      "name": "Kinbozan",
+      "id": 4112
     },
-    "kimarite": "yorikiri",
-    "winner": 3682,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 4,
-      "westWins": 2
+      "eastWins": 5,
+      "westWins": 1
     }
   },
   {
     "east": {
-      "name": "Hakunofuji",
-      "id": 4187
+      "name": "Gonoyama",
+      "id": 4079
     },
     "west": {
-      "name": "Fujiryoga",
-      "id": 4336
+      "name": "Yoshinofuji",
+      "id": 4279
     },
-    "kimarite": "oshidashi",
-    "winner": 4336,
+    "kimarite": null,
+    "winner": null,
     "history": {
       "eastWins": 1,
       "westWins": 2
@@ -213,45 +245,45 @@
       "id": 3711
     },
     "west": {
-      "name": "Daieisho",
-      "id": 3376
+      "name": "Hiradoumi",
+      "id": 3705
     },
-    "kimarite": "oshidashi",
-    "winner": 3376,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 7,
-      "westWins": 4
+      "eastWins": 3,
+      "westWins": 11
     }
   },
   {
     "east": {
-      "name": "Asahakuryu",
-      "id": 4175
+      "name": "Wakamotoharu",
+      "id": 3371
     },
     "west": {
-      "name": "Yoshinofuji",
-      "id": 4279
+      "name": "Atamifuji",
+      "id": 4055
     },
-    "kimarite": "yorikiri",
-    "winner": 4175,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 1,
-      "westWins": 0
+      "eastWins": 6,
+      "westWins": 3
     }
   },
   {
     "east": {
+      "name": "Kirishima",
+      "id": 3622
+    },
+    "west": {
       "name": "Fujinokawa",
       "id": 4191
     },
-    "west": {
-      "name": "Takanosho",
-      "id": 3265
-    },
-    "kimarite": "sukuinage",
-    "winner": 4191,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 4,
+      "eastWins": 3,
       "westWins": 1
     }
   },
@@ -261,30 +293,14 @@
       "id": 4230
     },
     "west": {
-      "name": "Wakamotoharu",
-      "id": 3371
+      "name": "Kotozakura",
+      "id": 3661
     },
-    "kimarite": "yoritaoshi",
-    "winner": 3371,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 4,
-      "westWins": 2
-    }
-  },
-  {
-    "east": {
-      "name": "Kirishima",
-      "id": 3622
-    },
-    "west": {
-      "name": "Atamifuji",
-      "id": 4055
-    },
-    "kimarite": "sukuinage",
-    "winner": 4055,
-    "history": {
-      "eastWins": 10,
-      "westWins": 5
+      "eastWins": 7,
+      "westWins": 1
     }
   },
   {
@@ -293,30 +309,14 @@
       "id": 4227
     },
     "west": {
-      "name": "Kinbozan",
-      "id": 4112
-    },
-    "kimarite": "yorikiri",
-    "winner": 4227,
-    "history": {
-      "eastWins": 3,
-      "westWins": 1
-    }
-  },
-  {
-    "east": {
-      "name": "Kotozakura",
-      "id": 3661
-    },
-    "west": {
       "name": "Hoshoryu",
       "id": 3842
     },
-    "kimarite": "sotogake",
-    "winner": 3842,
+    "kimarite": null,
+    "winner": null,
     "history": {
-      "eastWins": 12,
-      "westWins": 17
+      "eastWins": 3,
+      "westWins": 9
     }
   }
 ]
