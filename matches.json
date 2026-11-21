@@ -296,10 +296,10 @@
       "name": "Kinbozan",
       "id": 4112
     },
-    "kimarite": null,
-    "winner": null,
+    "kimarite": "yorikiri",
+    "winner": 4227,
     "history": {
-      "eastWins": 2,
+      "eastWins": 3,
       "westWins": 1
     }
   },
@@ -312,11 +312,11 @@
       "name": "Hoshoryu",
       "id": 3842
     },
-    "kimarite": null,
-    "winner": null,
+    "kimarite": "sotogake",
+    "winner": 3842,
     "history": {
       "eastWins": 12,
-      "westWins": 16
+      "westWins": 17
     }
   }
 ]
